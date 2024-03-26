@@ -2,15 +2,15 @@
 #include <stdio.h>
 #include "Constants.h"
 
-struct GameState InitGameState()
+ GameState InitGameState()
 {
-	struct GameState gState;
+	GameState gState;
 	gState.DeltaTime = 0;
 	gState.CurrentTime = SDL_GetTicks();
 	gState.Continue = true;
 	gState.Score = 0;
-	gState.Inputs.PlayerInput = malloc(PLAYER_CNT * sizeof(struct PlayerInput));
-	gState.Inputs.InputMap = malloc(PLAYER_CNT * sizeof(struct InputMap));
+	gState.Inputs.PlayerInput = malloc(PLAYER_CNT * sizeof( PlayerInput));
+	gState.Inputs.InputMap = malloc(PLAYER_CNT * sizeof( InputMap));
 	for (int i = 0; i < PLAYER_CNT; i++)
 	{
 		gState.Inputs.PlayerInput[i].DirX = 0;
@@ -27,15 +27,15 @@ struct GameState InitGameState()
 	return gState;
 }
 
-struct Scene InitScene()
+ Scene InitScene()
 {
-	struct Scene scene = {
-		malloc(PLAYER_CNT * sizeof(struct Player)),
-		malloc(MAX_PROJECTILE_AMOUNT * sizeof(struct Projectile))
+	 Scene scene = {
+		malloc(PLAYER_CNT * sizeof( Player)),
+		malloc(MAX_PROJECTILE_AMOUNT * sizeof( Projectile))
 	};
 	for (int i = 0; i < PLAYER_CNT; i++)
 	{
-		scene.Players[i] = (struct Player){
+		scene.Players[i] = ( Player){
 		SCREEN_WIDTH * .5, SCREEN_HEIGHT * .5, PLAYER_WIDTH, PLAYER_HEIGHT,
 		PLAYER_INITIAL_SPEED, 0, PLAYER_INITIAL_HEALTH, IMMUNITY_DURATION
 		};
@@ -43,7 +43,7 @@ struct Scene InitScene()
 
 	for (int i = 0; i < MAX_PROJECTILE_AMOUNT; i++)
 	{
-		scene.Projectiles[i] = (struct Projectile){
+		scene.Projectiles[i] = ( Projectile){
 		10, 10, 0, 0, PROJECTILE_BASE_SPEED, PROJECTILE_WIDTH, PROJECTILE_HEIGHT, false
 		};
 	}
@@ -53,9 +53,9 @@ struct Scene InitScene()
 	return scene;
 }
 
-struct Textures InitTextures()
+ Textures InitTextures()
 {
-	struct Textures textures;
+	 Textures textures;
 	textures.needContent = 0;
 	return textures;
 }

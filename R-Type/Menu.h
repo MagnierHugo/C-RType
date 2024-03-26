@@ -2,4 +2,4 @@
 #include <SDL.h>
 #include "Constants.h"
 
-void StartMenu(struct GameArgs gameArgs);
+void StartMenu(GameArgs gameArgs);

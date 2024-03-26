@@ -1,3 +1,5 @@
 #pragma once
 
-void ShootPlayerProjectile(struct Player player, struct Projectile* projs);
+#include "Constants.h"
+
+void ShootPlayerProjectile(Player player, Projectile* projs);

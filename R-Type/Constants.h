@@ -69,7 +69,7 @@
 
 #define SCORE_Y 700
 
-struct Projectile
+typedef struct Projectile
 {
 	float X;
 	float Y;
@@ -81,9 +81,9 @@ struct Projectile
 	int Width;
 	int Height;
 	bool Active;
-};
+}Projectile;
 
-struct Player
+typedef struct Player
 {
 	float X;
 	float Y;
@@ -95,34 +95,34 @@ struct Player
 
 	int Health;
 	int ImmunityDuration;
-};
+}Player;
 
 
-struct PlayerInput
+typedef struct PlayerInput
 {
 	int DirX;
 	int DirY;
 	bool Shooting;
-};
+}PlayerInput ;
 
-struct InputMap
+typedef struct InputMap
 {
 	SDL_Scancode Right;
 	SDL_Scancode Left;
 	SDL_Scancode Up;
 	SDL_Scancode Down;
 	SDL_Scancode Shoot;
-};
+}InputMap;
 
-struct InputsSummary
+typedef struct InputsSummary
 {
-	struct PlayerInput* PlayerInput;
-	struct InputMap* InputMap;
-};
+	PlayerInput* PlayerInput;
+	InputMap* InputMap;
+}InputsSummary;
 
 
 
-struct Textures
+typedef struct Textures
 {
 	int needContent;
 	//SDL_Texture* Background;
@@ -131,17 +131,17 @@ struct Textures
 	// Player2
 	// EnemyType1
 	// BonusType1
-};
+} Textures;
 
-struct SDL
+typedef struct SDL
 {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	struct Textures Tex;
+	Textures Tex;
 	TTF_Font* Font;
-};
+} SDL;
 
-struct GameState
+typedef struct GameState
 {
 	float DeltaTime;
 	float CurrentTime;
@@ -149,25 +149,43 @@ struct GameState
 	bool Continue;
 	bool Paused;
 	bool ScreenWrappinActive;
-	struct InputsSummary Inputs;
+	InputsSummary Inputs;
 
-};
+}GameState ;
 
-struct Scene
+typedef struct Scene
 {
-	struct Player* Players;
-	struct Projectile* Projectiles;
-	//struct Enemies* Enemies;
-	//struct Particle* Particles;
-	//struct Bonus* Bonuses;
-};
+	Player* Players;
+	Projectile* Projectiles;
+	//Enemies* Enemies;
+	//Particle* Particles;
+	//Bonus* Bonuses;
+} Scene;
 
 
 
-struct GameArgs
+typedef struct GameArgs
 {
-	struct SDL SDL;
-	struct GameState State;
-	struct Scene Scene;
-};
+	SDL SDL;
+	GameState State;
+	Scene Scene;
+} GameArgs;
 
+typedef struct Particle {
+	int X;
+	int Y;
+
+	int DirX;
+	int DirY;
+
+	float Size;
+	int Opacity;
+
+	bool Active;
+}Particle;
+
+typedef struct Button {
+	SDL_Rect Rect;  // Rectangle representing button's position and size
+	SDL_Color Color; // Color of the button
+	bool Clicked;
+}Button;

@@ -2,4 +2,4 @@
 
 #include "Constants.h"
 
-void Draw(struct GameArgs gameArgs);
+void Draw(GameArgs gameArgs);

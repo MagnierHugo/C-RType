@@ -2,19 +2,19 @@
 #include "Inputs.h"
 
 
-void HandleInputs(struct GameState state, struct Scene scene)
+void HandleInputs( GameState state,  Scene scene)
 {
-    struct InputsSummary* inputs = &state.Inputs;
+     InputsSummary* inputs = &state.Inputs;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0) {
         switch (event.type) {
         case SDL_QUIT:
-            //return (struct InputSummary) { false, false };
+            //return ( InputSummary) { false, false };
 
         case SDL_KEYDOWN:
             if (event.key.keysym.sym == SDLK_ESCAPE) {
-                //return (struct InputSummary) { false, false };
+                //return ( InputSummary) { false, false };
             }
 
         default:
@@ -23,8 +23,8 @@ void HandleInputs(struct GameState state, struct Scene scene)
     }
     for (int i = 0; i < PLAYER_CNT; i++)
     {
-        struct PlayerInput* playerInput = &inputs->PlayerInput[i]; // get the player inputs
-        struct InputMap* inputMap = &inputs->InputMap[i]; // retrieve the player key mapping
+        PlayerInput* playerInput = &inputs->PlayerInput[i]; // get the player inputs
+        InputMap* inputMap = &inputs->InputMap[i]; // retrieve the player key mapping
         playerInput->DirY = keys[inputMap->Down] - keys[inputMap->Up];
         playerInput->DirX = keys[inputMap->Right] - keys[inputMap->Left];
         playerInput->Shooting = keys[inputMap->Shoot];

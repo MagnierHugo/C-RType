@@ -8,12 +8,12 @@
 #include "Projectile.h"
 
 
-static void UpdatePlayers(struct GameState state, struct Scene scene)
+static void UpdatePlayers(GameState state, Scene scene)
 {
-    struct Player* players = scene.Players;
+    Player* players = scene.Players;
     for (int i = 0; i < PLAYER_CNT; i++)
     {
-        struct PlayerInput inputs = state.Inputs.PlayerInput[i];
+        PlayerInput inputs = state.Inputs.PlayerInput[i];
         players[i].X += inputs.DirX * players[i].Speed * state.DeltaTime;
         players[i].Y += inputs.DirY * players[i].Speed * state.DeltaTime;
         if (state.Inputs.PlayerInput[i].Shooting)
@@ -39,10 +39,10 @@ static void UpdatePlayers(struct GameState state, struct Scene scene)
     }
 }
 
-static void UpdateProjectiles(struct GameState state, struct Scene scene)
+static void UpdateProjectiles(GameState state, Scene scene)
 {
     //printf("Updated at: %f\n", state.CurrentTime);
-    struct Projectile* proj = scene.Projectiles;
+    Projectile* proj = scene.Projectiles;
     for (int i = 0; i < MAX_PROJECTILE_AMOUNT; i++)
     {
         if (!proj[i].Active) { continue; }
@@ -53,7 +53,7 @@ static void UpdateProjectiles(struct GameState state, struct Scene scene)
     }
 }
 
-void Update(struct GameState state, struct Scene scene)
+void Update(GameState state, Scene scene)
 {
     UpdatePlayers(state, scene);
     UpdateProjectiles(state, scene);

@@ -5,7 +5,7 @@
 #include "Utility.h"
 #include "HandleSDL.h"
 
-void DrawPlayer(struct Scene scene, struct SDL sdl)
+void DrawPlayer(Scene scene, SDL sdl)
 {
 	for (int i = 0; i < PLAYER_CNT; i++)
 	{
@@ -17,7 +17,7 @@ void DrawPlayer(struct Scene scene, struct SDL sdl)
 	}
 }
 
-void DrawProjectiles(struct Scene scene, struct SDL sdl)
+void DrawProjectiles(Scene scene,  SDL sdl)
 {
 
 	for (int i = 0; i < MAX_PROJECTILE_AMOUNT; i++)
@@ -30,12 +30,12 @@ void DrawProjectiles(struct Scene scene, struct SDL sdl)
 	}
 }
 
-static void RenderScore(struct SDL sdl, struct GameState state)
+static void RenderScore( SDL sdl,  GameState state)
 {
 	char textBuffer[20];
 	snprintf(textBuffer, 20, "Texte : %d", state.Score); // Mettre à jour le texte avec la nouvelle valeur
 	SDL_Rect textRect;
-	SDL_Surface* scoreSurface = TTF_RenderText_Solid(sdl.Font, textBuffer, (struct SDL_Color) { 255, 255, 255, 255 });
+	SDL_Surface* scoreSurface = TTF_RenderText_Solid(sdl.Font, textBuffer, ( SDL_Color) { 255, 255, 255, 255 });
 	if (scoreSurface == NULL) {
 		ErrorHandling("Erreur lors de la creation du texte score", sdl);
 	}
@@ -58,7 +58,7 @@ static void RenderScore(struct SDL sdl, struct GameState state)
 	SDL_FreeSurface(scoreSurface);
 }
 
-void Draw(struct GameArgs gameArgs)
+void Draw( GameArgs gameArgs)
 {
 	SDL_SetRenderDrawColor(gameArgs.SDL.renderer, 0, 0, 0, 255);
 	SDL_RenderClear(gameArgs.SDL.renderer);

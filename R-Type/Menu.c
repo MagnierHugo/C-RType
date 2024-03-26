@@ -2,11 +2,6 @@
 #include <stdio.h>
 #include "Constants.h"
 
-struct Button {
-    SDL_Rect Rect ;  // Rectangle representing button's position and size
-    SDL_Color Color; // Color of the button
-    bool Clicked;
-};
 
 bool PointInRect(int x, int y, SDL_Rect rect)
 {
@@ -18,12 +13,12 @@ bool PointInRect(int x, int y, SDL_Rect rect)
         );
 }
 
-void DrawButton(SDL_Renderer* renderer, struct Button button) {
+void DrawButton(SDL_Renderer* renderer,  Button button) {
     SDL_SetRenderDrawColor(renderer, button.Color.r, button.Color.g, button.Color.b, 255);
     SDL_RenderFillRect(renderer, &button.Rect);
 }
 
-void StartMenu(struct GameArgs gameArgs)
+void StartMenu( GameArgs gameArgs)
 {
     SDL_Color buttonColor = { 100, 100, 100, 255 };
 
@@ -31,16 +26,16 @@ void StartMenu(struct GameArgs gameArgs)
     int buttonSpacing = BUTTON_HEIGHT + 20;
     int buttonY = (SCREEN_HEIGHT - (3 * BUTTON_HEIGHT + 2 * 20)) / 2;
 
-    struct Button playButton = {
+     Button playButton = {
         {buttonX, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT},
         buttonColor };
-    struct Button remapButton = {
+     Button remapButton = {
         {buttonX, buttonY + buttonSpacing, BUTTON_WIDTH, BUTTON_HEIGHT},
         buttonColor };
-    struct Button difficultyButton = {
+     Button difficultyButton = {
         {buttonX, buttonY + 2 * buttonSpacing, BUTTON_WIDTH, BUTTON_HEIGHT},
         buttonColor };
-    struct Button quitButton = {
+     Button quitButton = {
         {buttonX, buttonY + 3 * buttonSpacing, BUTTON_WIDTH, BUTTON_HEIGHT},
         buttonColor };
 
@@ -100,11 +95,11 @@ void StartMenu(struct GameArgs gameArgs)
 }
 
 
-void RemapMenu(struct GameArgs gameArgs) // add a go back button
+void RemapMenu( GameArgs gameArgs) // add a go back button
 {
    
     SDL_Color buttonColor = { 100, 100, 100, 255 };
-    struct Button leftButtons[5];
+     Button leftButtons[5];
     leftButtons[0].Rect.x = SCREEN_WIDTH / 4 - BUTTON_SIZE / 2;
     leftButtons[1].Rect.x = SCREEN_WIDTH / 4 - 3 * BUTTON_SPACING - BUTTON_SIZE;
     leftButtons[2].Rect.x = SCREEN_WIDTH / 4 - BUTTON_SIZE / 2;
@@ -126,7 +121,7 @@ void RemapMenu(struct GameArgs gameArgs) // add a go back button
     }
     leftButtons[4].Rect.w = leftButtons[3].Rect.x - leftButtons[1].Rect.x + BUTTON_SIZE;
 
-    struct Button rightButtons[5]; // now that the ugly layout is done: port it to the other side
+     Button rightButtons[5]; // now that the ugly layout is done: port it to the other side
     for (int i = 0; i < 5; i++) {
         rightButtons[i].Rect.x = SCREEN_WIDTH - leftButtons[i].Rect.w - leftButtons[i].Rect.x;
         rightButtons[i].Rect.y = leftButtons[i].Rect.y;
@@ -178,7 +173,7 @@ void RemapMenu(struct GameArgs gameArgs) // add a go back button
 }
 
 
-void HandleMenuEvent(struct Button* buttons)
+void HandleMenuEvent( Button* buttons)
 {
     // could take care of the repeatedswitch case
 }

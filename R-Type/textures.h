@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include "Constants.h"
 
-SDL_Texture* CreateTexture(struct SDL sdlStruct, char* path);
-void DestroyTextures(struct Textures textures);
+SDL_Texture* CreateTexture(SDL sdlStruct, char* path);
+void DestroyTextures(Textures textures);

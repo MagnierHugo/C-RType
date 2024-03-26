@@ -6,28 +6,15 @@
 #include "Utility.h"
 
 
-struct Particle {
-	int X;
-	int Y;
-
-	int DirX;
-	int DirY;
-
-	float Size;
-	int Opacity;
-	
-	bool Active;
-};
-
 
 // direction -1 -> towards left -> called beacause left screen at the right
 // | direction 1 -> towards right -> called beacause left screen at the left
 // direction 0 -> neutral -> called upon ballSpawn
-void ParticlesBurst(struct Particle* particles, int directionX)
+void ParticlesBurst(Particle* particles, int directionX)
 {
 	for (int i = 0; i < MAX_PARTICLE_AMOUNT; i++)
 	{
-		/*struct Particle* particle = &particles[i];
+		/*Particle* particle = &particles[i];
 		switch (directionX)
 		{
 			case -1:
@@ -56,7 +43,7 @@ void ParticlesBurst(struct Particle* particles, int directionX)
 	}
 }
 
-SDL_Rect ParticleAsRect(struct Particle particle)
+SDL_Rect ParticleAsRect(Particle particle)
 {
 	return (SDL_Rect)
 	{ 
@@ -67,12 +54,12 @@ SDL_Rect ParticleAsRect(struct Particle particle)
 	};
 }
 
-void DrawParticles(struct Particle* particles, 
+void DrawParticles(Particle* particles, 
 	SDL_Renderer* renderer, SDL_Texture* texture)
 {
 	for (int i = 0; i < MAX_PARTICLE_AMOUNT; i++)
 	{
-		struct Particle currentParticle = particles[i];
+		Particle currentParticle = particles[i];
 		if (!currentParticle.Active) { continue; }
 		SDL_Rect particleRect = ParticleAsRect(currentParticle);
 
@@ -80,7 +67,7 @@ void DrawParticles(struct Particle* particles,
 	}
 }
 
-void KillParticles(struct Particle* particles)
+void KillParticles(Particle* particles)
 {
 	for (int i = 0; i < MAX_PARTICLE_AMOUNT; i++)
 	{

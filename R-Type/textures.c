@@ -7,7 +7,7 @@
 #include "Constants.h"
 
 
-SDL_Texture* CreateTexture(struct SDL sdlStruct, char* path)
+SDL_Texture* CreateTexture(SDL sdlStruct, char* path)
 {
     // Chargement de l'image
     SDL_Surface* image = IMG_Load(path);
@@ -29,7 +29,7 @@ SDL_Texture* CreateTexture(struct SDL sdlStruct, char* path)
     return texture;
 }
 
-void DestroyTextures(struct Textures Tex)
+void DestroyTextures(Textures Tex)
 {
     //SDL_DestroyTexture(Tex.background);
 

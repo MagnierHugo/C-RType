@@ -1,7 +1,7 @@
 #include <SDL.h>
 #include "Constants.h"
 
-void ShootPlayerProjectile(struct Player player, struct Projectile* projs)
+void ShootPlayerProjectile(Player player, Projectile* projs)
 {
 	for (int i = 0; i < MAX_PROJECTILE_AMOUNT; i++)
 	{

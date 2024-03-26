@@ -7,7 +7,7 @@
 
 
 // Fonction pour charger le fichier audio
-Mix_Chunk* LoadSound(char songWAV[20], struct SDL sdl) {
+Mix_Chunk* LoadSound(char songWAV[20],  SDL sdl) {
     Mix_Chunk* sound = Mix_LoadWAV(songWAV);
 
     if (!sound) {
@@ -17,7 +17,7 @@ Mix_Chunk* LoadSound(char songWAV[20], struct SDL sdl) {
     return sound;
 }
 
-void PlaySound(char songWAV[20], struct SDL sdl) {
+void PlaySound(char songWAV[20],  SDL sdl) {
 
     Mix_Chunk* sound = LoadSound(songWAV, sdl);
 

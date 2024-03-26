@@ -6,7 +6,6 @@
 #include <stdlib.h>
 
 #include "Constants.h"
-#include "Structs.h"
 #include  "textures.h"
 #include  "Init.h"
 
@@ -16,10 +15,10 @@
 
 
 
-int ErrorHandling(char* message, struct SDL sdl)
+int ErrorHandling(char* message,  SDL sdl)
 {
     printf("%s\n", message);
-    if (&sdl != &(struct SDL) { NULL, NULL }) {
+    if (&sdl != &( SDL) { NULL, NULL }) {
 
         if (sdl.Font != NULL) {
             if (sdl.window != NULL) {
@@ -38,34 +37,37 @@ int ErrorHandling(char* message, struct SDL sdl)
 }
 
 
-void InitSDL(struct SDL sdl)
+void InitSDL( SDL sdl)
 {
     // Initialisation SDL Video
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         ErrorHandling("Erreur SDL Init failed", sdl);
     }
 
-     //Initialisation SDL Audio
+    if (TTF_Init() != 0) {
+        ErrorHandling("Erreur SDL_ttf failed", sdl);
+    }
+    //// Initialisation SDL Audio
     //if (SDL_Init(SDL_INIT_AUDIO) < 0) {
     //    ErrorHandling("Erreur initialisation de SDL Audio", sdl);
     //}
 
-    //// Open Audio Channels
-    //if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NUMBER_OF_CHANNELS, 2048) < 0)
-    //{
-    //    ErrorHandling("Erreur initialisation de SDL Mixer", sdl);
-    //}
+    // Open Audio Channels
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NUMBER_OF_CHANNELS, 2048) < 0)
+    {
+        ErrorHandling("Erreur initialisation de SDL Mixer", sdl);
+    }
+    Mix_Volume(0, 7);
 
     if (TTF_Init() < 0) {
         ErrorHandling("Erreur initialisation de SDL TTF", sdl);
     }
-    Mix_Volume(0, 7);
 
 }
 
-struct SDL StartSDL()
+ SDL StartSDL()
 {
-    struct SDL sdl = { NULL, NULL };
+    SDL sdl ;
 
     InitSDL(sdl);
 
@@ -100,7 +102,7 @@ struct SDL StartSDL()
     return sdl;
 }
 
-void CloseSDL(struct GameArgs gameArgs)
+void CloseSDL( GameArgs gameArgs)
 {
     DestroyTextures(gameArgs.SDL.Tex);
     SDL_DestroyRenderer(gameArgs.SDL.renderer);

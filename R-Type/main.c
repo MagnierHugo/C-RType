@@ -12,13 +12,11 @@
 #include "Inputs.h"
 #include "Menu.h"
 
-#include "Structs.h"
-
 
 
 int main(int argc, char* argv[])
 {
-	struct GameArgs gameArgs =
+	 GameArgs gameArgs =
 	{
 		StartSDL(),
 		InitGameState(),
@@ -40,7 +38,7 @@ int main(int argc, char* argv[])
 	return 1;
 }
 
-void QuitGame(struct GameArgs gameArgs)
+void QuitGame( GameArgs gameArgs)
 {
 	free(gameArgs.Scene.Players);
 	free(gameArgs.Scene.Projectiles);
