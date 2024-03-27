@@ -20,7 +20,6 @@ int main(int argc, char* argv[])
 {
 	SDL sdlStruct = StartSDL();
 	Scene* Levels = CreateLevels(1, sdlStruct.Tex);
-	printf("Here");
 
 	GameArgs gameArgs =
 	{
