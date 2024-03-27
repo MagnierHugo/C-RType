@@ -1,6 +1,7 @@
 #include <SDL.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../Include/Structs.h"
 #include "../Include/Constants.h"

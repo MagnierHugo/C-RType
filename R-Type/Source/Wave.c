@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "../Include/Structs.h"
 #include "../Include/Utility.h"
 
@@ -18,6 +21,7 @@ Wave* CreateWaves(int nbrEnemies, int maxEnemiesPerWave, int baseWait)
 		}
 
 		enemies[waveNumber] = enemiesInWave;
+		printf("%d", enemies[waveNumber]);
 		nbrEnemies -= enemiesInWave;
 		waveNumber++;
 	}
@@ -42,3 +46,6 @@ Wave PopWave(Scene scene)
 
 	return wave;
 }
+
+
+int waveContentCount;
