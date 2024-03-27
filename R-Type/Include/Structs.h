@@ -96,16 +96,22 @@ typedef struct GameState
 
 typedef struct Enemy
 {
+	SDL_Texture* Tex;
+
+	float X;
+	float Y;
+	int Width;
+	int Height;
+
+	float Speed;
+
 	int HP;
-	int Speed;
-	SDL_Rect rect;
-	struct SDL_Texture* Tex;
 	bool DropBoost;
 } Enemy;
 
 typedef struct EnemyQueue
 {
-	struct Enemy* Enemies;
+	Enemy* Enemies;
 	int nbrEnemies;
 } EnemyQueue;
 
@@ -118,15 +124,16 @@ typedef struct Wave
 typedef struct Scene
 {
 	SDL_Texture* background;
-	struct Player* Players;
-	struct Projectile* Projectiles;
-	struct EnemyQueue Queue;
+	Player* Players;
+	Projectile* Projectiles;
+	EnemyQueue Queue;
 	int ActiveEnemies;
-	struct Wave* waves;
+	Wave* waves;
 	int waveHead;
-	//int WaitTime;
-	//struct Particle* Particles;
-	//struct Bonus* Bonuses;
+	int WaitTime;
+	int Time;
+	//Particle* Particles;
+	//Bonus* Bonuses;
 	bool ScreenWrappingActive;
 } Scene;
 
