@@ -7,6 +7,7 @@
 #include "../Include/Textures.h"
 #include "../Include/Enemies.h"
 #include "../Include/Wave.h"
+#include "../Include/Utility.h"
 
 
 GameState InitGameState()
@@ -51,31 +52,50 @@ static Player* InitPlayers(SDL_Texture* Tex[2])
 	return players;
 }
 
-static Projectile* InitProjectiles(SDL_Texture* Tex)
+static Enemy* InitEnemies(SDL_Texture* tex)
 {
-	Projectile* proj = malloc(MAX_PROJECTILES * sizeof(Projectile));
+	Enemy* enemies = malloc(MAX_ENEMY_CNT * sizeof(Enemy));
+
+	for (int i = 0; i < MAX_ENEMY_CNT; i++)
+	{
+		enemies[i] = (Enemy){
+			tex, SCREEN_WIDTH, 0, ENEMIES_WIDTH, ENEMIES_HEIGHT,
+			INITIAL_ENEMY_HEALTH, ENEMY_SPEED, RdmInt(0, 1, false), false
+		};
+	}
+
+	return enemies;
+}
+
+static Projectile* InitProjectiles(SDL_Texture* tex)
+{
+	Projectile* projs = malloc(MAX_PROJECTILES * sizeof(Projectile));
 
 	for (int i = 0; i < MAX_PROJECTILES; i++)
 	{
-		proj[i] = (Projectile){
-			Tex, 10, 10, 0, 0,
+		projs[i] = (Projectile){
+			tex, 10, 10, 0, 0,
 			PROJECTILE_BASE_SPEED, PROJECTILE_WIDTH, PROJECTILE_HEIGHT, false
 		};
 	}
 
-	return proj;
+	return projs;
 }
 
 Scene InitScene(Textures Tex)
 {
-	Enemy base = { 5, 20, NULL, Tex.EnemyType1, NULL };
+	/*Enemy base = { Tex.EnemyType1, 0, 0,
+			INITIAL_ENEMY_HEALTH, ENEMY_SPEED, RdmInt(0, 1, false), false };*/
 
 	Scene scene = {
 		Tex.Background,
-		InitPlayers((SDL_Texture* [2]) { Tex.Player1, Tex.Player2 }),
+		InitPlayers((SDL_Texture*[2]) { Tex.Player1, Tex.Player2 }),
+		InitEnemies(Tex.EnemyType1),
 		InitProjectiles(Tex.Projectiles),
-		CreateEnemyQueue(7, base), 3,
-		CreateWaves(7, 3, 1000), 0, false
+		//CreateEnemyQueue(7, base),
+		10,
+		false
+		//CreateWaves(7, 3, 1000), 0, false
 	};
 
 	return scene;
@@ -92,6 +112,5 @@ Textures InitTextures(SDL sdl)
 	tex.EnemyType1 = CreateTexture(sdl, "..\\Sprites\\Mobs1.png");
 	tex.Boss1 = CreateTexture(sdl, "..\\Sprites\\Boss1.png");
 	tex.Projectiles = CreateTexture(sdl, "..\\Sprites\\Soot1.png");
-
 	return tex;
 }

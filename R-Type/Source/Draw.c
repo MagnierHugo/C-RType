@@ -14,7 +14,7 @@ static void DrawPlayer(Player* players, SDL sdl)
 		Player curPlayer = players[i];
 		SDL_Rect playerRect = PlayerAsRect(curPlayer);
 
-		SDL_RenderCopy(sdl.renderer, curPlayer.tex, NULL, &playerRect);
+		SDL_RenderCopy(sdl.renderer, curPlayer.Tex, NULL, &playerRect);
 	}
 }
 
@@ -25,7 +25,7 @@ static void DrawProjectiles(Projectile* projectiles,  SDL sdl)
 		Projectile curProjectile = projectiles[i];
 		if (!curProjectile.Active) { continue; }
 		SDL_Rect projRect = ProjectileAsRect(curProjectile);
-		SDL_RenderCopy(sdl.renderer, curProjectile.tex, NULL, &projRect);
+		SDL_RenderCopy(sdl.renderer, sdl.Tex.Projectiles, NULL, &projRect);
 	}
 }
 
@@ -53,25 +53,45 @@ static void RenderScore( SDL sdl,  GameState state)
 
 	SDL_RenderCopy(sdl.renderer, texture, NULL, &textRect);
 
-	SDL_DestroyTexture(texture);
 	SDL_FreeSurface(scoreSurface);
+	SDL_DestroyTexture(texture);
 }
 
-static void DrawEnemies(Scene scene, SDL sdlStruct)
+//static void DrawEnemies(Scene scene, SDL sdlStruct)
+//{
+//	for (int enemyIndex = 0; enemyIndex < scene.ActiveEnemies; enemyIndex++)
+//	{
+//		Enemy curEnemy = scene.Queue.Enemies[enemyIndex];
+//		SDL_RenderCopy(sdlStruct.renderer, curEnemy.Tex, NULL, &curEnemy.rect);
+//	}
+//}
+// 
+static void DrawEnemies(Scene scene, SDL sdl)
 {
-	for (int enemyIndex = 0; enemyIndex < scene.ActiveEnemies; enemyIndex++)
+	for (int enemy = 0; enemy < scene.EnemyCount; enemy++)
 	{
-		Enemy curEnemy = scene.Queue.Enemies[enemyIndex];
-		SDL_RenderCopy(sdlStruct.renderer, curEnemy.Tex, NULL, &curEnemy.rect);
+
+		Enemy curEnemy = scene.Enemies[enemy];
+		if (!curEnemy.Active) continue;
+
+		SDL_Rect enemyRect = EnemyAsRect(curEnemy);
+		SDL_RenderCopy(sdl.renderer, curEnemy.Tex, NULL, &enemyRect);
 	}
 }
+//{
+//	for (int enemyIndex = 0; enemyIndex < scene.ActiveEnemies; enemyIndex++)
+//	{
+//		Enemy curEnemy = scene.Queue.Enemies[enemyIndex];
+//		SDL_RenderCopy(sdlStruct.renderer, curEnemy.Tex, NULL, &curEnemy.rect);
+//	}
+//}
 
 void Draw( GameArgs gameArgs, Scene curScene)
 {
 	SDL sdl = gameArgs.SDL;
 	SDL_Renderer* renderer = sdl.renderer;
 
-	SDL_Texture* background = curScene.background;
+	SDL_Texture* background = curScene.Background;
 
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, background, NULL, NULL);

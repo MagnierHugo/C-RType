@@ -13,7 +13,6 @@
 #include "../Include/Inputs.h"
 #include "../Include/Menu.h"
 #include "../Include/StartMenu.h"
-//#include "../Include/Menu.h"
 #include "../Include/Levels.h"
 #include "../Include/Enemies.h"
 
@@ -31,13 +30,14 @@ int main(int argc, char* argv[])
 	};
 
 	StartMenu(gameArgs);
-
+	gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
+	gameArgs.State.CurrentTime = SDL_GetTicks();
+	SpawnEnemies(gameArgs);
 	while (gameArgs.State.Continue)
 	{
 		gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 		gameArgs.State.CurrentTime = SDL_GetTicks();
-
-		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]);
+		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]); 
 		Update(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]);
 		Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurrentLevel]);
 
@@ -52,6 +52,7 @@ void QuitGame(GameArgs gameArgs)
 	for (int level = 0; level < LEVEL_COUNT; level++) // better to handle it level by level
 	{
 		free(gameArgs.Levels[level].Players);
+		free(gameArgs.Levels[level].Enemies);
 		free(gameArgs.Levels[level].Projectiles);
 	}
 	

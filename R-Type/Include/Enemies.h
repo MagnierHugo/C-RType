@@ -1,7 +1,10 @@
-#pragma once
+#include <SDL.h>
+#include <stdio.h>
 
+#include "Constants.h"
 #include "Structs.h"
 
-EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base);
-Enemy* UpdateQueue(EnemyQueue queue);
-void SpawnEnemies(Scene scene);
+
+Enemy* FindIdleEnemy(Enemy* enemies);
+void SpawnEnemies(GameArgs gameArgs);
+void SetupEnemy(Enemy* enemy);

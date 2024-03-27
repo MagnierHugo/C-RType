@@ -1,11 +1,14 @@
 #include <SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "../Include/Structs.h"
 #include "../Include/Constants.h"
+#include "../Include/Enemies.h"
 #include "../Include/Utility.h"
 #include "../Include/Wave.h"
 
-
+/*
 EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base)
 {
 	EnemyQueue queue = {
@@ -61,3 +64,32 @@ void SpawnEnemies(Scene scene)
 {
 	scene.ActiveEnemies += PopWave(scene).nbrEnemies;
 }
+*/
+
+Enemy* FindIdleEnemy(Enemy* enemies)
+{
+	for (int i = 0; i < MAX_ENEMY_CNT; i++)
+	{
+		if (!enemies[i].Active) return &enemies[i];
+	}
+	printf("No available enemy expand the buffer");
+	return &enemies[0]; // wont compile otherwise
+}
+
+void SetupEnemy(Enemy* enemy)
+{
+	enemy->Active = true;
+	enemy->X += RdmInt(0, MAX_SPAWN_X_OFFSET, false);
+	enemy->Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
+	enemy->DropBoost = rand() % 2;
+}
+
+void SpawnEnemies(GameArgs gameArgs)
+{
+	int currentLevel = gameArgs.State.CurrentLevel;
+	for (int i = 0; i < gameArgs.Levels[currentLevel].EnemyCount; i++)
+	{
+		SetupEnemy(FindIdleEnemy(gameArgs.Levels[currentLevel].Enemies));
+	}
+}
+

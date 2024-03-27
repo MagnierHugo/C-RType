@@ -7,6 +7,7 @@
 #include "../Include/Structs.h"
 #include "../Include/HandleSDL.h"
 #include "../Include/Projectile.h"
+#include "../Include/Utility.h"
 
 
 static void UpdatePlayers(GameState state, Scene scene)
@@ -40,9 +41,24 @@ static void UpdatePlayers(GameState state, Scene scene)
     }
 }
 
+static void UpdateEnemies(GameState state, Scene scene)
+{
+    Enemy* enemies = scene.Enemies;
+    for (int i = 0; i < scene.EnemyCount; i++)
+    {
+        if (!enemies[i].Active) continue;
+        enemies[i].X -= enemies[i].Speed * state.DeltaTime;
+
+        if (enemies[i].X + ENEMIES_WIDTH < 0)
+        {
+            enemies[i].X = SCREEN_WIDTH + RdmInt(MIN_RESET_X_OFFSET, MAX_RESET_X_OFFSET, false);
+            enemies[i].Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
+        }
+    }
+}
+
 static void UpdateProjectiles(GameState state, Scene scene)
 {
-    //printf("Updated at: %f\n", state.CurrentTime);
     Projectile* proj = scene.Projectiles;
     for (int i = 0; i < MAX_PROJECTILES; i++)
     {
@@ -57,5 +73,7 @@ static void UpdateProjectiles(GameState state, Scene scene)
 void Update(GameState state, Scene scene)
 {
     UpdatePlayers(state, scene);
+    UpdateEnemies(state, scene);
     UpdateProjectiles(state, scene);
 }
+

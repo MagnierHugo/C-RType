@@ -59,3 +59,9 @@
 // Some Constants for the enemies
 #define ENEMIES_WIDTH 120
 #define ENEMIES_HEIGHT 50
+#define MAX_ENEMY_CNT 20
+#define INITIAL_ENEMY_HEALTH 20
+#define ENEMY_SPEED 150
+#define MAX_SPAWN_X_OFFSET 3500
+#define MIN_RESET_X_OFFSET 1000
+#define MAX_RESET_X_OFFSET 3500
