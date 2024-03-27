@@ -2,8 +2,9 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 
-#include "HandleSDL.h"
-#include "Constants.h"
+#include "../Include/HandleSDL.h"
+#include "../Include/Constants.h"
+#include "../Include/Structs.h"
 
 
 // Fonction pour charger le fichier audio
@@ -17,7 +18,7 @@ Mix_Chunk* LoadSound(char songWAV[20],  SDL sdl) {
     return sound;
 }
 
-void PlaySound(char songWAV[20],  SDL sdl) {
+void PlaySound(char songWAV[20], SDL sdl) {
 
     Mix_Chunk* sound = LoadSound(songWAV, sdl);
 

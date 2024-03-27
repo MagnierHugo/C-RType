@@ -3,9 +3,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "Constants.h"
-#include "HandleSDL.h"
-#include "Projectile.h"
+#include "../Include/Constants.h"
+#include "../Include/Structs.h"
+#include "../Include/HandleSDL.h"
+#include "../Include/Projectile.h"
 
 
 static void UpdatePlayers(GameState state, Scene scene)
@@ -43,7 +44,7 @@ static void UpdateProjectiles(GameState state, Scene scene)
 {
     //printf("Updated at: %f\n", state.CurrentTime);
     Projectile* proj = scene.Projectiles;
-    for (int i = 0; i < MAX_PROJECTILE_AMOUNT; i++)
+    for (int i = 0; i < MAX_PROJECTILES; i++)
     {
         if (!proj[i].Active) { continue; }
         proj[i].X += proj[i].DirX * proj[i].Speed * state.DeltaTime;

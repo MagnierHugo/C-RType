@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
 
-#include "Constants.h"
-#include "HandleSDL.h"
+#include "../Include/Structs.h"
 
 int RdmInt(int min, int max, bool nonZero)
 {

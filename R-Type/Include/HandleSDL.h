@@ -1,11 +1,11 @@
 #pragma once
 
 #include <SDL.h>
-#include "Constants.h"
+#include "Structs.h"
 
 int ErrorHandling(char* message, SDL sdlStruct);
 
-struct SDL StartSDL();
+SDL StartSDL();
 
 void CloseSDL(GameArgs gameArgs);
 

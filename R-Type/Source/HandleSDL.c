@@ -5,37 +5,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Constants.h"
-#include  "textures.h"
-#include  "Init.h"
-
-
-
-
-
+#include "../Include/Structs.h"
+#include "../Include/Constants.h"
+#include "../Include/Textures.h"
+#include "../Include/Init.h"
 
 
 int ErrorHandling(char* message,  SDL sdl)
 {
     printf("%s\n", message);
-    if (&sdl != &( SDL) { NULL, NULL }) {
+    if (&sdl != &(SDL) { NULL, NULL, NULL }) {
 
-        if (sdl.Font != NULL) {
-            if (sdl.window != NULL) {
-                if (sdl.renderer != NULL) {
-                    SDL_DestroyRenderer(sdl.renderer);
+        if (sdl.window != NULL) {
+
+            if (sdl.renderer != NULL) {
+                if (sdl.Font != NULL) {
+                    TTF_CloseFont(sdl.Font);
                 }
-                TTF_CloseFont(sdl.Font);
-                SDL_DestroyWindow(sdl.window);
+                DestroyTextures(sdl.Tex);
+                SDL_DestroyRenderer(sdl.renderer);
             }
-            TTF_Quit();
+            SDL_DestroyWindow(sdl.window);
         }
         //Mix_CloseAudio();
         SDL_Quit();
     }
     exit(EXIT_FAILURE);
 }
-
 
 void InitSDL( SDL sdl)
 {
@@ -47,10 +43,11 @@ void InitSDL( SDL sdl)
     if (TTF_Init() != 0) {
         ErrorHandling("Erreur SDL_ttf failed", sdl);
     }
-    //// Initialisation SDL Audio
-    //if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-    //    ErrorHandling("Erreur initialisation de SDL Audio", sdl);
-    //}
+
+    // Initialisation SDL Audio
+    if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+        ErrorHandling("Erreur initialisation de SDL Audio", sdl);
+    }
 
     // Open Audio Channels
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NUMBER_OF_CHANNELS, 2048) < 0)
@@ -98,12 +95,13 @@ void InitSDL( SDL sdl)
     }
 
 
-    sdl.Tex = InitTextures();
+    sdl.Tex = InitTextures(sdl);
     return sdl;
 }
 
-void CloseSDL( GameArgs gameArgs)
+void CloseSDL(GameArgs gameArgs)
 {
+    TTF_CloseFont(gameArgs.SDL.Font);
     DestroyTextures(gameArgs.SDL.Tex);
     SDL_DestroyRenderer(gameArgs.SDL.renderer);
     SDL_DestroyWindow(gameArgs.SDL.window);

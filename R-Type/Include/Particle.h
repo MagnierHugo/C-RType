@@ -1,13 +1,11 @@
 #pragma once
 
-#include <stdbool.h>
 #include <SDL.h>
-#include "HandleSDL.h"
-#include "Constants.h"
-#include "Utility.h"
+
+#include "Structs.h"
 
 //void UpdateParticles(Particle* particles, float deltaTime);
 SDL_Rect ParticleAsRect(Particle particle);
-void DrawParticles(Particle* particles, SDL_Renderer* renderer, SDL_Texture* texture);
+void DrawParticles(Particle* particles, SDL sdl);
 void ParticlesBurst(Particle* particles, int directionX);
 void KillParticles(Particle* particles);

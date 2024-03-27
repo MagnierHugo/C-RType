@@ -1,5 +1,5 @@
 #pragma once
 
-#include "Constants.h"
+#include "Structs.h"
 
 void ShootPlayerProjectile(Player player, Projectile* projs);

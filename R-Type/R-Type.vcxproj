@@ -19,34 +19,56 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="Draw.h" />
-    <ClInclude Include="HandleSDL.h" />
-    <ClInclude Include="Init.h" />
-    <ClInclude Include="Inputs.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Music.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="Projectile.h" />
-    <ClInclude Include="Structs.h" />
-    <ClInclude Include="textures.h" />
-    <ClInclude Include="Update.h" />
-    <ClInclude Include="Utility.h" />
+    <ClCompile Include="Source\Draw.c" />
+    <ClCompile Include="Source\Enemies.c" />
+    <ClCompile Include="Source\HandleSDL.c" />
+    <ClCompile Include="Source\Init.c" />
+    <ClCompile Include="Source\Inputs.c" />
+    <ClCompile Include="Source\Levels.c" />
+    <ClCompile Include="Source\main.c" />
+    <ClCompile Include="Source\Menu.c" />
+    <ClCompile Include="Source\Music.c" />
+    <ClCompile Include="Source\Particle.c" />
+    <ClCompile Include="Source\Projectile.c" />
+    <ClCompile Include="Source\Textures.c" />
+    <ClCompile Include="Source\Update.c" />
+    <ClCompile Include="Source\Utility.c" />
+    <ClCompile Include="Source\Wave.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Draw.c" />
-    <ClCompile Include="ennemis.c" />
-    <ClCompile Include="HandleSDL.c" />
-    <ClCompile Include="Init.c" />
-    <ClCompile Include="Inputs.c" />
-    <ClCompile Include="main.c" />
-    <ClCompile Include="Menu.c" />
-    <ClCompile Include="Music.c" />
-    <ClCompile Include="Particle.c" />
-    <ClCompile Include="Projectile.c" />
-    <ClCompile Include="textures.c" />
-    <ClCompile Include="Update.c" />
-    <ClCompile Include="Utility.c" />
+    <ClInclude Include="Include\Constants.h" />
+    <ClInclude Include="Include\Draw.h" />
+    <ClInclude Include="Include\Enemies.h" />
+    <ClInclude Include="Include\HandleSDL.h" />
+    <ClInclude Include="Include\Init.h" />
+    <ClInclude Include="Include\Inputs.h" />
+    <ClInclude Include="Include\Levels.h" />
+    <ClInclude Include="Include\Menu.h" />
+    <ClInclude Include="Include\Music.h" />
+    <ClInclude Include="Include\Particle.h" />
+    <ClInclude Include="Include\Projectile.h" />
+    <ClInclude Include="Include\Structs.h" />
+    <ClInclude Include="Include\Textures.h" />
+    <ClInclude Include="Include\Update.h" />
+    <ClInclude Include="Include\Utility.h" />
+    <ClInclude Include="Include\Wave.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Sprites\Boom.gif" />
+    <Image Include="..\Sprites\Boss1.png" />
+    <Image Include="..\Sprites\Fond1.png" />
+    <Image Include="..\Sprites\Fond2.png" />
+    <Image Include="..\Sprites\Mobs1.png" />
+    <Image Include="..\Sprites\Player1.png" />
+    <Image Include="..\Sprites\Player1_hurt.png" />
+    <Image Include="..\Sprites\Player2.png" />
+    <Image Include="..\Sprites\Soot1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Music\BlueNavi-Starcade.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Font\font.fon" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

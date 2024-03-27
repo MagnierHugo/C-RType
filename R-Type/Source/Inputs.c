@@ -1,10 +1,10 @@
-#include "Constants.h"
-#include "Inputs.h"
+#include "../Include/Constants.h"
+#include "../Include/Structs.h"
 
 
-void HandleInputs( GameState state,  Scene scene)
+void HandleInputs(GameState state, Scene scene)
 {
-     InputsSummary* inputs = &state.Inputs;
+    InputsSummary* inputs = &state.Inputs;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0) {

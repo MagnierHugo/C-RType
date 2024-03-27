@@ -1,9 +1,11 @@
 #include <SDL.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "HandleSDL.h"
-#include "Constants.h"
-#include "Utility.h"
+
+#include "../Include/HandleSDL.h"
+#include "../Include/Constants.h"
+#include "../Include/Structs.h"
+#include "../Include/Utility.h"
 
 
 
@@ -54,8 +56,7 @@ SDL_Rect ParticleAsRect(Particle particle)
 	};
 }
 
-void DrawParticles(Particle* particles, 
-	SDL_Renderer* renderer, SDL_Texture* texture)
+void DrawParticles(Particle* particles, SDL sdl)
 {
 	for (int i = 0; i < MAX_PARTICLE_AMOUNT; i++)
 	{
@@ -63,7 +64,7 @@ void DrawParticles(Particle* particles,
 		if (!currentParticle.Active) { continue; }
 		SDL_Rect particleRect = ParticleAsRect(currentParticle);
 
-		SDL_RenderCopy(renderer, texture, NULL, &particleRect);
+		SDL_RenderCopy(sdl.renderer, sdl.Tex.Projectiles, NULL, &particleRect);
 	}
 }
 

@@ -2,9 +2,8 @@
 #include <SDL_image.h>
 #include <stdio.h>
 
-#include "HandleSDL.h"
-#include "Structs.h"
-#include "Constants.h"
+#include "../Include/HandleSDL.h"
+#include "../Include/Structs.h"
 
 
 SDL_Texture* CreateTexture(SDL sdlStruct, char* path)
@@ -31,6 +30,11 @@ SDL_Texture* CreateTexture(SDL sdlStruct, char* path)
 
 void DestroyTextures(Textures Tex)
 {
-    //SDL_DestroyTexture(Tex.background);
-
+    if (Tex.Background != NULL) SDL_DestroyTexture(Tex.Background);
+    if (Tex.Background != NULL) SDL_DestroyTexture(Tex.Player1);
+    if (Tex.Background != NULL) SDL_DestroyTexture(Tex.Player1Hurt); // 69 :) Nice
+    if (Tex.Background != NULL) SDL_DestroyTexture(Tex.Player2);
+    if (Tex.Background != NULL) SDL_DestroyTexture(Tex.EnemyType1);
+    if (Tex.Background != NULL) SDL_DestroyTexture(Tex.Boss1);
+    if (Tex.Background != NULL) SDL_DestroyTexture(Tex.Projectiles); // 69 :) Nice
 }

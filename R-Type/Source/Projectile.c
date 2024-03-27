@@ -1,9 +1,11 @@
 #include <SDL.h>
-#include "Constants.h"
+
+#include "../Include/Constants.h"
+#include "../Include/Structs.h"
 
 void ShootPlayerProjectile(Player player, Projectile* projs)
 {
-	for (int i = 0; i < MAX_PROJECTILE_AMOUNT; i++)
+	for (int i = 0; i < MAX_PROJECTILES; i++)
 	{
 		if (projs[i].Active) { continue; }
 

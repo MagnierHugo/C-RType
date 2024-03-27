@@ -1,5 +1,5 @@
 #pragma once
 
-#include "Constants.h"
+#include "Structs.h"
 
 void PlaySound(char songWAV[20], SDL sdl);
