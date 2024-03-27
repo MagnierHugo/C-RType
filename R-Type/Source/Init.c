@@ -4,6 +4,10 @@
 
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
+#include "../Include/Textures.h"
+#include "../Include/Enemies.h"
+#include "../Include/Wave.h"
+
 
 GameState InitGameState()
 {
@@ -67,7 +71,7 @@ Scene InitScene(Textures Tex)
 
 	Scene scene = {
 		Tex.Background,
-		InitPlayers((SDL_Texture * [2]) { Tex.Player1, Tex.Player2 }),
+		InitPlayers((SDL_Texture* [2]) { Tex.Player1, Tex.Player2 }),
 		InitProjectiles(Tex.Projectiles),
 		CreateEnemyQueue(7, base), 3,
 		CreateWaves(7, 3, 1000), 0, false

@@ -4,7 +4,7 @@
 #include "../Include/Init.h"
 
 
-struct Scene* CreateLevels(int nbrLevels, Textures Tex)
+Scene* CreateLevels(int nbrLevels, Textures Tex)
 {
 	Scene* Levels = malloc(nbrLevels * sizeof(Scene));
 
