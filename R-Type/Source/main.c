@@ -13,7 +13,7 @@
 #include "../Include/Inputs.h"
 #include "../Include/Menu.h"
 #include "../Include/StartMenu.h"
-//#include "../Include/Menu.h"
+#include "../Include/Menu.h"
 #include "../Include/Levels.h"
 #include "../Include/Enemies.h"
 
