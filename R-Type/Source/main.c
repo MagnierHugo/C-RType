@@ -14,6 +14,7 @@
 #include "../Include/Menu.h"
 #include "../Include/StartMenu.h"
 #include "../Include/Menu.h"
+#include "../Include/Music.h"
 #include "../Include/Levels.h"
 #include "../Include/Enemies.h"
 
@@ -31,6 +32,7 @@ int main(int argc, char* argv[])
 	};
 
 	StartMenu(gameArgs);
+	PlaySound(SONG, gameArgs.SDL);
 
 	while (gameArgs.State.Continue)
 	{
