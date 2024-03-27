@@ -7,6 +7,7 @@
 #include "../Include/Structs.h"
 #include "../Include/HandleSDL.h"
 #include "../Include/Projectile.h"
+#include "../Include/Enemies.h"
 
 
 static void UpdatePlayers(GameState state, Scene scene)
@@ -54,8 +55,23 @@ static void UpdateProjectiles(GameState state, Scene scene)
     }
 }
 
+static void UpdateEnemies(GameState state, Scene scene)
+{
+    SpawnEnemies(scene);
+
+    EnemyQueue queue = scene.Queue;
+
+    for (int i = 0; i < scene.ActiveEnemies; i++)
+    {
+        Enemy enemy = queue.Enemies[i];
+
+        enemy.X -= enemy.Speed * state.DeltaTime;
+    }
+}
+
 void Update(GameState state, Scene scene)
 {
     UpdatePlayers(state, scene);
     UpdateProjectiles(state, scene);
+    UpdateEnemies(state, scene);
 }

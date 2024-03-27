@@ -1,27 +1,35 @@
 #include <SDL.h>
 
+#include <stdio.h>
+
 #include "../Include/Structs.h"
 #include "../Include/Constants.h"
 #include "../Include/Utility.h"
 #include "../Include/Wave.h"
 
 
-EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base)
+static EnemyQueue AllocateMemory(int nbrEnemies)
 {
+	Enemy* enemies = malloc(nbrEnemies * sizeof(Enemy));
+
 	EnemyQueue queue = {
-		malloc(nbrEnemies * sizeof(Enemy)),
+		enemies,
 		nbrEnemies
 	};
+
+	return queue;
+}
+
+EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base)
+{
+	EnemyQueue queue = AllocateMemory(nbrEnemies);
 
 	for (int queueIndex = 0; queueIndex < nbrEnemies; queueIndex++)
 	{
 		Enemy enemy = base;
 
 		enemy.DropBoost = RdmInt(0, 4, true) % 4 == 0 ? true : false;
-		enemy.rect = (SDL_Rect){
-			RdmInt(0, SCREEN_WIDTH - ENEMIES_WIDTH, false), RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false),
-			ENEMIES_WIDTH, ENEMIES_HEIGHT
-		};
+		enemy.Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
 
 		if (queueIndex < nbrEnemies * 0.75) {
 			enemy.HP += RdmInt(0, enemy.HP / 2, true);
@@ -59,5 +67,12 @@ Enemy* UpdateQueue(EnemyQueue queue)
 
 void SpawnEnemies(Scene scene)
 {
-	scene.ActiveEnemies += PopWave(scene).nbrEnemies;
+	if (scene.Time + scene.WaitTime <= SDL_GetTicks()) {
+		Wave wave = PopWave(scene);
+		printf("Wave head : %d / Wave nbrEnemies : %d\n", scene.waveHead, wave.nbrEnemies);
+
+		scene.ActiveEnemies += wave.nbrEnemies;
+		scene.WaitTime = wave.Wait;
+		scene.Time = SDL_GetTicks();
+	}
 }

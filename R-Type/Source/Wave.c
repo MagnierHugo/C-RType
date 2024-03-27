@@ -27,7 +27,7 @@ Wave* CreateWaves(int nbrEnemies, int maxEnemiesPerWave, int baseWait)
 	for (int waveIndex = 0; waveIndex < waveNumber; waveIndex++) {
 		waves[waveIndex] = (Wave){
 			enemies[waveIndex],
-			baseWait + baseWait / 2 * enemies[waveIndex]
+			baseWait + baseWait / 4 * enemies[waveIndex]
 		};
 	}
 

@@ -17,7 +17,7 @@
 
 #define PLAYER_CNT 2
 #define PLAYER_WIDTH 120
-#define PLAYER_HEIGHT 50
+#define PLAYER_HEIGHT PLAYER_WIDTH * 0.58
 #define PLAYER_INITIAL_SPEED 500
 #define SHOOTING_SLOWDOWN_COEF 300
 
@@ -57,4 +57,4 @@
 
 // Some Constants for the enemies
 #define ENEMIES_WIDTH 120
-#define ENEMIES_HEIGHT 50
+#define ENEMIES_HEIGHT ENEMIES_WIDTH * 0.81

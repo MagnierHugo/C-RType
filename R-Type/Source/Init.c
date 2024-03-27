@@ -6,6 +6,7 @@
 #include "../Include/Structs.h"
 #include "../Include/Textures.h"
 #include "../Include/Enemies.h"
+#include "../Include/Utility.h"
 #include "../Include/Wave.h"
 
 
@@ -65,16 +66,29 @@ static Projectile* InitProjectiles(SDL_Texture* Tex)
 	return proj;
 }
 
+static Enemy InitBaseEnemy(int baseHp, float baseSpeed, SDL_Texture* Tex)
+{
+	Enemy baseEnemy = {
+		Tex, SCREEN_WIDTH, 0,
+		ENEMIES_WIDTH, ENEMIES_HEIGHT,
+		baseHp, baseSpeed, NULL
+	};
+
+	return baseEnemy;
+}
+
 Scene InitScene(Textures Tex)
 {
-	Enemy base = { 5, 20, NULL, Tex.EnemyType1, NULL };
+	Enemy baseEnemy = InitBaseEnemy(5, 20, Tex.EnemyType1);
 
 	Scene scene = {
 		Tex.Background,
 		InitPlayers((SDL_Texture* [2]) { Tex.Player1, Tex.Player2 }),
 		InitProjectiles(Tex.Projectiles),
-		CreateEnemyQueue(7, base), 3,
-		CreateWaves(7, 3, 1000), 0, false
+		CreateEnemyQueue(7, baseEnemy), 0,
+		CreateWaves(7, 3, 1000), 0, 2000,
+		SDL_GetTicks(),
+		false
 	};
 
 	return scene;

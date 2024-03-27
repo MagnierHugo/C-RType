@@ -13,7 +13,7 @@ static void DrawPlayer(Player* players, SDL sdl)
 	{
 		Player curPlayer = players[i];
 		SDL_Rect playerRect = PlayerAsRect(curPlayer);
-
+		
 		SDL_RenderCopy(sdl.renderer, curPlayer.tex, NULL, &playerRect);
 	}
 }
@@ -62,7 +62,9 @@ static void DrawEnemies(Scene scene, SDL sdlStruct)
 	for (int enemyIndex = 0; enemyIndex < scene.ActiveEnemies; enemyIndex++)
 	{
 		Enemy curEnemy = scene.Queue.Enemies[enemyIndex];
-		SDL_RenderCopy(sdlStruct.renderer, curEnemy.Tex, NULL, &curEnemy.rect);
+		SDL_Rect enemyRect = EnemyAsRect(curEnemy);
+
+		SDL_RenderCopy(sdlStruct.renderer, curEnemy.Tex, NULL, &enemyRect);
 	}
 }
 

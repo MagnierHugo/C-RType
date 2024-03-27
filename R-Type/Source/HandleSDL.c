@@ -44,17 +44,17 @@ void InitSDL( SDL sdl)
         ErrorHandling("Erreur SDL_ttf failed", sdl);
     }
 
-    // Initialisation SDL Audio
-    if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-        ErrorHandling("Erreur initialisation de SDL Audio", sdl);
-    }
+    //// Initialisation SDL Audio
+    //if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+    //    ErrorHandling("Erreur initialisation de SDL Audio", sdl);
+    //}
 
-    // Open Audio Channels
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NUMBER_OF_CHANNELS, 2048) < 0)
-    {
-        ErrorHandling("Erreur initialisation de SDL Mixer", sdl);
-    }
-    Mix_Volume(0, 7);
+    //// Open Audio Channels
+    //if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NUMBER_OF_CHANNELS, 2048) < 0)
+    //{
+    //    ErrorHandling("Erreur initialisation de SDL Mixer", sdl);
+    //}
+    //Mix_Volume(0, 7);
 
     if (TTF_Init() < 0) {
         ErrorHandling("Erreur initialisation de SDL TTF", sdl);
