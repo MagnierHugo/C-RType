@@ -2,4 +2,6 @@
 #include <SDL.h>
 #include "Constants.h"
 
-void StartMenu(GameArgs gameArgs);
+bool PointInRect(int x, int y, SDL_Rect rect);
+void DrawButton(SDL_Renderer* renderer, Button button);
+SDL_Scancode GetKeyPressed();

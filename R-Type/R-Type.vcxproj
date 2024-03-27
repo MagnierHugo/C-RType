@@ -30,6 +30,8 @@
     <ClCompile Include="Source\Music.c" />
     <ClCompile Include="Source\Particle.c" />
     <ClCompile Include="Source\Projectile.c" />
+    <ClCompile Include="Source\RemapMenu.c" />
+    <ClCompile Include="Source\StartMenu.c" />
     <ClCompile Include="Source\Textures.c" />
     <ClCompile Include="Source\Update.c" />
     <ClCompile Include="Source\Utility.c" />
@@ -47,6 +49,8 @@
     <ClInclude Include="Include\Music.h" />
     <ClInclude Include="Include\Particle.h" />
     <ClInclude Include="Include\Projectile.h" />
+    <ClInclude Include="Include\RemapMenu.h" />
+    <ClInclude Include="Include\StartMenu.h" />
     <ClInclude Include="Include\Structs.h" />
     <ClInclude Include="Include\Textures.h" />
     <ClInclude Include="Include\Update.h" />

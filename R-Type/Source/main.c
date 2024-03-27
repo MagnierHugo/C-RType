@@ -12,6 +12,8 @@
 #include "../Include/Draw.h"
 #include "../Include/Inputs.h"
 #include "../Include/Menu.h"
+#include "../Include/StartMenu.h"
+//#include "../Include/Menu.h"
 #include "../Include/Levels.h"
 #include "../Include/Enemies.h"
 
@@ -20,7 +22,6 @@ int main(int argc, char* argv[])
 {
 	SDL sdlStruct = StartSDL();
 	Scene* Levels = CreateLevels(1, sdlStruct.Tex);
-	printf("Here");
 
 	GameArgs gameArgs =
 	{
@@ -48,8 +49,12 @@ int main(int argc, char* argv[])
 
 void QuitGame(GameArgs gameArgs)
 {
-	free(gameArgs.Levels[0].Players);
-	free(gameArgs.Levels[0].Projectiles);
+	for (int level = 0; level < LEVEL_COUNT; level++)
+	{
+		free(gameArgs.Levels[level].Players);
+		free(gameArgs.Levels[level].Projectiles);
+	}
+	
 	ErrorHandling("Thanks for playing", gameArgs.SDL); // not an error but actually cleans so convenient
 
 }
