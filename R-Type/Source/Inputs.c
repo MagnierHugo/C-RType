@@ -2,23 +2,26 @@
 #include "../Include/Structs.h"
 
 
-void HandleInputs(GameState state, Scene scene)
+void HandleInputs(GameState* state, Scene scene)
 {
-    InputsSummary* inputs = &state.Inputs;
+    InputsSummary* inputs = &state->Inputs;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0) {
         switch (event.type) {
-        case SDL_QUIT:
-            //return ( InputSummary) { false, false };
+            case SDL_QUIT:
+                state->Continue = false;
+                return;
 
-        case SDL_KEYDOWN:
-            if (event.key.keysym.sym == SDLK_ESCAPE) {
-                //return ( InputSummary) { false, false };
-            }
+            case SDL_KEYDOWN:
+                if (event.key.keysym.sym == SDLK_ESCAPE) {
+                    state->Continue = false;
+                    return;
+                }
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
     }
     for (int i = 0; i < PLAYER_CNT; i++)
@@ -29,6 +32,10 @@ void HandleInputs(GameState state, Scene scene)
         playerInput->DirX = keys[inputMap->Right] - keys[inputMap->Left];
         playerInput->Shooting = keys[inputMap->Shoot];
 
+    }
+
+    if (keys[SDL_SCANCODE_M]) {
+        TakeHit(&scene.Players[0], *state);
     }
 
     /*

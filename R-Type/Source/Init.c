@@ -16,6 +16,7 @@ GameState InitGameState()
 	gState.CurrentTime = SDL_GetTicks();
 	gState.Continue = true;
 	gState.Score = 0;
+	gState.CurrentLevel = 0;
 	gState.Inputs.PlayerInput = malloc(PLAYER_CNT * sizeof( PlayerInput));
 	gState.Inputs.InputMap = malloc(PLAYER_CNT * sizeof( InputMap));
 	for (int i = 0; i < PLAYER_CNT; i++)
@@ -43,7 +44,7 @@ static Player* InitPlayers(SDL_Texture* Tex[2])
 		players[i] = (Player){
 			Tex[i],
 			SCREEN_WIDTH * .5, SCREEN_HEIGHT * .5, PLAYER_WIDTH, PLAYER_HEIGHT,
-			PLAYER_INITIAL_SPEED, 0, PLAYER_INITIAL_HEALTH, IMMUNITY_DURATION
+			PLAYER_INITIAL_SPEED, 0, 0, PLAYER_INITIAL_HEALTH, IMMUNITY_DURATION
 		};
 	}
 

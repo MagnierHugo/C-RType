@@ -37,9 +37,9 @@ int main(int argc, char* argv[])
 		gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 		gameArgs.State.CurrentTime = SDL_GetTicks();
 
-		HandleInputs(gameArgs.State, gameArgs.Levels[0]);
-		Update(gameArgs.State, gameArgs.Levels[0]);
-		Draw(gameArgs, gameArgs.Levels[0]);
+		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]);
+		Update(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]);
+		Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurrentLevel]);
 
 		SDL_Delay(FRAMERATE);
 	}
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 
 void QuitGame(GameArgs gameArgs)
 {
-	for (int level = 0; level < LEVEL_COUNT; level++)
+	for (int level = 0; level < LEVEL_COUNT; level++) // better to handle it level by level
 	{
 		free(gameArgs.Levels[level].Players);
 		free(gameArgs.Levels[level].Projectiles);

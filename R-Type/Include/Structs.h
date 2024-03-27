@@ -33,6 +33,7 @@ typedef struct Player
 	float Speed;
 
 	float LastTimeShot;
+	float LastTimeWasShot;
 
 	int Health;
 	int ImmunityDuration;
@@ -88,6 +89,7 @@ typedef struct GameState
 	bool Continue;
 	bool Paused;
 	bool ScreenWrappinActive;
+	int CurrentLevel;
 	InputsSummary Inputs;
 
 } GameState;
