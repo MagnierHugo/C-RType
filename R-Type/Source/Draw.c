@@ -31,18 +31,9 @@ static void DrawProjectiles(Projectile* projectiles,  SDL sdl)
 	}
 }
 
-//static void DrawEnemies(Scene scene, SDL sdlStruct)
-//{
-//	for (int enemyIndex = 0; enemyIndex < scene.ActiveEnemies; enemyIndex++)
-//	{
-//		Enemy curEnemy = scene.Queue.Enemies[enemyIndex];
-//		SDL_RenderCopy(sdlStruct.renderer, curEnemy.Tex, NULL, &curEnemy.rect);
-//	}
-//}
-// 
 static void DrawEnemies(Scene scene, SDL sdl)
 {
-	for (int enemy = 0; enemy < scene.EnemyCount; enemy++)
+	/*for (int enemy = 0; enemy < scene.EnemyCount; enemy++)
 	{
 
 		Enemy curEnemy = scene.Enemies[enemy];
@@ -50,15 +41,17 @@ static void DrawEnemies(Scene scene, SDL sdl)
 
 		SDL_Rect enemyRect = EnemyAsRect(curEnemy);
 		SDL_RenderCopy(sdl.renderer, curEnemy.Tex, NULL, &enemyRect);
+	}*/
+	for (int enemyIndex = 0; enemyIndex < scene.ActiveEnemies; enemyIndex++)
+	{
+		Enemy curEnemy = scene.Queue.Enemies[enemyIndex];
+		SDL_Rect enemyRect = EnemyAsRect(curEnemy);
+
+		printf("Hi There / ");
+		SDL_RenderCopy(sdl.renderer, curEnemy.Tex, NULL, &enemyRect);
+		printf("Its me\n");
 	}
 }
-//{
-//	for (int enemyIndex = 0; enemyIndex < scene.ActiveEnemies; enemyIndex++)
-//	{
-//		Enemy curEnemy = scene.Queue.Enemies[enemyIndex];
-//		SDL_RenderCopy(sdlStruct.renderer, curEnemy.Tex, NULL, &curEnemy.rect);
-//	}
-//}
 
 void Draw( GameArgs gameArgs, Scene curScene)
 {

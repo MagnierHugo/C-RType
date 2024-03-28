@@ -15,6 +15,20 @@ int RdmInt(int min, int max, bool nonZero)
     return rdm;
 }
 
+void Swap(void* element1, void* element2)
+{
+    void* tempElement = element1;
+    element1 = element2;
+    element2 = tempElement;
+}
+
+void CheckPointer(void* pointer, char* errorMessage, SDL sdl)
+{
+    if (pointer == NULL) {
+        ErrorHandling(errorMessage, sdl);
+    }
+}
+
 SDL_Rect PlayerAsRect(Player player)
 {
     return (SDL_Rect) { player.X, player.Y, player.Width, player.Height };
@@ -30,13 +44,7 @@ SDL_Rect EnemyAsRect(Enemy enemy)
     return (SDL_Rect) { enemy.X, enemy.Y, enemy.Width, enemy.Height };
 }
 
-//void CheckPointer(void* pointer, char* errorMessage, SDL sdl)
+//void CheckPointer(void* pointer)
 //{
-//    if (pointer == NULL) ErrorHandling(errorMessage, sdl);
-//    else free(pointer);
+//    if (pointer) free(pointer);
 //}
-
-void CheckPointer(void* pointer)
-{
-    if (pointer) free(pointer);
-}

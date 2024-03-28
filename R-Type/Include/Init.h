@@ -3,5 +3,5 @@
 #include "Structs.h"
 
 GameState InitGameState();
-Scene InitScene(Textures Tex);
+Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY);
 Textures InitTextures(SDL sdl);

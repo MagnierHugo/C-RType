@@ -32,9 +32,9 @@ void ResetScene(Scene* scene)
 	{
 		scene->Projectiles[i].Active = false;
 	}
-	for (int i = 0; i < MAX_ENEMY_CNT; i++)
+	for (int i = 0; i < scene->ActiveEnemies; i++)
 	{
-		scene->Enemies[i].X += SCREEN_HEIGHT; // simply shift all of them to the side
+		scene->Queue.Enemies->X += SCREEN_WIDTH; // simply shift all of them to the side
 		// if alive they ll come back else we dont care
 	}
 }

@@ -25,10 +25,12 @@ static void ClearScene(Scene scene, SDL sdl)
 	CheckPointer(scene.Players, "no player", sdl);
 	CheckPointer(scene.Enemies, "no enemies", sdl);
 	CheckPointer(scene.Projectiles, "no projectiles", sdl);
-	*/
 	CheckPointer(scene.Players);
 	CheckPointer(scene.Enemies);
-	CheckPointer(scene.Projectiles);
+	CheckPointer(scene.Projectiles);*/
+	if (scene.Players) { free(scene.Players); }
+	if (scene.Projectiles) { free(scene.Projectiles); }
+	if (scene.Queue.Enemies) { free(scene.Queue.Enemies); }
 	printf("cleared scene");
 }
 
@@ -44,10 +46,12 @@ static int CheckEndGame(Scene scene)
 {
 	if (!scene.Players[0].Active && !scene.Players[1].Active) return -1; // lost bc both dead
 
-	for (int i = 0; i < MAX_ENEMY_CNT; i++)
+	/*for (int i = 0; i < MAX_ENEMY_CNT; i++)
 	{
 		if (scene.Enemies[i].Active) return 0;
-	}
+	}*/
+
+	if (scene.ActiveEnemies > 0 || !scene.waveEnd) return 0;
 
 	return 1;
 }
@@ -72,8 +76,10 @@ void EndScreen(GameArgs args) {
 
 int main(int argc, char* argv[])
 {
+	srand(time(NULL));
+
 	SDL sdlStruct = StartSDL();
-	Scene* Levels = CreateLevels(1, sdlStruct.Tex);
+	Scene* Levels = CreateLevels(1, sdlStruct);
 
 	GameArgs gameArgs =
 	{
@@ -85,14 +91,17 @@ int main(int argc, char* argv[])
 	StartMenu(gameArgs);
 	gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 	gameArgs.State.CurrentTime = SDL_GetTicks();
-	SpawnEnemies(gameArgs);
+	gameArgs.Levels[0].Time = gameArgs.State.CurrentTime;
+	//SpawnEnemies(gameArgs);
 	int endGame;
+
 	while (gameArgs.State.Continue)
 	{
 		gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 		gameArgs.State.CurrentTime = SDL_GetTicks();
+
 		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL]);
-		Update(&gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL]);
+		Update(&gameArgs.State, &gameArgs.Levels[gameArgs.State.CurLVL], sdlStruct);
 		Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurLVL]);
 
 		SDL_Delay(FRAMERATE);

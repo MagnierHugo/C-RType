@@ -33,7 +33,7 @@ int ErrorHandling(char* message,  SDL sdl)
     exit(EXIT_FAILURE);
 }
 
-void InitSDL( SDL sdl)
+static void InitSDL( SDL sdl)
 {
     // Initialisation SDL Video
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {

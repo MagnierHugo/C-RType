@@ -54,21 +54,21 @@ static Player* InitPlayers(SDL_Texture* Tex[2])
 	return players;
 }
 
-static Enemy* InitEnemies(SDL_Texture* tex)
-{
-	Enemy* enemies = malloc(MAX_ENEMY_CNT * sizeof(Enemy));
-
-	for (int i = 0; i < MAX_ENEMY_CNT; i++)
-	{
-		enemies[i] = (Enemy){
-			tex, SCREEN_WIDTH, 0, ENEMIES_WIDTH, ENEMIES_HEIGHT,
-			INITIAL_ENEMY_HEALTH, ENEMY_SPEED, RdmInt(0, 1, false), false,
-			BASE_ENEMY_AWARDED_POINTS
-		};
-	}
-
-	return enemies;
-}
+//static Enemy* InitEnemies(SDL_Texture* tex)
+//{
+//	Enemy* enemies = malloc(MAX_ENEMY_CNT * sizeof(Enemy));
+//
+//	for (int i = 0; i < MAX_ENEMY_CNT; i++)
+//	{
+//		enemies[i] = (Enemy){
+//			tex, SCREEN_WIDTH, 0, ENEMIES_WIDTH, ENEMIES_HEIGHT,
+//			INITIAL_ENEMY_HEALTH, ENEMY_SPEED, RdmInt(0, 1, false), false,
+//			BASE_ENEMY_AWARDED_POINTS
+//		};
+//	}
+//
+//	return enemies;
+//}
 
 static Projectile* InitProjectiles(SDL_Texture* tex)
 {
@@ -85,20 +85,24 @@ static Projectile* InitProjectiles(SDL_Texture* tex)
 	return projs;
 }
 
-Scene InitScene(Textures Tex)
+Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 {
-	/*Enemy base = { Tex.EnemyType1, 0, 0,
-			INITIAL_ENEMY_HEALTH, ENEMY_SPEED, RdmInt(0, 1, false), false };*/
+	Enemy baseEnemy = {
+		sdl.Tex.EnemyType1, SCREEN_WIDTH, 0, dirX, dirY,
+		ENEMIES_WIDTH, ENEMIES_HEIGHT,
+		ENEMY_SPEED, baseHp, NULL
+	};
 
 	Scene scene = {
-		Tex.Background,
-		InitPlayers((SDL_Texture*[2]) { Tex.Player1, Tex.Player2 }),
-		InitEnemies(Tex.EnemyType1),
-		InitProjectiles(Tex.Projectiles),
-		//CreateEnemyQueue(7, base),
-		10,
-		false
-		//CreateWaves(7, 3, 1000), 0, false
+		sdl.Tex.Background,
+		InitPlayers((SDL_Texture*[2]) { sdl.Tex.Player1, sdl.Tex.Player2 }),
+		//InitEnemies(sdl.Tex.EnemyType1),
+		InitProjectiles(sdl.Tex.Projectiles),
+		CreateEnemyQueue(7, baseEnemy, sdl), 0,
+		CreateWaves(7, 3, 1000, sdl), 0, false, 2000,
+		0, false
+		/*10,
+		false*/
 	};
 
 	return scene;

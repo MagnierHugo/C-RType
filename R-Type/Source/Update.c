@@ -45,27 +45,59 @@ static void UpdatePlayers(GameState* state, Scene scene)
     }
 }
 
-static void UpdateEnemies(GameState* state, Scene scene)
+//static void UpdateEnemies(GameState* state, Scene scene)
+//{
+//    Enemy* enemies = scene.Enemies;
+//    Player* players = scene.Players;
+//    Projectile* projs = scene.Projectiles;
+//    for (int i = 0; i < scene.EnemyCount; i++)
+//    {
+//        Enemy* enemy = &enemies[i];
+//        if (!enemy->Active) continue;
+//        enemy->X -= enemy->Speed * state->DeltaTime;
+//
+//        if (enemy->X + ENEMIES_WIDTH < 0)
+//        {
+//            enemy->X = SCREEN_WIDTH + RdmInt(
+//                MIN_RESET_X_OFFSET, MAX_RESET_X_OFFSET, false);
+//            enemy->Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
+//        }
+//
+//        CheckEnemyPlayerCollision(*state, *enemy, players);
+//
+//        state->Score += CheckEnemyProjCollision(*state, enemy, projs);
+//    }
+//}
+
+static void UpdateEnemies(GameState* state, Scene* scene, SDL sdl)
 {
-    Enemy* enemies = scene.Enemies;
-    Player* players = scene.Players;
-    Projectile* projs = scene.Projectiles;
-    for (int i = 0; i < scene.EnemyCount; i++)
+    SpawnEnemies(scene);
+
+    EnemyQueue* queue = &scene->Queue;
+    Player* players = scene->Players;
+    Projectile* projs = scene->Projectiles;
+
+    for (int i = 0; i < scene->ActiveEnemies; i++)
     {
-        Enemy* enemy = &enemies[i];
-        if (!enemy->Active) continue;
-        enemy->X -= enemy->Speed * state->DeltaTime;
+        Enemy* enemy = &queue->Enemies[i];
+
+        enemy->X += enemy->dirX * enemy->Speed * state->DeltaTime;
+        enemy->Y += enemy->dirY * enemy->Speed * state->DeltaTime;
 
         if (enemy->X + ENEMIES_WIDTH < 0)
         {
-            enemy->X = SCREEN_WIDTH + RdmInt(
-                MIN_RESET_X_OFFSET, MAX_RESET_X_OFFSET, false);
-            enemy->Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
+            enemy->HP = 0;
         }
 
-        CheckEnemyPlayerCollision(*state, *enemy, players);
-
-        state->Score += CheckEnemyProjCollision(*state, enemy, projs);
+        if (enemy->HP == 0) {
+            queue->nbrEnemies -= 1;
+            scene->ActiveEnemies -= 1;
+            queue->Enemies = UpdateQueue(*queue, sdl);
+        }
+        
+        CheckEnemyPlayerCollision(*state, enemy, players);
+        
+        state->Score += CheckEnemyProjCollision(*state, enemy, queue, projs, sdl);
     }
 }
 
@@ -82,10 +114,10 @@ static void UpdateProjectiles(GameState state, Scene scene)
     }
 }
 
-void Update(GameState* state, Scene scene)
+void Update(GameState* state, Scene* scene, SDL sdl)
 {
-    UpdatePlayers(state, scene);
-    UpdateEnemies(state, scene);
-    UpdateProjectiles(*state, scene);
+    UpdatePlayers(state, *scene);
+    UpdateEnemies(state, scene, sdl);
+    UpdateProjectiles(*state, *scene);
 }
 
