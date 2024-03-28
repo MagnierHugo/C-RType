@@ -3,16 +3,17 @@
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
 
-void TakeHit(Player* player, GameState state)
+int TakeHit(Player* player, GameState state)
 {
 	if (player->LastTimeWasShot + IMMUNITY_DURATION > state.CurrentTime)
 	{
-		return;
+		return 0;
 	}
 	player->LastTimeWasShot = state.CurrentTime;
 	player->Health--;
 	printf("hit: %d\n", player->Health);
 	player->Active = player->Health > 0;
+	return 1;
 }
 
 void ResetPlayer(Player* player)

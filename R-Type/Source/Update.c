@@ -10,6 +10,7 @@
 #include "../Include/Utility.h"
 #include "../Include/Player.h"
 #include "../Include/Enemies.h"
+#include "../Include/Collision.h"
 
 
 static void UpdatePlayers(GameState* state, Scene scene)

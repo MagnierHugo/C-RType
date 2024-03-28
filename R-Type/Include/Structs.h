@@ -66,8 +66,16 @@ typedef struct {
 	SDL_Texture* EnemyType1;
 	SDL_Texture* Boss1;
 	SDL_Texture* Projectiles;
+	SDL_Texture* Boom[10];
 	// BonusType1
 } Textures;
+
+typedef struct {
+	int nbrFrames;
+	int curFrame;
+	int TimeBetweenFrames;
+	SDL_Texture** Frames;
+} Animation;
 
 typedef struct {
 	SDL_Window* window;

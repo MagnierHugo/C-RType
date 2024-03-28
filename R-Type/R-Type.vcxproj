@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Collision.c" />
     <ClCompile Include="Source\Draw.c" />
     <ClCompile Include="Source\Enemies.c" />
     <ClCompile Include="Source\HandleSDL.c" />
@@ -31,6 +32,7 @@
     <ClCompile Include="Source\Particle.c" />
     <ClCompile Include="Source\Player.c" />
     <ClCompile Include="Source\Projectile.c" />
+    <ClCompile Include="Source\Rect.c" />
     <ClCompile Include="Source\RemapMenu.c" />
     <ClCompile Include="Source\StartMenu.c" />
     <ClCompile Include="Source\Text.c" />
@@ -40,6 +42,7 @@
     <ClCompile Include="Source\Wave.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Collision.h" />
     <ClInclude Include="Include\Constants.h" />
     <ClInclude Include="Include\Draw.h" />
     <ClInclude Include="Include\Enemies.h" />
@@ -52,6 +55,7 @@
     <ClInclude Include="Include\Particle.h" />
     <ClInclude Include="Include\Player.h" />
     <ClInclude Include="Include\Projectile.h" />
+    <ClInclude Include="Include\Rect.h" />
     <ClInclude Include="Include\RemapMenu.h" />
     <ClInclude Include="Include\StartMenu.h" />
     <ClInclude Include="Include\Structs.h" />
@@ -63,6 +67,16 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Sprites\Boom.gif" />
+    <Image Include="..\Sprites\Boom1.png" />
+    <Image Include="..\Sprites\Boom10.png" />
+    <Image Include="..\Sprites\Boom2.png" />
+    <Image Include="..\Sprites\Boom3.png" />
+    <Image Include="..\Sprites\Boom4.png" />
+    <Image Include="..\Sprites\Boom5.png" />
+    <Image Include="..\Sprites\Boom6.png" />
+    <Image Include="..\Sprites\Boom7.png" />
+    <Image Include="..\Sprites\Boom8.png" />
+    <Image Include="..\Sprites\Boom9.png" />
     <Image Include="..\Sprites\Boss1.png" />
     <Image Include="..\Sprites\Fond1.png" />
     <Image Include="..\Sprites\Fond2.png" />

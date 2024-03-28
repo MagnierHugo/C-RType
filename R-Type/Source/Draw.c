@@ -6,6 +6,7 @@
 #include "../Include/Utility.h"
 #include "../Include/HandleSDL.h"
 #include "../Include/Text.h"
+#include "../Include/Rect.h"
 
 
 static void DrawPlayer(Player* players, SDL sdl)

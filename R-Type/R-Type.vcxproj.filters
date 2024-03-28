@@ -72,6 +72,12 @@
     <ClCompile Include="Source\Text.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Collision.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rect.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Utility.h">
@@ -134,6 +140,12 @@
     <ClInclude Include="Include\Text.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Rect.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Collision.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Sprites\Boom.gif">
@@ -161,6 +173,36 @@
       <Filter>Fichiers de ressources</Filter>
     </Image>
     <Image Include="..\Sprites\Soot1.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom1.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom2.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom3.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom4.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom5.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom6.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom7.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom8.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom9.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\Sprites\Boom10.png">
       <Filter>Fichiers de ressources</Filter>
     </Image>
   </ItemGroup>

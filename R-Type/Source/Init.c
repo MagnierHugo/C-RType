@@ -1,6 +1,8 @@
 #include <SDL.h>
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
@@ -98,8 +100,8 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 		InitPlayers((SDL_Texture*[2]) { sdl.Tex.Player1, sdl.Tex.Player2 }),
 		//InitEnemies(sdl.Tex.EnemyType1),
 		InitProjectiles(sdl.Tex.Projectiles),
-		CreateEnemyQueue(7, baseEnemy, sdl), 0,
-		CreateWaves(1, 3, 3000, sdl), 0, false, 2000,
+		CreateEnemyQueue(45, baseEnemy, sdl), 0,
+		CreateWaves(45, 5, 3000, sdl), 0, false, 2000,
 		0, false
 		/*10,
 		false*/
@@ -119,6 +121,12 @@ Textures InitTextures(SDL sdl)
 	tex.EnemyType1 = CreateTexture(sdl, "..\\Sprites\\Mobs1.png");
 	tex.Boss1 = CreateTexture(sdl, "..\\Sprites\\Boss1.png");
 	tex.Projectiles = CreateTexture(sdl, "..\\Sprites\\Soot1.png");
+
+	for (int frame = 0; frame < 10; frame++) {
+		char path[256]; // Make sure path buffer is large enough
+		snprintf(path, sizeof(path), "../Sprites/Boom%d.png", frame + 1);
+		tex.Boom[frame] = CreateTexture(sdl, path);
+	}
 
 	return tex;
 }
