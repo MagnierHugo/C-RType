@@ -33,6 +33,7 @@
     <ClCompile Include="Source\Projectile.c" />
     <ClCompile Include="Source\RemapMenu.c" />
     <ClCompile Include="Source\StartMenu.c" />
+    <ClCompile Include="Source\Text.c" />
     <ClCompile Include="Source\Textures.c" />
     <ClCompile Include="Source\Update.c" />
     <ClCompile Include="Source\Utility.c" />
@@ -54,6 +55,7 @@
     <ClInclude Include="Include\RemapMenu.h" />
     <ClInclude Include="Include\StartMenu.h" />
     <ClInclude Include="Include\Structs.h" />
+    <ClInclude Include="Include\Text.h" />
     <ClInclude Include="Include\Textures.h" />
     <ClInclude Include="Include\Update.h" />
     <ClInclude Include="Include\Utility.h" />

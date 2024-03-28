@@ -3,7 +3,7 @@
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
 
-void ShootPlayerProjectile(Player player, Projectile* projs)
+void ShootPlayerProjectile(Player player, Projectile* projs, GameState* state)
 {
 	for (int i = 0; i < MAX_PROJECTILES; i++)
 	{
@@ -14,6 +14,8 @@ void ShootPlayerProjectile(Player player, Projectile* projs)
 		projs[i].DirY = 0;
 		projs[i].DirX = 1;
 		projs[i].Active = true;
+
+		state->ShotFired++;
 
 		return;
 	}

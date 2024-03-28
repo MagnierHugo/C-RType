@@ -24,9 +24,9 @@
 
 #define SHOOTING_RATE 100
 
-#define PLAYER_INITIAL_HEALTH 3
+#define PLAYER_INITIAL_HEALTH 1
 #define PLAYER_MAX_HEALTH 5
-#define IMMUNITY_DURATION 1000
+#define IMMUNITY_DURATION 5000
 
 // Combat
 #define MAX_PROJECTILES 100
@@ -54,6 +54,7 @@
 
 
 #define SCORE_Y 700
+#define SHOTS_FIRED_Y 725
 
 
 // Some Constants for the enemies
@@ -65,3 +66,4 @@
 #define MAX_SPAWN_X_OFFSET 3500
 #define MIN_RESET_X_OFFSET 1000
 #define MAX_RESET_X_OFFSET 3500
+#define BASE_ENEMY_AWARDED_POINTS 100

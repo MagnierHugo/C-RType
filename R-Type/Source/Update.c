@@ -8,22 +8,26 @@
 #include "../Include/HandleSDL.h"
 #include "../Include/Projectile.h"
 #include "../Include/Utility.h"
+#include "../Include/Player.h"
+#include "../Include/Enemies.h"
 
 
-static void UpdatePlayers(GameState state, Scene scene)
+static void UpdatePlayers(GameState* state, Scene scene)
 {
     Player* players = scene.Players;
     for (int i = 0; i < PLAYER_CNT; i++)
     {
-        PlayerInput inputs = state.Inputs.PlayerInput[i];
-        players[i].X += inputs.DirX * players[i].Speed * state.DeltaTime;
-        players[i].Y += inputs.DirY * players[i].Speed * state.DeltaTime;
-        if (state.Inputs.PlayerInput[i].Shooting)
+        if (!players[i].Active) continue;
+
+        PlayerInput inputs = state->Inputs.PlayerInput[i];
+        players[i].X += inputs.DirX * players[i].Speed * state->DeltaTime;
+        players[i].Y += inputs.DirY * players[i].Speed * state->DeltaTime;
+        if (state->Inputs.PlayerInput[i].Shooting)
         {
-            if (players[i].LastTimeShot + SHOOTING_RATE < state.CurrentTime)
+            if (players[i].LastTimeShot + SHOOTING_RATE < state->CurrentTime)
             {
-                ShootPlayerProjectile(players[i], scene.Projectiles);
-                players[i].LastTimeShot = state.CurrentTime;
+                ShootPlayerProjectile(players[i], scene.Projectiles, state);
+                players[i].LastTimeShot = state->CurrentTime;
             }
         }
 
@@ -41,19 +45,27 @@ static void UpdatePlayers(GameState state, Scene scene)
     }
 }
 
-static void UpdateEnemies(GameState state, Scene scene)
+static void UpdateEnemies(GameState* state, Scene scene)
 {
     Enemy* enemies = scene.Enemies;
+    Player* players = scene.Players;
+    Projectile* projs = scene.Projectiles;
     for (int i = 0; i < scene.EnemyCount; i++)
     {
-        if (!enemies[i].Active) continue;
-        enemies[i].X -= enemies[i].Speed * state.DeltaTime;
+        Enemy* enemy = &enemies[i];
+        if (!enemy->Active) continue;
+        enemy->X -= enemy->Speed * state->DeltaTime;
 
-        if (enemies[i].X + ENEMIES_WIDTH < 0)
+        if (enemy->X + ENEMIES_WIDTH < 0)
         {
-            enemies[i].X = SCREEN_WIDTH + RdmInt(MIN_RESET_X_OFFSET, MAX_RESET_X_OFFSET, false);
-            enemies[i].Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
+            enemy->X = SCREEN_WIDTH + RdmInt(
+                MIN_RESET_X_OFFSET, MAX_RESET_X_OFFSET, false);
+            enemy->Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
         }
+
+        CheckEnemyPlayerCollision(*state, *enemy, players);
+
+        state->Score += CheckEnemyProjCollision(*state, enemy, projs);
     }
 }
 
@@ -70,10 +82,10 @@ static void UpdateProjectiles(GameState state, Scene scene)
     }
 }
 
-void Update(GameState state, Scene scene)
+void Update(GameState* state, Scene scene)
 {
     UpdatePlayers(state, scene);
     UpdateEnemies(state, scene);
-    UpdateProjectiles(state, scene);
+    UpdateProjectiles(*state, scene);
 }
 

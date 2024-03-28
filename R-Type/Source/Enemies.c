@@ -7,6 +7,7 @@
 #include "../Include/Enemies.h"
 #include "../Include/Utility.h"
 #include "../Include/Wave.h"
+#include "../Include/Player.h"
 
 /*
 EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base)
@@ -86,10 +87,42 @@ void SetupEnemy(Enemy* enemy)
 
 void SpawnEnemies(GameArgs gameArgs)
 {
-	int currentLevel = gameArgs.State.CurrentLevel;
+	int currentLevel = gameArgs.State.CurLVL;
 	for (int i = 0; i < gameArgs.Levels[currentLevel].EnemyCount; i++)
 	{
 		SetupEnemy(FindIdleEnemy(gameArgs.Levels[currentLevel].Enemies));
 	}
 }
 
+void CheckEnemyPlayerCollision(GameState state, Enemy enemy, Player* players)
+{
+	SDL_Rect enemyRect = EnemyAsRect(enemy);
+	bool playerAlive;
+	for (int player = 0; player < PLAYER_CNT; player++)
+	{
+		if (!players[player].Active) continue;
+		SDL_Rect playerRect = PlayerAsRect(players[player]);
+		if (SDL_HasIntersection(&playerRect, &enemyRect))
+		{
+			TakeHit(&players[player], state);
+			ResetPlayer(&players[player]);
+			//ResetScene(scene);
+		}
+	}
+}
+
+// returns how much point for the kill else 0 as no kill
+int CheckEnemyProjCollision(GameState state, Enemy* enemy, Projectile* projs)
+{
+	SDL_Rect enemyRect = EnemyAsRect(*enemy);
+	for (int proj = 0; proj < MAX_PROJECTILES; proj++)
+	{
+		SDL_Rect projRect = ProjectileAsRect(projs[proj]);
+		if (SDL_HasIntersection(&projRect, &enemyRect))
+		{
+			enemy->Active = false;
+			return enemy->AwardedPoints;
+		}
+	}
+	return 0;
+}

@@ -35,6 +35,8 @@ typedef struct {
 
 	int Health;
 	int ImmunityDuration;
+	int ID;
+	bool Active;
 } Player;
 
 typedef struct {
@@ -78,10 +80,11 @@ typedef struct {
 	float DeltaTime;
 	float CurrentTime;
 	int Score;
+	int ShotFired;
 	bool Continue;
 	bool Paused;
 	bool ScreenWrappinActive;
-	int CurrentLevel;
+	int CurLVL;
 	InputsSummary Inputs;
 
 } GameState;
@@ -96,17 +99,18 @@ typedef struct {
 	float Speed;
 	bool DropBoost;
 	bool Active;
+	int AwardedPoints;
 } Enemy;
 
-typedef struct {
-	Enemy* Enemies;
-	int nbrEnemies;
-} EnemyQueue;
-
-typedef struct {
-	int nbrEnemies;
-	int Wait;
-} Wave;
+//typedef struct {
+//	Enemy* Enemies;
+//	int nbrEnemies;
+//} EnemyQueue;
+//
+//typedef struct {
+//	int nbrEnemies;
+//	int Wait;
+//} Wave;
 
 typedef struct {
 	SDL_Texture* Background;
