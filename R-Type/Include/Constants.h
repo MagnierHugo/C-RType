@@ -40,6 +40,7 @@
 
 // audio paths can be here
 #define SONG "../Music/BlueNavi-Starcade.mp3"
+#define BLASTER "../Music/blaster.mp3"
 
 // Particles
 
