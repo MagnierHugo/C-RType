@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include "Structs.h"
 
-void ErrorHandling(char* message, SDL sdlStruct);
+int ErrorHandling(char* message, SDL sdlStruct);
 
 SDL StartSDL();
 

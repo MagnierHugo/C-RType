@@ -4,16 +4,13 @@
 #include "../Include/Init.h"
 
 
-Scene* CreateLevels(int nbrLevels, SDL sdl)
+Scene* CreateLevels(int nbrLevels, Textures Tex)
 {
 	Scene* Levels = malloc(nbrLevels * sizeof(Scene));
-	if (Levels == NULL) {
-		ErrorHandling("Error Allocating Memory for levels", sdl);
-	}
 
 	for (int LevelIndex = 0; LevelIndex < nbrLevels; LevelIndex++)
 	{
-		Levels[LevelIndex] = InitScene(sdl);
+		Levels[LevelIndex] = InitScene(Tex);
 	}
 
 	return Levels;

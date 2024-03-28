@@ -7,15 +7,11 @@
 #include "../Include/Constants.h"
 #include "../Include/Utility.h"
 #include "../Include/Wave.h"
-#include "../Include/HandleSDL.h"
 
 
-static EnemyQueue AllocateMemory(int nbrEnemies, SDL sdl)
+static EnemyQueue AllocateMemory(int nbrEnemies)
 {
 	Enemy* enemies = malloc(nbrEnemies * sizeof(Enemy));
-	if (enemies == NULL) {
-		ErrorHandling("Error Allocating Memory for enemies", sdl);
-	}
 
 	EnemyQueue queue = {
 		enemies,
@@ -25,9 +21,9 @@ static EnemyQueue AllocateMemory(int nbrEnemies, SDL sdl)
 	return queue;
 }
 
-EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base, SDL sdl)
+EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base)
 {
-	EnemyQueue queue = AllocateMemory(nbrEnemies, sdl);
+	EnemyQueue queue = AllocateMemory(nbrEnemies);
 
 	for (int queueIndex = 0; queueIndex < nbrEnemies; queueIndex++)
 	{
@@ -53,37 +49,31 @@ EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base, SDL sdl)
 	return queue;
 }
 
-Enemy* UpdateQueue(EnemyQueue queue, SDL sdl)
+Enemy* UpdateQueue(EnemyQueue queue)
 {
 	Enemy* oldQueue = queue.Enemies;
 	Enemy* newQueue = malloc(queue.nbrEnemies * sizeof(Enemy));
-	if (newQueue == NULL) {
-		ErrorHandling("Error Allocating Memory for newQueue", sdl);
-	}
 
 	for (int Index = 0; Index < queue.nbrEnemies; Index++)
 	{
 		if (oldQueue[Index].HP <= 0) {
 			oldQueue[Index], oldQueue[Index + 1] = oldQueue[Index + 1], oldQueue[Index];
 		}
-		if (Index < queue.nbrEnemies) {
-			newQueue[Index] = oldQueue[Index];
-		}
+		newQueue[Index] = oldQueue[Index];
 	}
 
 	free(oldQueue);
 	return newQueue;
 }
 
-void SpawnEnemies(Scene* scene)
+void SpawnEnemies(Scene scene)
 {
-	if (scene->Time + scene->WaitTime <= SDL_GetTicks() && !scene->waveEnd) {
-		printf("Wave head : %d\n", scene->waveHead);
+	if (scene.Time + scene.WaitTime <= SDL_GetTicks()) {
 		Wave wave = PopWave(scene);
-		printf("Enemies in wave : %d\n", wave.nbrEnemies);
-		scene->ActiveEnemies += wave.nbrEnemies;
-		scene->WaitTime = wave.Wait;
-		scene->Time = SDL_GetTicks();
-		scene->waveEnd = wave.isEnd;
+		printf("Wave head : %d / Wave nbrEnemies : %d\n", scene.waveHead, wave.nbrEnemies);
+
+		scene.ActiveEnemies += wave.nbrEnemies;
+		scene.WaitTime = wave.Wait;
+		scene.Time = SDL_GetTicks();
 	}
 }

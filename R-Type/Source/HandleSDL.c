@@ -11,7 +11,7 @@
 #include "../Include/Init.h"
 
 
-void ErrorHandling(char* message,  SDL sdl)
+int ErrorHandling(char* message,  SDL sdl)
 {
     printf("%s\n", message);
     if (&sdl != &(SDL) { NULL, NULL, NULL, NULL }) {

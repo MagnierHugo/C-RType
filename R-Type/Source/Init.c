@@ -8,10 +8,9 @@
 #include "../Include/Enemies.h"
 #include "../Include/Utility.h"
 #include "../Include/Wave.h"
-#include "../Include/HandleSDL.h"
 
 
-GameState InitGameState(SDL sdl)
+GameState InitGameState()
 {
 	GameState gState;
 	gState.DeltaTime = 0;
@@ -20,13 +19,7 @@ GameState InitGameState(SDL sdl)
 	gState.Score = 0;
 	gState.CurrentLevel = 0;
 	gState.Inputs.PlayerInput = malloc(PLAYER_CNT * sizeof( PlayerInput));
-	if (gState.Inputs.PlayerInput == NULL) {
-		ErrorHandling("Error Allocating Memory for PlayerInputs", sdl);
-	}
 	gState.Inputs.InputMap = malloc(PLAYER_CNT * sizeof( InputMap));
-	if (gState.Inputs.InputMap == NULL) {
-		ErrorHandling("Error Allocating Memory for InputMap", sdl);
-	}
 	for (int i = 0; i < PLAYER_CNT; i++)
 	{
 		gState.Inputs.PlayerInput[i].DirX = 0;
@@ -43,12 +36,9 @@ GameState InitGameState(SDL sdl)
 	return gState;
 }
 
-static Player* InitPlayers(SDL_Texture* Tex[2], SDL sdl)
+static Player* InitPlayers(SDL_Texture* Tex[2])
 {
 	Player* players = malloc(PLAYER_CNT * sizeof(Player));
-	if (players == NULL) {
-		ErrorHandling("Error Allocating Memory for players", sdl);
-	}
 
 	for (int i = 0; i < PLAYER_CNT; i++)
 	{
@@ -62,12 +52,9 @@ static Player* InitPlayers(SDL_Texture* Tex[2], SDL sdl)
 	return players;
 }
 
-static Projectile* InitProjectiles(SDL_Texture* Tex, SDL sdl)
+static Projectile* InitProjectiles(SDL_Texture* Tex)
 {
 	Projectile* proj = malloc(MAX_PROJECTILES * sizeof(Projectile));
-	if (proj == NULL) {
-		ErrorHandling("Error Allocating Memory for projectiles", sdl);
-	}
 
 	for (int i = 0; i < MAX_PROJECTILES; i++)
 	{
@@ -80,28 +67,29 @@ static Projectile* InitProjectiles(SDL_Texture* Tex, SDL sdl)
 	return proj;
 }
 
-static Enemy InitBaseEnemy(int baseHp, int  dirX, int dirY, SDL_Texture* Tex)
+static Enemy InitBaseEnemy(int baseHp, float baseSpeed, SDL_Texture* Tex)
 {
 	Enemy baseEnemy = {
-		Tex, SCREEN_WIDTH, 0, dirX, dirY,
+		Tex, SCREEN_WIDTH, 0,
 		ENEMIES_WIDTH, ENEMIES_HEIGHT,
-		ENEMIES_BASE_SPEED, baseHp, NULL
+		baseHp, baseSpeed, NULL
 	};
 
 	return baseEnemy;
 }
 
-Scene InitScene(SDL sdl)
+Scene InitScene(Textures Tex)
 {
-	Enemy baseEnemy = InitBaseEnemy(5, -1, 0, sdl.Tex.EnemyType1);
+	Enemy baseEnemy = InitBaseEnemy(5, 20, Tex.EnemyType1);
 
 	Scene scene = {
-		sdl.Tex.Background,
-		InitPlayers((SDL_Texture* [2]) { sdl.Tex.Player1, sdl.Tex.Player2 }, sdl),
-		InitProjectiles(sdl.Tex.Projectiles, sdl),
-		CreateEnemyQueue(7, baseEnemy, sdl), 0,
-		CreateWaves(7, 3, 1000, sdl), 0, false, 2000,
-		0, false
+		Tex.Background,
+		InitPlayers((SDL_Texture* [2]) { Tex.Player1, Tex.Player2 }),
+		InitProjectiles(Tex.Projectiles),
+		CreateEnemyQueue(7, baseEnemy), 0,
+		CreateWaves(7, 3, 1000), 0, 2000,
+		SDL_GetTicks(),
+		false
 	};
 
 	return scene;

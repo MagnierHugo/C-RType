@@ -1,4 +1,4 @@
 #pragma once
 
-Wave* CreateWaves(int nbrEnemies, int maxEnemiesPerWave, int baseWait, SDL sdl);
-struct Wave PopWave(Scene* scene);
+struct Wave* CreateWaves(int nbrEnemies, int maxEnemiesPerWave, int baseWait);
+struct Wave PopWave(struct Scene scene);

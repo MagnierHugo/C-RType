@@ -59,5 +59,3 @@
 // Some Constants for the enemies
 #define ENEMIES_WIDTH 120
 #define ENEMIES_HEIGHT ENEMIES_WIDTH * 0.81
-
-#define ENEMIES_BASE_SPEED 200
