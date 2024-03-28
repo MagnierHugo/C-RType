@@ -6,9 +6,8 @@
 #include <stdbool.h>
 
 
-typedef struct Projectile
-{
-	SDL_Texture* tex;
+typedef struct {
+	SDL_Texture* Tex;
 
 	float X;
 	float Y;
@@ -22,9 +21,8 @@ typedef struct Projectile
 	bool Active;
 } Projectile;
 
-typedef struct Player
-{
-	SDL_Texture* tex;
+typedef struct {
+	SDL_Texture* Tex;
 
 	float X;
 	float Y;
@@ -37,17 +35,17 @@ typedef struct Player
 
 	int Health;
 	int ImmunityDuration;
+	int ID;
+	bool Active;
 } Player;
 
-typedef struct PlayerInput
-{
+typedef struct {
 	int DirX;
 	int DirY;
 	bool Shooting;
 } PlayerInput;
 
-typedef struct InputMap
-{
+typedef struct {
 	SDL_Scancode Right;
 	SDL_Scancode Left;
 	SDL_Scancode Up;
@@ -55,14 +53,12 @@ typedef struct InputMap
 	SDL_Scancode Shoot;
 } InputMap;
 
-typedef struct InputsSummary
-{
+typedef struct {
 	PlayerInput* PlayerInput;
 	InputMap* InputMap;
 } InputsSummary;
 
-typedef struct Textures
-{
+typedef struct {
 	SDL_Texture* Background;
 	SDL_Texture* Player1;
 	SDL_Texture* Player1Hurt;
@@ -73,78 +69,72 @@ typedef struct Textures
 	// BonusType1
 } Textures;
 
-typedef struct SDL
-{
+typedef struct {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	Textures Tex;
 	TTF_Font* Font;
 } SDL;
 
-typedef struct GameState
-{
+typedef struct {
 	float DeltaTime;
 	float CurrentTime;
 	int Score;
+	int ShotFired;
 	bool Continue;
 	bool Paused;
 	bool ScreenWrappinActive;
-	int CurrentLevel;
+	int CurLVL;
 	InputsSummary Inputs;
 
 } GameState;
 
-typedef struct Enemy
-{
+typedef struct {
 	SDL_Texture* Tex;
-
 	float X;
 	float Y;
 	int Width;
 	int Height;
-
-	float Speed;
-
 	int HP;
+	float Speed;
 	bool DropBoost;
+	bool Active;
+	int AwardedPoints;
 } Enemy;
 
-typedef struct EnemyQueue
-{
-	Enemy* Enemies;
-	int nbrEnemies;
-} EnemyQueue;
+//typedef struct {
+//	Enemy* Enemies;
+//	int nbrEnemies;
+//} EnemyQueue;
+//
+//typedef struct {
+//	int nbrEnemies;
+//	int Wait;
+//} Wave;
 
-typedef struct Wave
-{
-	int nbrEnemies;
-	int Wait;
-} Wave;
-
-typedef struct Scene
-{
-	SDL_Texture* background;
+typedef struct {
+	SDL_Texture* Background;
 	Player* Players;
+	Enemy* Enemies;
 	Projectile* Projectiles;
-	EnemyQueue Queue;
-	int ActiveEnemies;
-	Wave* waves;
-	int waveHead;
-	int WaitTime;
-	int Time;
-	//Particle* Particles;
-	//Bonus* Bonuses;
+	//EnemyQueue Queue;
+	//int ActiveEnemies;
+	//struct Wave* waves;
+	int EnemyCount;
+	//int waveHead;
+	//int WaitTime;
+	//struct Particle* Particles;
+	//struct Bonus* Bonuses;
 	bool ScreenWrappingActive;
 } Scene;
 
-typedef struct GameArgs
-{
+typedef struct {
 	SDL SDL;
 	GameState State;
 	Scene* Levels;
 } GameArgs;
 
-typedef struct Particle {
+typedef struct {
 	int X;
 	int Y;
 
@@ -155,10 +145,10 @@ typedef struct Particle {
 	int Opacity;
 
 	bool Active;
-}Particle;
+} Particle;
 
-typedef struct Button {
+typedef struct {
 	SDL_Rect Rect;  // Rectangle representing button's position and size
 	SDL_Color Color; // Color of the button
 	bool Clicked;
-}Button;
+} Button;

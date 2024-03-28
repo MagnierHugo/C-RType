@@ -2,4 +2,4 @@
 
 #include "Structs.h"
 
-void Draw(struct GameArgs gameArgs, struct Scene curScene);
+void Draw(GameArgs gameArgs, Scene curScene);

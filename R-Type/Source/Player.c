@@ -3,15 +3,38 @@
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
 
-
 void TakeHit(Player* player, GameState state)
 {
 	if (player->LastTimeWasShot + IMMUNITY_DURATION > state.CurrentTime)
 	{
-		printf("was hit while immune: %f, %f\n", player->LastTimeWasShot, state.CurrentTime);
 		return;
 	}
 	player->LastTimeWasShot = state.CurrentTime;
 	player->Health--;
-	printf("was hit\n");
+	printf("hit: %d\n", player->Health);
+	player->Active = player->Health > 0;
+}
+
+void ResetPlayer(Player* player)
+{
+	player->X = SCREEN_WIDTH * .125;
+	player->Y = SCREEN_HEIGHT * .5;
+}
+
+void ResetScene(Scene* scene)
+{
+	for (int i = 0; i < PLAYER_CNT; i++)
+	{
+		scene->Players[i].X = SCREEN_WIDTH * .125;
+		scene->Players[i].Y = SCREEN_HEIGHT * .25 * (2 * i + 1);
+	}
+	for (int i = 0; i < MAX_PROJECTILES; i++)
+	{
+		scene->Projectiles[i].Active = false;
+	}
+	for (int i = 0; i < MAX_ENEMY_CNT; i++)
+	{
+		scene->Enemies[i].X += SCREEN_HEIGHT; // simply shift all of them to the side
+		// if alive they ll come back else we dont care
+	}
 }

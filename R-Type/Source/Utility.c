@@ -29,3 +29,14 @@ SDL_Rect EnemyAsRect(Enemy enemy)
 {
     return (SDL_Rect) { enemy.X, enemy.Y, enemy.Width, enemy.Height };
 }
+
+//void CheckPointer(void* pointer, char* errorMessage, SDL sdl)
+//{
+//    if (pointer == NULL) ErrorHandling(errorMessage, sdl);
+//    else free(pointer);
+//}
+
+void CheckPointer(void* pointer)
+{
+    if (pointer) free(pointer);
+}
