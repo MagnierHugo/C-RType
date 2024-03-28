@@ -100,6 +100,9 @@ typedef struct Enemy
 
 	float X;
 	float Y;
+	int dirX;
+	int dirY;
+
 	int Width;
 	int Height;
 
@@ -119,6 +122,7 @@ typedef struct Wave
 {
 	int nbrEnemies;
 	int Wait;
+	bool isEnd;
 } Wave;
 
 typedef struct Scene
@@ -130,6 +134,7 @@ typedef struct Scene
 	int ActiveEnemies;
 	Wave* waves;
 	int waveHead;
+	bool waveEnd;
 	int WaitTime;
 	int Time;
 	//Particle* Particles;

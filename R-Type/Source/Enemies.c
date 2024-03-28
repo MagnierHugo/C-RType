@@ -7,11 +7,15 @@
 #include "../Include/Constants.h"
 #include "../Include/Utility.h"
 #include "../Include/Wave.h"
+#include "../Include/HandleSDL.h"
 
 
-static EnemyQueue AllocateMemory(int nbrEnemies)
+static EnemyQueue AllocateMemory(int nbrEnemies, SDL sdl)
 {
 	Enemy* enemies = malloc(nbrEnemies * sizeof(Enemy));
+	if (enemies == NULL) {
+		ErrorHandling("Error Allocating Memory for enemies", sdl);
+	}
 
 	EnemyQueue queue = {
 		enemies,
@@ -21,9 +25,9 @@ static EnemyQueue AllocateMemory(int nbrEnemies)
 	return queue;
 }
 
-EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base)
+EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base, SDL sdl)
 {
-	EnemyQueue queue = AllocateMemory(nbrEnemies);
+	EnemyQueue queue = AllocateMemory(nbrEnemies, sdl);
 
 	for (int queueIndex = 0; queueIndex < nbrEnemies; queueIndex++)
 	{
@@ -49,31 +53,37 @@ EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base)
 	return queue;
 }
 
-Enemy* UpdateQueue(EnemyQueue queue)
+Enemy* UpdateQueue(EnemyQueue queue, SDL sdl)
 {
 	Enemy* oldQueue = queue.Enemies;
 	Enemy* newQueue = malloc(queue.nbrEnemies * sizeof(Enemy));
+	if (newQueue == NULL) {
+		ErrorHandling("Error Allocating Memory for newQueue", sdl);
+	}
 
 	for (int Index = 0; Index < queue.nbrEnemies; Index++)
 	{
 		if (oldQueue[Index].HP <= 0) {
 			oldQueue[Index], oldQueue[Index + 1] = oldQueue[Index + 1], oldQueue[Index];
 		}
-		newQueue[Index] = oldQueue[Index];
+		if (Index < queue.nbrEnemies) {
+			newQueue[Index] = oldQueue[Index];
+		}
 	}
 
 	free(oldQueue);
 	return newQueue;
 }
 
-void SpawnEnemies(Scene scene)
+void SpawnEnemies(Scene* scene)
 {
-	if (scene.Time + scene.WaitTime <= SDL_GetTicks()) {
+	if (scene->Time + scene->WaitTime <= SDL_GetTicks() && !scene->waveEnd) {
+		printf("Wave head : %d\n", scene->waveHead);
 		Wave wave = PopWave(scene);
-		printf("Wave head : %d / Wave nbrEnemies : %d\n", scene.waveHead, wave.nbrEnemies);
-
-		scene.ActiveEnemies += wave.nbrEnemies;
-		scene.WaitTime = wave.Wait;
-		scene.Time = SDL_GetTicks();
+		printf("Enemies in wave : %d\n", wave.nbrEnemies);
+		scene->ActiveEnemies += wave.nbrEnemies;
+		scene->WaitTime = wave.Wait;
+		scene->Time = SDL_GetTicks();
+		scene->waveEnd = wave.isEnd;
 	}
 }

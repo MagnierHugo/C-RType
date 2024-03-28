@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-
+#include <time.h>
 
 #include "../Include/HandleSDl.h"
 #include "../Include/Constants.h"
@@ -13,24 +13,26 @@
 #include "../Include/Inputs.h"
 #include "../Include/Menu.h"
 #include "../Include/StartMenu.h"
-//#include "../Include/Menu.h"
+#include "../Include/Menu.h"
 #include "../Include/Levels.h"
 #include "../Include/Enemies.h"
 
 
 int main(int argc, char* argv[])
 {
+	srand(time(NULL));
 	SDL sdlStruct = StartSDL();
-	Scene* Levels = CreateLevels(1, sdlStruct.Tex);
+	Scene* Levels = CreateLevels(1, sdlStruct);
 
 	GameArgs gameArgs =
 	{
 		sdlStruct,
-		InitGameState(),
+		InitGameState(sdlStruct),
 		Levels,
 	};
 
 	StartMenu(gameArgs);
+	gameArgs.Levels[0].Time = SDL_GetTicks();
 
 	while (gameArgs.State.Continue)
 	{
@@ -38,7 +40,7 @@ int main(int argc, char* argv[])
 		gameArgs.State.CurrentTime = SDL_GetTicks();
 
 		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]);
-		Update(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]);
+		Update(gameArgs.State, &gameArgs.Levels[gameArgs.State.CurrentLevel]);
 		Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurrentLevel]);
 
 		SDL_Delay(FRAMERATE);

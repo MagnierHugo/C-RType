@@ -2,4 +2,4 @@
 
 #include "Structs.h"
 
-Scene* CreateLevels(int nbrLevels, Textures Tex);
+Scene* CreateLevels(int nbrLevels, SDL sdl);
