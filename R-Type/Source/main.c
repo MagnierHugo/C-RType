@@ -14,6 +14,7 @@
 #include "../Include/Menu.h"
 #include "../Include/StartMenu.h"
 #include "../Include/Menu.h"
+#include "../Include/Music.h"
 #include "../Include/Levels.h"
 #include "../Include/Enemies.h"
 #include "../Include/Utility.h"
@@ -84,6 +85,8 @@ int main(int argc, char* argv[])
 	};
 
 	StartMenu(gameArgs);
+	PlaySound(SONG, gameArgs.SDL);
+
 	gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 	gameArgs.State.CurrentTime = SDL_GetTicks();
 	SpawnEnemies(gameArgs);
