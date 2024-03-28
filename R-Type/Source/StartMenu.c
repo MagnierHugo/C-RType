@@ -64,6 +64,7 @@ static bool HandleStartMenu(GameArgs gameArgs, Button buttons[4])
                             break;
                         case 3:
                             printf("Quit\n");
+                            SDL_Quit();
                             break;
                     }
                 }
