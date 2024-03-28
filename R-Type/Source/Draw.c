@@ -47,9 +47,7 @@ static void DrawEnemies(Scene scene, SDL sdl)
 		Enemy curEnemy = scene.Queue.Enemies[enemyIndex];
 		SDL_Rect enemyRect = EnemyAsRect(curEnemy);
 
-		printf("Hi There / ");
 		SDL_RenderCopy(sdl.renderer, curEnemy.Tex, NULL, &enemyRect);
-		printf("Its me\n");
 	}
 }
 

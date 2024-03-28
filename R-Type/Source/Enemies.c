@@ -8,6 +8,7 @@
 #include "../Include/Utility.h"
 #include "../Include/Wave.h"
 #include "../Include/Player.h"
+#include "../Include/HandleSDL.h"
 
 
 static EnemyQueue AllocateMemory(int nbrEnemies, SDL sdl)
@@ -36,15 +37,13 @@ EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base, SDL sdl)
 		enemy.DropBoost = RdmInt(0, 4, true) % 4 == 0 ? true : false;
 		enemy.Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
 
-		if (queueIndex < nbrEnemies * 0.75) {
-			enemy.HP += RdmInt(0, enemy.HP / 2, true);
-		}
-		else if (queueIndex < nbrEnemies - 1) {
-			enemy.HP += RdmInt(enemy.HP / 2, enemy.HP, false);
-		}
-		else {
-			enemy.HP *= 4;
-			enemy.DropBoost = false;
+		if (queueIndex > nbrEnemies * 0.25) {
+			if (queueIndex < nbrEnemies * 0.75) {
+				enemy.HP += RdmInt(0, enemy.HP / 2, true);
+			}
+			else {
+				enemy.HP += RdmInt(enemy.HP / 2, enemy.HP, false);
+			}
 		}
 
 		queue.Enemies[queueIndex] = enemy;
@@ -61,16 +60,15 @@ Enemy* UpdateQueue(EnemyQueue queue, SDL sdl)
 		ErrorHandling("Error Allocating Memory for newQueue", sdl);
 	}
 
-	bool skipOne = false;
+	int skipOne = 0;
 
 	for (int Index = 0; Index < queue.nbrEnemies; Index++)
 	{
 		if (oldQueue[Index].HP <= 0) {
-			skipOne = true;
-			continue;
+			skipOne = 1;
 		}
 		if (Index < queue.nbrEnemies) {
-			newQueue[Index - skipOne] = oldQueue[Index];
+			newQueue[Index] = oldQueue[Index + skipOne];
 		}
 	}
 
@@ -80,7 +78,7 @@ Enemy* UpdateQueue(EnemyQueue queue, SDL sdl)
 
 void SpawnEnemies(Scene* scene)
 {
-	if (scene->Time + scene->WaitTime <= SDL_GetTicks() && !scene->waveEnd) {
+	if ((unsigned)(scene->Time + scene->WaitTime) <= SDL_GetTicks() && !scene->waveEnd) {
 		Wave wave = PopWave(scene);
 		scene->ActiveEnemies += wave.nbrEnemies;
 		scene->WaitTime = wave.Wait;
@@ -119,7 +117,6 @@ void SpawnEnemies(Scene* scene)
 void CheckEnemyPlayerCollision(GameState state, Enemy* enemy, Player* players)
 {
 	SDL_Rect enemyRect = EnemyAsRect(*enemy);
-	bool playerAlive;
 	for (int player = 0; player < PLAYER_CNT; player++)
 	{
 		if (!players[player].Active) continue;
@@ -146,7 +143,6 @@ int CheckEnemyProjCollision(GameState state, Enemy* enemy, EnemyQueue* queue, Pr
 		{
 			curProj->Active = false;
 			enemy->HP -= 1;
-			printf("Enemy Hp : %d", enemy->HP);
 			if (enemy->HP <= 0) { return enemy->AwardedPoints; }
 		}
 	}

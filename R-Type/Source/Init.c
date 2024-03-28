@@ -90,7 +90,7 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 	Enemy baseEnemy = {
 		sdl.Tex.EnemyType1, SCREEN_WIDTH, 0, dirX, dirY,
 		ENEMIES_WIDTH, ENEMIES_HEIGHT,
-		ENEMY_SPEED, baseHp, NULL
+		ENEMY_SPEED, baseHp, 0
 	};
 
 	Scene scene = {
@@ -99,7 +99,7 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 		//InitEnemies(sdl.Tex.EnemyType1),
 		InitProjectiles(sdl.Tex.Projectiles),
 		CreateEnemyQueue(7, baseEnemy, sdl), 0,
-		CreateWaves(7, 3, 1000, sdl), 0, false, 2000,
+		CreateWaves(1, 3, 3000, sdl), 0, false, 2000,
 		0, false
 		/*10,
 		false*/

@@ -34,7 +34,7 @@
 #define PROJECTILE_WIDTH 25
 #define PROJECTILE_HEIGHT 10
 
-#define LEVEL_COUNT 1
+#define LEVEL_COUNT 3
 // Music & Sound
 #define NUMBER_OF_CHANNELS 3
 
@@ -59,7 +59,7 @@
 
 // Some Constants for the enemies
 #define ENEMIES_WIDTH 120
-#define ENEMIES_HEIGHT ENEMIES_WIDTH * 0.81
+#define ENEMIES_HEIGHT (int)(ENEMIES_WIDTH * 0.81)
 
 #define ENEMY_SPEED 150
 

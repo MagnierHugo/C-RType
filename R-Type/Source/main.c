@@ -1,7 +1,9 @@
 #include <SDL.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 
 #include "../Include/HandleSDl.h"
@@ -37,8 +39,9 @@ static void ClearScene(Scene scene, SDL sdl)
 static void QuitGame(GameArgs gameArgs)
 {
 	// clear textures
-	ErrorHandling("Thanks for playing", gameArgs.SDL); // not an error but actually cleans so it s convenient
-
+	printf("Thanks for playing"); // not an error but actually cleans so it s convenient
+	CloseSDL(gameArgs);
+	exit(EXIT_SUCCESS);
 }
 
 // -1 lost | 0 in progress | 1 won
@@ -67,9 +70,9 @@ void EndScreen(GameArgs args) {
 			else if (event.type == SDL_MOUSEBUTTONDOWN) loop = false;
 		}
 		SDL_RenderCopy(sdl.renderer, sdl.Tex.Background, NULL, NULL);
-		RenderText(sdl, args.State.Score, "Score: ",
+		RenderText(sdl, "Score: ", args.State.Score,
 			SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-		RenderText(sdl, args.State.ShotFired, "Shots fired: ",
+		RenderText(sdl, "Shots fired: ", args.State.ShotFired,
 			SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 25);
 	}
 }
@@ -79,7 +82,7 @@ int main(int argc, char* argv[])
 	srand(time(NULL));
 
 	SDL sdlStruct = StartSDL();
-	Scene* Levels = CreateLevels(1, sdlStruct);
+	Scene* Levels = CreateLevels(LEVEL_COUNT, sdlStruct);
 
 	GameArgs gameArgs =
 	{
@@ -91,40 +94,41 @@ int main(int argc, char* argv[])
 	StartMenu(gameArgs);
 	gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 	gameArgs.State.CurrentTime = SDL_GetTicks();
-	gameArgs.Levels[0].Time = gameArgs.State.CurrentTime;
 	//SpawnEnemies(gameArgs);
-	int endGame;
 
-	while (gameArgs.State.Continue)
+	for (int i = 0; i < LEVEL_COUNT; i++)
 	{
-		gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
-		gameArgs.State.CurrentTime = SDL_GetTicks();
-
-		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL]);
-		Update(&gameArgs.State, &gameArgs.Levels[gameArgs.State.CurLVL], sdlStruct);
-		Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurLVL]);
-
-		SDL_Delay(FRAMERATE);
-
-		endGame = CheckEndGame(gameArgs.Levels[gameArgs.State.CurLVL]);
-		if (endGame > 0)
+		gameArgs.Levels[i].Time = gameArgs.State.CurrentTime;
+		int endGame;
+		while (gameArgs.State.Continue)
 		{
-			gameArgs.State.CurLVL++;
-			ClearScene(gameArgs.Levels[gameArgs.State.CurLVL], gameArgs.SDL);
-			if (gameArgs.State.CurLVL + 1 == LEVEL_COUNT) break;
-		}
-		else if (endGame < 0)
-		{
-			gameArgs.State.CurLVL = -1;
-			ClearScene(gameArgs.Levels[gameArgs.State.CurLVL], gameArgs.SDL);
-			break;
+			gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
+			gameArgs.State.CurrentTime = SDL_GetTicks();
+
+			HandleInputs(gameArgs.State, gameArgs.Levels[i]);
+			Update(&gameArgs.State, &gameArgs.Levels[i], sdlStruct);
+			Draw(gameArgs, gameArgs.Levels[i]);
+
+			SDL_Delay(FRAMERATE);
+
+			endGame = CheckEndGame(gameArgs.Levels[i]);
+			if (endGame > 0)
+			{
+				ClearScene(gameArgs.Levels[i], gameArgs.SDL);
+				break;
+			}
+			else if (endGame < 0)
+			{
+				ClearScene(gameArgs.Levels[i], gameArgs.SDL);
+				gameArgs.State.Continue = false;
+			}
 		}
 	}
 
 	EndScreen(gameArgs);
-	SDL_Delay(50000);
 	QuitGame(gameArgs);
-	return 1;
+
+	return 0;
 }
 
 
