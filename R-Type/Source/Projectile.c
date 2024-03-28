@@ -4,7 +4,7 @@
 #include "../Include/Structs.h"
 #include "../Include/Music.h"
 
-void ShootPlayerProjectile(Player player, Projectile* projs, GameState* state)
+void ShootPlayerProjectile(Player player, Projectile* projs, GameState* state, GameArgs gameArgs)
 {
 	for (int i = 0; i < MAX_PROJECTILES; i++)
 	{

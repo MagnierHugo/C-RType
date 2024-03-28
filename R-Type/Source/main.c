@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
 		gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 		gameArgs.State.CurrentTime = SDL_GetTicks();
 		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL]);
-		Update(&gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL]);
+		Update(&gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL], gameArgs);
 		Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurLVL]);
 
 		SDL_Delay(FRAMERATE);

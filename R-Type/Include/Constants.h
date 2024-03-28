@@ -56,6 +56,7 @@
 
 #define SCORE_Y 700
 #define SHOTS_FIRED_Y 725
+#define LEVEL_Y 700
 
 
 // Some Constants for the enemies
