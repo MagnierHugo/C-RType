@@ -24,6 +24,8 @@
     <ClCompile Include="Source\HandleSDL.c" />
     <ClCompile Include="Source\Init.c" />
     <ClCompile Include="Source\Inputs.c" />
+    <ClCompile Include="Source\Interface.c" />
+    <ClCompile Include="Source\Joystick.c" />
     <ClCompile Include="Source\Levels.c" />
     <ClCompile Include="Source\main.c" />
     <ClCompile Include="Source\Menu.c" />
@@ -45,6 +47,8 @@
     <ClInclude Include="Include\HandleSDL.h" />
     <ClInclude Include="Include\Init.h" />
     <ClInclude Include="Include\Inputs.h" />
+    <ClInclude Include="Include\Interface.h" />
+    <ClInclude Include="Include\Joystick.h" />
     <ClInclude Include="Include\Levels.h" />
     <ClInclude Include="Include\Menu.h" />
     <ClInclude Include="Include\Music.h" />
@@ -71,6 +75,7 @@
     <Image Include="..\Sprites\Soot1.png" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="..\Music\blaster.mp3" />
     <Media Include="..\Music\BlueNavi-Starcade.mp3" />
   </ItemGroup>
   <ItemGroup>

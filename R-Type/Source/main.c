@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
 		gameArgs.State.CurrentTime = SDL_GetTicks();
 
 		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]);
-		Update(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]);
+		Update(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel], gameArgs);
 		Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurrentLevel]);
 
 		SDL_Delay(FRAMERATE);

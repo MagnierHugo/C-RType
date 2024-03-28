@@ -40,6 +40,7 @@
 
 // audio paths can be here
 #define SONG "../Music/BlueNavi-Starcade.mp3"
+#define BLASTER "../Music/blaster.mp3"
 
 // Particles
 
@@ -54,6 +55,7 @@
 
 
 #define SCORE_Y 700
+#define LEVEL_Y 700
 
 
 // Some Constants for the enemies

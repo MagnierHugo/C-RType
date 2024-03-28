@@ -32,18 +32,18 @@ static void DrawProjectiles(Projectile* projectiles,  SDL sdl)
 static void RenderScore( SDL sdl,  GameState state)
 {
 	char textBuffer[20];
-	snprintf(textBuffer, 20, "Texte : %d", state.Score); // Mettre à jour le texte avec la nouvelle valeur
+	snprintf(textBuffer, 20, "Score : %d", state.Score);
 	SDL_Rect textRect;
-	SDL_Surface* scoreSurface = TTF_RenderText_Solid(sdl.Font, textBuffer, ( SDL_Color) { 255, 255, 255, 255 });
+	SDL_Surface* scoreSurface = TTF_RenderText_Solid(sdl.Font, textBuffer, (SDL_Color) { 255, 255, 255, 255 });
 	if (scoreSurface == NULL) {
-		ErrorHandling("Erreur lors de la creation du texte score", sdl);
+		ErrorHandling("Erreur texte score", sdl);
 	}
 
 
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl.renderer, scoreSurface); // Convertir la surface en texture
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl.renderer, scoreSurface);
 	if (texture == NULL) {
 		SDL_FreeSurface(scoreSurface);
-		ErrorHandling("Erreur lors de la création de la texture de texte", sdl);
+		ErrorHandling("Erreur texture de texte", sdl);
 	}
 
 	textRect.w = scoreSurface->w;
@@ -81,5 +81,6 @@ void Draw( GameArgs gameArgs, Scene curScene)
 	DrawEnemies(curScene, sdl);
 	DrawProjectiles(curScene.Projectiles, sdl);
 	RenderScore(sdl, gameArgs.State);
+	RenderLevel(sdl, gameArgs.State);
 	SDL_RenderPresent(renderer); // update display
 }

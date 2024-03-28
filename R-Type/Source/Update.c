@@ -10,7 +10,7 @@
 #include "../Include/Enemies.h"
 
 
-static void UpdatePlayers(GameState state, Scene scene)
+static void UpdatePlayers(GameState state, Scene scene, GameArgs gameArgs)
 {
     Player* players = scene.Players;
     for (int i = 0; i < PLAYER_CNT; i++)
@@ -22,7 +22,8 @@ static void UpdatePlayers(GameState state, Scene scene)
         {
             if (players[i].LastTimeShot + SHOOTING_RATE < state.CurrentTime)
             {
-                ShootPlayerProjectile(players[i], scene.Projectiles);
+                ShootPlayerProjectile(players[i], scene.Projectiles, gameArgs);
+
                 players[i].LastTimeShot = state.CurrentTime;
             }
         }
@@ -69,9 +70,9 @@ static void UpdateEnemies(GameState state, Scene scene)
     }
 }
 
-void Update(GameState state, Scene scene)
+void Update(GameState state, Scene scene, GameArgs gameArgs)
 {
-    UpdatePlayers(state, scene);
+    UpdatePlayers(state, scene, gameArgs);
     UpdateProjectiles(state, scene);
     UpdateEnemies(state, scene);
 }

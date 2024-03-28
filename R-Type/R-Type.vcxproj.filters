@@ -69,6 +69,12 @@
     <ClCompile Include="Source\Player.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Joystick.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Interface.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Utility.h">
@@ -128,6 +134,12 @@
     <ClInclude Include="Include\Player.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Joystick.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Interface.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Sprites\Boom.gif">
@@ -160,6 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\Music\BlueNavi-Starcade.mp3">
+      <Filter>Fichiers de ressources</Filter>
+    </Media>
+    <Media Include="..\Music\blaster.mp3">
       <Filter>Fichiers de ressources</Filter>
     </Media>
   </ItemGroup>
