@@ -29,7 +29,3 @@ void CheckPointer(void* pointer, char* errorMessage, SDL sdl)
     }
 }
 
-//void CheckPointer(void* pointer)
-//{
-//    if (pointer) free(pointer);
-//}

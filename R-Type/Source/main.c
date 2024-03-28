@@ -13,6 +13,7 @@
 #include "../Include/Update.h"
 #include "../Include/Draw.h"
 #include "../Include/Inputs.h"
+#include "../Include/HandleJoystick.h"
 #include "../Include/Menu.h"
 #include "../Include/StartMenu.h"
 #include "../Include/Levels.h"
@@ -74,6 +75,7 @@ void EndScreen(GameArgs args) {
 			SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		RenderText(sdl, "Shots fired: ", args.State.ShotFired,
 			SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 25);
+		SDL_RenderPresent(sdl.renderer);
 	}
 }
 
@@ -105,7 +107,9 @@ int main(int argc, char* argv[])
 			gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 			gameArgs.State.CurrentTime = SDL_GetTicks();
 
-			HandleInputs(gameArgs.State, gameArgs.Levels[i]);
+
+			CheckForJoystick(&gameArgs);
+			HandleInputs(&gameArgs);
 			Update(&gameArgs.State, &gameArgs.Levels[i], sdlStruct);
 			Draw(gameArgs, gameArgs.Levels[i]);
 

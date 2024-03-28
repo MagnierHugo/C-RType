@@ -10,6 +10,7 @@
 #include "../Include/Enemies.h"
 #include "../Include/Wave.h"
 #include "../Include/Utility.h"
+#include "../Include/HandleJoystick.h"
 
 
 GameState InitGameState()
@@ -20,9 +21,11 @@ GameState InitGameState()
 	gState.Continue = true;
 	gState.Score = 0;
 	gState.ShotFired = 0;
+	gState.EnemyKilled = 0;
 	gState.CurLVL = 0;
 	gState.Inputs.PlayerInput = malloc(PLAYER_CNT * sizeof( PlayerInput));
 	gState.Inputs.InputMap = malloc(PLAYER_CNT * sizeof( InputMap));
+	gState.Joysticks = DetectJoystick(GetJoystickCount());
 	for (int i = 0; i < PLAYER_CNT; i++)
 	{
 		gState.Inputs.PlayerInput[i].DirX = 0;
@@ -92,7 +95,7 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 	Enemy baseEnemy = {
 		sdl.Tex.EnemyType1, SCREEN_WIDTH, 0, dirX, dirY,
 		ENEMIES_WIDTH, ENEMIES_HEIGHT,
-		ENEMY_SPEED, baseHp, 0
+		ENEMY_SPEED, baseHp, BASE_ENEMY_AWARDED_POINTS, false
 	};
 
 	Scene scene = {

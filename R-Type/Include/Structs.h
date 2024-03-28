@@ -56,6 +56,7 @@ typedef struct {
 typedef struct {
 	PlayerInput* PlayerInput;
 	InputMap* InputMap;
+	int JoysticksAvailable;
 } InputsSummary;
 
 typedef struct {
@@ -89,11 +90,13 @@ typedef struct {
 	float CurrentTime;
 	int Score;
 	int ShotFired;
+	int EnemyKilled;
 	bool Continue;
 	bool Paused;
 	bool ScreenWrappinActive;
 	int CurLVL;
 	InputsSummary Inputs;
+	SDL_Joystick* Joysticks;
 
 } GameState;
 

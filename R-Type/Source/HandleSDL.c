@@ -60,6 +60,10 @@ static void InitSDL( SDL sdl)
         ErrorHandling("Erreur initialisation de SDL TTF", sdl);
     }
 
+    if (SDL_Init(SDL_INIT_JOYSTICK) < 0) {
+        ErrorHandling("Erreur Joystick Init failed", sdl);
+    }
+
 }
 
  SDL StartSDL()

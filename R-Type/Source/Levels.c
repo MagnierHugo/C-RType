@@ -6,15 +6,15 @@
 
 Scene* CreateLevels(int nbrLevels, SDL sdl)
 {
-	Scene* Levels = malloc(nbrLevels * sizeof(Scene));
-	if (Levels == NULL) {
+	Scene* levels = malloc(nbrLevels * sizeof(Scene));
+	if (levels == NULL) {
 		ErrorHandling("Error Allocating Memory for levels", sdl);
 	}
 
-	for (int LevelIndex = 0; LevelIndex < nbrLevels; LevelIndex++)
+	for (int levelIndex = 0; levelIndex < nbrLevels; levelIndex++)
 	{
-		Levels[LevelIndex] = InitScene(sdl, 5, -1, 0);
+		levels[levelIndex] = InitScene(sdl, 5, -1, 0);
 	}
 
-	return Levels;
+	return levels;
 }

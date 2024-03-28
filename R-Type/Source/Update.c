@@ -98,7 +98,10 @@ static void UpdateEnemies(GameState* state, Scene* scene, SDL sdl)
         
         CheckEnemyPlayerCollision(*state, enemy, players);
         
-        state->Score += CheckEnemyProjCollision(*state, enemy, queue, projs, sdl);
+        int scoreBefore = state->Score;
+        state->Score += CheckEnemyProjCollision(enemy, queue, projs, sdl);
+
+        if (scoreBefore < state->Score) state->EnemyKilled++;
     }
 }
 

@@ -21,7 +21,7 @@ void CheckEnemyPlayerCollision(GameState state, Enemy* enemy, Player* players)
 }
 
 // returns how much point for the kill else 0 as no kill
-int CheckEnemyProjCollision(GameState state, Enemy* enemy, EnemyQueue* queue, Projectile* projs, SDL sdl)
+int CheckEnemyProjCollision(Enemy* enemy, EnemyQueue* queue, Projectile* projs, SDL sdl)
 {
 	SDL_Rect enemyRect = EnemyAsRect(*enemy);
 	for (int proj = 0; proj < MAX_PROJECTILES; proj++)

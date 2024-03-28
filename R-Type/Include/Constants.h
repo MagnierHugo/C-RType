@@ -11,8 +11,6 @@
 #define SCREEN_HEIGHT 766
 #define FRAMERATE 1000/60
 
-#define OUT_OF_BOUNDS_THRESHOLD 100
-
 // Player
 
 #define PLAYER_CNT 2
@@ -52,7 +50,9 @@
 #define BUTTON_SPACING 25
 
 
-#define SCORE_Y 700
+#define ENEMY_KILLED_Y 650
+#define SCORE_Y 675
+#define LEVEL_Y 700
 #define SHOTS_FIRED_Y 725
 
 
@@ -63,3 +63,9 @@
 #define ENEMY_SPEED 150
 
 #define BASE_ENEMY_AWARDED_POINTS 100
+
+// Inputs
+
+#define DEADZONE 8000
+#define JOY_POS 32767.0f
+#define SENSITIVITY 5

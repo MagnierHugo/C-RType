@@ -2,4 +2,4 @@
 
 #include "Structs.h"
 
-void HandleInputs(GameState state, Scene scene);
+void HandleInputs(GameArgs* args);
