@@ -44,9 +44,9 @@ static void DrawEnemies(Scene scene, SDL sdl)
 {
 	for (int enemy = 0; enemy < scene.EnemyCount; enemy++)
 	{
+
 		Enemy curEnemy = scene.Enemies[enemy];
 		if (!curEnemy.Active) continue;
-		// Enemy curEnemy = scene.Queue.Enemies[enemyIndex];
 
 		SDL_Rect enemyRect = EnemyAsRect(curEnemy);
 		SDL_RenderCopy(sdl.renderer, curEnemy.Tex, NULL, &enemyRect);

@@ -91,51 +91,40 @@ typedef struct {
 
 typedef struct {
 	SDL_Texture* Tex;
-
 	float X;
 	float Y;
-	int dirX;
-	int dirY;
-
 	int Width;
 	int Height;
-
-	float Speed;
-
 	int HP;
+	float Speed;
 	bool DropBoost;
 	bool Active;
 	int AwardedPoints;
 } Enemy;
 
+//typedef struct {
+//	Enemy* Enemies;
+//	int nbrEnemies;
+//} EnemyQueue;
+//
+//typedef struct {
+//	int nbrEnemies;
+//	int Wait;
+//} Wave;
 
 typedef struct {
-	Enemy* Enemies;
-	int nbrEnemies;
-} EnemyQueue;
-
-typedef struct {
-	int nbrEnemies;
-	int Wait;
-	bool isEnd;
-} Wave;
-
-typedef struct Scene
-{
-	SDL_Texture* background;
+	SDL_Texture* Background;
 	Player* Players;
-	Projectile* Projectiles;
 	Enemy* Enemies;
-	EnemyQueue Queue;
-	int ActiveEnemies;
+	Projectile* Projectiles;
+	//EnemyQueue Queue;
+	//int ActiveEnemies;
+	//struct Wave* waves;
 	int EnemyCount;
-	Wave* waves;
-	int waveHead;
-	bool waveEnd;
-	int WaitTime;
-	int Time;
-	//Particle* Particles;
-	//Bonus* Bonuses;
+	//int waveHead;
+	//int WaitTime;
+	//struct Particle* Particles;
+	//struct Bonus* Bonuses;
 	bool ScreenWrappingActive;
 } Scene;
 

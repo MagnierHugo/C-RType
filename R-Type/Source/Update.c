@@ -45,7 +45,7 @@ static void UpdatePlayers(GameState* state, Scene scene)
     }
 }
 
-static void UpdateEnemies_(GameState* state, Scene scene)
+static void UpdateEnemies(GameState* state, Scene scene)
 {
     Enemy* enemies = scene.Enemies;
     Player* players = scene.Players;
@@ -82,31 +82,10 @@ static void UpdateProjectiles(GameState state, Scene scene)
     }
 }
 
-// void Update(GameState* state, Scene scene)
-// {
-//     UpdatePlayers(state, scene);
-//     UpdateEnemies(state, scene);
-//     UpdateProjectiles(*state, scene);
-// }
-
-static void UpdateEnemies(GameState state, Scene* scene)
+void Update(GameState* state, Scene scene)
 {
-    SpawnEnemies(scene);
-
-    EnemyQueue* queue = &scene->Queue;
-
-    for (int i = 0; i < scene->ActiveEnemies; i++)
-    {
-        Enemy* enemy = &queue->Enemies[i];
-
-        enemy->X += enemy->dirX * enemy->Speed * state.DeltaTime;
-        enemy->Y += enemy->dirY * enemy->Speed * state.DeltaTime;
-    }
-}
-
-void Update(GameState state, Scene* scene)
-{
-    UpdatePlayers(state, *scene);
-    UpdateProjectiles(state, *scene);
+    UpdatePlayers(state, scene);
     UpdateEnemies(state, scene);
+    UpdateProjectiles(*state, scene);
 }
+
