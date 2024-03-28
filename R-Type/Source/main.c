@@ -2,14 +2,14 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-
+#include <time.h>
 
 #include "../Include/HandleSDl.h"
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
 #include "../Include/Init.h"
 #include "../Include/Update.h"
-#include "../Include/Draw.h"ds
+#include "../Include/Draw.h"
 #include "../Include/Inputs.h"
 #include "../Include/Menu.h"
 #include "../Include/StartMenu.h"
@@ -72,13 +72,14 @@ void EndScreen(GameArgs args) {
 
 int main(int argc, char* argv[])
 {
+	srand(time(NULL));
 	SDL sdlStruct = StartSDL();
-	Scene* Levels = CreateLevels(1, sdlStruct.Tex);
+	Scene* Levels = CreateLevels(1, sdlStruct);
 
 	GameArgs gameArgs =
 	{
 		sdlStruct,
-		InitGameState(),
+		InitGameState(sdlStruct),
 		Levels,
 	};
 
@@ -87,13 +88,19 @@ int main(int argc, char* argv[])
 	gameArgs.State.CurrentTime = SDL_GetTicks();
 	SpawnEnemies(gameArgs);
 	int endGame;
+	gameArgs.Levels[0].Time = SDL_GetTicks();
+
 	while (gameArgs.State.Continue)
 	{
 		gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 		gameArgs.State.CurrentTime = SDL_GetTicks();
-		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL]);
-		Update(&gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL]);
-		Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurLVL]);
+		// HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL]);
+		// Update(&gameArgs.State, gameArgs.Levels[gameArgs.State.CurLVL]);
+		// Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurLVL]);
+
+		HandleInputs(gameArgs.State, gameArgs.Levels[gameArgs.State.CurrentLevel]);
+		Update(gameArgs.State, &gameArgs.Levels[gameArgs.State.CurrentLevel]);
+		Draw(gameArgs, gameArgs.Levels[gameArgs.State.CurrentLevel]);
 
 		SDL_Delay(FRAMERATE);
 

@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include "../Include/Structs.h"
+#include "../Include/HandleSDl.h"
+
 
 int RdmInt(int min, int max, bool nonZero)
 {
@@ -13,6 +16,13 @@ int RdmInt(int min, int max, bool nonZero)
     } while (nonZero && rdm == 0);
 
     return rdm;
+}
+
+void CheckPointer(void* pointer, char* errorMessage, SDL sdl)
+{
+    if (pointer == NULL) {
+        ErrorHandling(errorMessage, sdl);
+    }
 }
 
 SDL_Rect PlayerAsRect(Player player)
@@ -28,15 +38,4 @@ SDL_Rect ProjectileAsRect(Projectile proj) // polymorphism would ve been great
 SDL_Rect EnemyAsRect(Enemy enemy)
 {
     return (SDL_Rect) { enemy.X, enemy.Y, enemy.Width, enemy.Height };
-}
-
-//void CheckPointer(void* pointer, char* errorMessage, SDL sdl)
-//{
-//    if (pointer == NULL) ErrorHandling(errorMessage, sdl);
-//    else free(pointer);
-//}
-
-void CheckPointer(void* pointer)
-{
-    if (pointer) free(pointer);
 }
