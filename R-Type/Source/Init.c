@@ -26,7 +26,9 @@ GameState InitGameState(SDL sdl)
 	gState.EnemyKilled = 0;
 	gState.CurLVL = 0;
 	gState.Inputs.PlayerInput = malloc(PLAYER_CNT * sizeof(PlayerInput));
+	//CheckPointerKill(gState.Inputs.PlayerInput, "Inputs", sdl);
 	gState.Inputs.InputMap = malloc(PLAYER_CNT * sizeof(InputMap));
+	//CheckPointerKill(gState.Inputs.InputMap, "InputMap", sdl);
 	gState.Joysticks = DetectJoystick(GetJoystickCount(), sdl);
 	for (int i = 0; i < PLAYER_CNT; i++)
 	{

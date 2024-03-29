@@ -26,7 +26,7 @@ Animation* AddAnimation(SDL sdl, SDL_Texture** Tex, int nbrFrames, int pos[2])
 	Animation anime = CreateAnime(Tex, nbrFrames, pos[0], pos[1]);
 
 	Animation* newAnimes = malloc(nbrAnimation * sizeof(Animation));
-	CheckPointer(newAnimes, "Error Allocating memory for add animations", sdl);
+	CheckPointerKill(newAnimes, "Error Allocating memory for add animations", sdl);
 
 	for (int index = 0; index < nbrAnimation - 1; index++)
 	{
@@ -44,7 +44,7 @@ Animation* DeleteAnimation(SDL sdl, int delPos)
 
 	Animation* oldAnimes = sdl.animes;
 	Animation* newAnimes = malloc(nbrAnimation * sizeof(Animation));
-	CheckPointer(newAnimes, "Error Allocating memory for delete animation", sdl);
+	CheckPointerKill(newAnimes, "Error Allocating memory for delete animation", sdl);
 
 	bool skipOne = false;
 

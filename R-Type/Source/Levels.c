@@ -11,8 +11,8 @@
 
 Scene* CreateLevels(int nbrLevels, SDL sdl)
 {
-	Scene* Levels = malloc(nbrLevels * sizeof(Scene));
-	CheckPointer(Levels, "Error Allocating Memory for levels", sdl);
+	Scene* levels = malloc(nbrLevels * sizeof(Scene));
+	CheckPointerKill(levels, "Error Allocating Memory for levels", sdl);
 
 	for (int levelIndex = 0; levelIndex < nbrLevels; levelIndex++)
 	{

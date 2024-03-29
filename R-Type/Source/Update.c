@@ -23,7 +23,7 @@ static void UpdatePlayers(GameState* state, Scene scene, GameArgs gameArgs)
         PlayerInput inputs = state->Inputs.PlayerInput[i];
         players[i].X += inputs.DirX * players[i].Speed * state->DeltaTime;
         players[i].Y += inputs.DirY * players[i].Speed * state->DeltaTime;
-        if (state->Inputs.PlayerInput[i].Shooting)
+        if (inputs.Shooting)
         {
             if (players[i].LastTimeShot + SHOOTING_RATE < state->CurrentTime)
             {
@@ -118,12 +118,11 @@ static void UpdateProjectiles(GameState state, Scene scene, GameArgs gameArgs)
         if (proj[i].X > SCREEN_WIDTH) { proj[i].Active = false; }
     }
 }
-
 void Update(GameArgs* gameArgs, Scene* scene)
 {
-    UpdatePlayers(&gameArgs->State, *scene);
+    UpdatePlayers(&gameArgs->State, *scene, *gameArgs);
     UpdateEnemies(&gameArgs->State, scene, &gameArgs->SDL);
-    UpdateProjectiles(gameArgs->State, *scene);
+    UpdateProjectiles(gameArgs->State, *scene, *gameArgs);
 // void Update(GameState* state, Scene* scene, SDL sdl, GameArgs gameArgs)
 // {
 //     UpdatePlayers(state, *scene, gameArgs);

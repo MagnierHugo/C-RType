@@ -96,8 +96,8 @@ int main(int argc, char* argv[])
 			Tick(&gameArgs.State);
 
 			HandleInputs(&gameArgs);
-			Update(&gameArgs.State, &gameArgs.Levels[i], sdlStruct, gameArgs);
-			Draw(gameArgs, gameArgs.Levels[i]);
+			Update(&gameArgs, &gameArgs.Levels[i]);
+			Draw(&gameArgs, gameArgs.Levels[i]);
 			SDL_Delay(FRAMERATE);
 
 			endGame = CheckEndGame(gameArgs.Levels[i], gameArgs.SDL);
