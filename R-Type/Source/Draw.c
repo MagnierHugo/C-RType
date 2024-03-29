@@ -9,6 +9,7 @@
 #include "../Include/Rect.h"
 #include "../Include/Animation.h"
 #include "../Include/Bonus.h"
+#include "../Include/Boss.h"
 
 
 static void DrawPlayer(Player* players, SDL sdl)
@@ -65,6 +66,10 @@ void Draw(GameArgs* gameArgs, Scene curScene)
 	DrawEnemies(curScene, *sdl);
 	DrawProjectiles(curScene.Projectiles, *sdl);
 	DrawBonuses(*sdl, curScene.Bonuses);
+	if (gameArgs->State.CurLVL == LEVEL_COUNT &&
+		gameArgs->Levels->Queue.nbrEnemies == 0) {
+		DrawBoss(gameArgs);
+	}
 
 	RunAnimations(sdl);
 

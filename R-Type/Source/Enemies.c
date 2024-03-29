@@ -83,30 +83,3 @@ void SpawnEnemies(Scene* scene)
 	}
 }
 
-//Enemy* FindIdleEnemy(Enemy* enemies)
-//{
-//	for (int i = 0; i < MAX_ENEMY_CNT; i++)
-//	{
-//		if (!enemies[i].Active) return &enemies[i];
-//	}
-//	printf("No available enemy expand the buffer");
-//	return &enemies[0]; // wont compile otherwise
-//}
-//
-//void SetupEnemy(Enemy* enemy)
-//{
-//	enemy->Active = true;
-//	enemy->X += RdmInt(0, MAX_SPAWN_X_OFFSET, false);
-//	enemy->Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
-//	enemy->DropBoost = rand() % 2;
-//}
-//
-//void SpawnEnemies(GameArgs gameArgs)
-//{
-//	int currentLevel = gameArgs.State.CurLVL;
-//	for (int i = 0; i < gameArgs.Levels[currentLevel].EnemyCount; i++)
-//	{
-//		SetupEnemy(FindIdleEnemy(gameArgs.Levels[currentLevel].Enemies));
-//	}
-//}
-

@@ -8,22 +8,23 @@
 #include "../Include/HandleSDL.h"
 
 
-Animation CreateAnime(SDL_Texture** Tex, int nbrFrames, int posX, int posY)
+Animation CreateAnime(SDL_Texture** Tex, int nbrFrames,
+	int wait, SDL_Rect rect)
 {
 	Animation animation = {
 		nbrFrames, 0, 1000 / nbrFrames, NULL,
-		(SDL_Rect) {posX, posY, BOOM_WIDTH, BOOM_HEIGTH},
-		Tex
+		rect, Tex
 	};
 
 	return animation;
 }
 
-Animation* AddAnimation(SDL sdl, SDL_Texture** Tex, int nbrFrames, int pos[2])
+Animation* AddAnimation(SDL sdl, SDL_Texture** Tex,
+	int nbrFrames, int wait, SDL_Rect rect)
 {
 	int nbrAnimation = sdl.nbrAnimation;
 
-	Animation anime = CreateAnime(Tex, nbrFrames, pos[0], pos[1]);
+	Animation anime = CreateAnime(Tex, nbrFrames, wait, rect);
 
 	Animation* newAnimes = malloc(nbrAnimation * sizeof(Animation));
 	CheckPointerKill(newAnimes, "Error Allocating memory for add animations", sdl);
@@ -37,6 +38,7 @@ Animation* AddAnimation(SDL sdl, SDL_Texture** Tex, int nbrFrames, int pos[2])
 
 	return newAnimes;
 }
+
 
 Animation* DeleteAnimation(SDL sdl, int delPos)
 {
@@ -58,10 +60,12 @@ Animation* DeleteAnimation(SDL sdl, int delPos)
 	return newAnimes;
 }
 
-static void RunAnimation(SDL sdl, Animation* anim)
+void RunAnimation(SDL sdl, Animation* anim)
 {
 	SDL_Rect animRect = anim->rect;
-	SDL_RenderCopy(sdl.renderer, anim->Frames[anim->curFrame], NULL, &animRect);
+	SDL_Texture** f = anim->Frames;
+	SDL_Texture* a = f[anim->curFrame];
+	SDL_RenderCopy(sdl.renderer, a, NULL, &animRect);
 
 	if (anim->LastPlayed + anim->TimeBetweenFrames <= SDL_GetTicks()) { // 69 :) Nice
 		anim->LastPlayed = SDL_GetTicks();

@@ -50,5 +50,4 @@ int ControllerAxisToInt(SDL_GameController* controller, int axis) {
 
     if (abs(rawAxis) > ACTIVATION_THRESHOLD) return rawAxis > 0 ? 1 : -1;
     else return 0;
-    
 }

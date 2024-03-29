@@ -86,14 +86,14 @@ static Projectile* InitProjectiles(SDL_Texture* tex)
 	{
 		projs[i] = (Projectile){
 			tex, 10, 10, 0, 0,
-			PROJECTILE_BASE_SPEED, PROJECTILE_WIDTH, PROJECTILE_HEIGHT, false
+			PROJECTILE_BASE_SPEED, PROJECTILE_WIDTH, PROJECTILE_HEIGHT, false, false
 		};
 	}
 
 	return projs;
 }
 
-Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
+Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY, int sceneCnt)
 {
 	Enemy baseEnemy = {
 		sdl.Tex.EnemyType1, SCREEN_WIDTH, 0, dirX, dirY,
@@ -102,16 +102,13 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 	};
 
 	Scene scene = {
-		sdl.Tex.Background,
+		sceneCnt ? sdl.Tex.SecondBackground : sdl.Tex.Background,
 		InitPlayers((SDL_Texture * [2]) { sdl.Tex.Player1, sdl.Tex.Player2 }),
-		//InitEnemies(sdl.Tex.EnemyType1),
 		InitProjectiles(sdl.Tex.Projectiles),
 		InitBonuses(sdl.Tex.Bonus),
-		CreateEnemyQueue(45, baseEnemy, sdl), 0,
-		CreateWaves(45, 5, 1000, sdl), 0, false, 3000,
+		CreateEnemyQueue(2, baseEnemy, sdl), 0,
+		CreateWaves(2, 1, 1000, sdl), 0, false, 3000,
 		0, false
-		/*10,
-		false*/
 	};
 
 	return scene;
@@ -123,18 +120,15 @@ Textures InitTextures(SDL sdl)
 	tex.Bonus = CreateTexture(sdl, "..\\Sprites\\Bonus.png");
 	tex.TitleScreen = CreateTexture(sdl, "..\\Sprites\\Fond_menu.png");
 	tex.Background = CreateTexture(sdl, "../Sprites/Fond1-1.png");
+	tex.SecondBackground = CreateTexture(sdl, "../Sprites/Fond2-3.png");
 	tex.Player1 = CreateTexture(sdl, "../Sprites/Player1.png");
 	tex.Player1Hurt = CreateTexture(sdl, "../Sprites/Player1-hurt.png");
 	tex.Player2 = CreateTexture(sdl, "../Sprites/Player2.png");
 	tex.EnemyType1 = CreateTexture(sdl, "../Sprites/Mobs1.png");
 	tex.Boss1 = CreateTexture(sdl, "../Sprites/Boss1.png");
 	tex.Projectiles = CreateTexture(sdl, "../Sprites/Soot1.png");
-
-	for (int frame = 0; frame < 10; frame++) {
-		char path[256]; // Make sure path buffer is large enough
-		snprintf(path, sizeof(path), "../Sprites/Boom%d.png", frame + 1);
-		tex.Boom[frame] = CreateTexture(sdl, path);
-	}
+	tex.Boss = CreateAnimationTexture(sdl, "../Sprites/Boss1-%d.png", 7);
+	tex.Boom = CreateAnimationTexture(sdl, "../Sprites/Boom%d.png", 10);
 
 	return tex;
 }

@@ -12,23 +12,21 @@
 #include "../Include/Enemies.h"
 #include "../Include/Collision.h"
 #include "../Include/Bonus.h"
+#include "../Include/Boss.h"
 
 
-static void UpdatePlayers(GameState* state, Scene scene, GameArgs gameArgs)
+static void UpdatePlayers(GameState* state, Scene scene, GameArgs args)
 {
     Player* players = scene.Players;
-    for (int i = 0; i < PLAYER_CNT; i++)
-    {
+    for (int i = 0; i < PLAYER_CNT; i++) {
         if (!players[i].Active) continue;
 
         PlayerInput inputs = state->Inputs.PlayerInput[i];
         players[i].X += inputs.DirX * players[i].Speed * state->DeltaTime;
         players[i].Y += inputs.DirY * players[i].Speed * state->DeltaTime;
-        if (inputs.Shooting)
-        {
-            if (players[i].LastTimeShot + SHOOTING_RATE < state->CurrentTime)
-            {
-                ShootPlayerProjectile(players[i], scene.Projectiles, state, gameArgs);
+        if (inputs.Shooting) {
+            if (players[i].LastTimeShot + SHOOTING_RATE < state->CurrentTime) {
+                ShootPlayerProjectile(players[i], scene.Projectiles, state, args);
                 players[i].LastTimeShot = state->CurrentTime;
             }
         }
@@ -45,6 +43,7 @@ static void UpdatePlayers(GameState* state, Scene scene, GameArgs gameArgs)
             players[i].X = SCREEN_WIDTH - players[i].Width;
         }
     }
+    CheckPlayerProjCollision(*state, players, &scene, &args.SDL);
 }
 
 //static void UpdateEnemies(GameState* state, Scene scene)
@@ -125,5 +124,9 @@ void Update(GameArgs* gameArgs, Scene* scene)
     UpdateEnemies(&gameArgs->State, scene, &gameArgs->SDL);
     UpdateProjectiles(gameArgs->State, *scene, *gameArgs);
     UpdateBonuses(gameArgs->State, scene->Bonuses, scene->Players);
+    if (gameArgs->State.CurLVL == LEVEL_COUNT &&
+        gameArgs->Levels->Queue.nbrEnemies == 0) {
+        UpdateBoss(gameArgs, scene);
+    }
 }
 

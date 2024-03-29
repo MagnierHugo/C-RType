@@ -26,6 +26,7 @@
     <ClCompile Include="Source\Utility.c" />
     <ClCompile Include="Source\Wave.c" />
     <ClCompile Include="Source\Bonus.c" />
+    <ClCompile Include="Source\Boss.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Collision.h" />
@@ -55,9 +56,12 @@
     <ClInclude Include="Include\Animation.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Include\Bonus.h" />
+    <ClInclude Include="Include\Boss.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\Music\BlueNavi-Starcade.mp3" />
+    <Media Include="..\Music\blaster.mp3" />
+    <Media Include="..\Music\medium-explosion.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Sprites\Boom.gif" />

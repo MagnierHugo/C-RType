@@ -19,6 +19,7 @@ typedef struct {
 	int Width;
 	int Height;
 	bool Active;
+	bool ShotByPlayer;
 } Projectile;
 
 typedef struct {
@@ -61,15 +62,17 @@ typedef struct {
 
 typedef struct {
 	SDL_Texture* Background;
+	SDL_Texture* SecondBackground;
 	SDL_Texture* Player1;
 	SDL_Texture* Player1Hurt;
 	SDL_Texture* Player2;
 	SDL_Texture* EnemyType1;
 	SDL_Texture* Boss1;
 	SDL_Texture* Projectiles;
-	SDL_Texture* Boom[10];
 	SDL_Texture* Bonus;
 	SDL_Texture* TitleScreen;
+	SDL_Texture** Boss;
+	SDL_Texture** Boom;
 	// BonusType1
 } Textures;
 
@@ -146,6 +149,7 @@ typedef struct {
 
 typedef struct {
 	SDL_Texture* Background;
+	
 	Player* Players;
 	//Enemy* Enemies;
 	Projectile* Projectiles;
@@ -164,9 +168,24 @@ typedef struct {
 } Scene;
 
 typedef struct {
+	Animation animation;
+
+	int dirX;
+	int dirY;
+
+	float Speed;
+
+	int HP;
+	int AwardedPoints;
+	bool DropBoost;
+	int LastTimeShot;
+} Boss;
+
+typedef struct {
 	SDL SDL;
 	GameState State;
 	Scene* Levels;
+	Boss Boss;
 } GameArgs;
 
 typedef struct {

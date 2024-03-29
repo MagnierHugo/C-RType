@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Animation.c" />
     <ClCompile Include="Source\Bonus.c" />
+    <ClCompile Include="Source\Boss.c" />
     <ClCompile Include="Source\Collision.c" />
     <ClCompile Include="Source\Draw.c" />
     <ClCompile Include="Source\Enemies.c" />
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Bonus.h" />
+    <ClInclude Include="Include\Boss.h" />
     <ClInclude Include="Include\Collision.h" />
     <ClInclude Include="Include\Constants.h" />
     <ClInclude Include="Include\Draw.h" />
@@ -96,7 +98,9 @@
     <Image Include="..\Sprites\Soot1.png" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="..\Music\blaster.mp3" />
     <Media Include="..\Music\BlueNavi-Starcade.mp3" />
+    <Media Include="..\Music\medium-explosion.mp3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Font\font.fon" />

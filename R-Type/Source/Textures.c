@@ -4,6 +4,7 @@
 
 #include "../Include/HandleSDL.h"
 #include "../Include/Structs.h"
+#include "../Include/Utility.h"
 
 
 SDL_Texture* CreateTexture(SDL sdlStruct, char* path)
@@ -37,4 +38,18 @@ void DestroyTextures(Textures Tex)
     if (Tex.Background != NULL) SDL_DestroyTexture(Tex.EnemyType1);
     if (Tex.Background != NULL) SDL_DestroyTexture(Tex.Boss1);
     if (Tex.Background != NULL) SDL_DestroyTexture(Tex.Projectiles); // 69 :) Nice
+}
+
+SDL_Texture** CreateAnimationTexture(SDL sdl, char* path, int nbrFrames)
+{
+    SDL_Texture** animation = malloc(nbrFrames * sizeof(SDL_Texture*));
+    CheckPointerKill(animation, "Error Allocating memory for animation", sdl);
+
+    for (int frame = 0; frame < nbrFrames; frame++) {
+        char finalPath[256]; // Make sure path buffer is large enough
+        snprintf(finalPath, sizeof(finalPath), path, frame + 1);
+        animation[frame] = CreateTexture(sdl, finalPath);
+    }
+
+    return animation;
 }

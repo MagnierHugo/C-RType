@@ -3,22 +3,17 @@
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
 
-int TakeHit(Player* player, GameState state)
+void TakeHit(Player* player, GameState state)
 {
 	if (player->LastTimeWasShot + IMMUNITY_DURATION > state.CurrentTime)
 	{
-		return 0;
+		return;
 	}
 	player->LastTimeWasShot = state.CurrentTime;
+	player->X = SCREEN_WIDTH * .125;
+	player->Y = (SCREEN_HEIGHT - PLAYER_HEIGHT) * .5;
 	player->Health--;
 	player->Active = player->Health > 0;
-	return 1;
-}
-
-void ResetPlayer(Player* player)
-{
-	player->X = SCREEN_WIDTH * .125;
-	player->Y = SCREEN_HEIGHT * .5;
 }
 
 void ResetScene(Scene* scene)

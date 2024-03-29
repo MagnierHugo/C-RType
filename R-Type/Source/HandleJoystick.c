@@ -45,5 +45,4 @@ void CheckForJoystick(GameArgs* args) {
         if (args->State.Joysticks) free(args->State.Joysticks);
         args->State.Joysticks = DetectJoystick(GetJoystickCount(), args->SDL);
     }
-    //printf("joystickCount: %d\n", GetJoystickCount());
 }
