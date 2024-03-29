@@ -35,15 +35,6 @@ static void DrawProjectiles(Projectile* projectiles,  SDL sdl)
 
 static void DrawEnemies(Scene scene, SDL sdl)
 {
-	/*for (int enemy = 0; enemy < scene.EnemyCount; enemy++)
-	{
-
-		Enemy curEnemy = scene.Enemies[enemy];
-		if (!curEnemy.Active) continue;
-
-		SDL_Rect enemyRect = EnemyAsRect(curEnemy);
-		SDL_RenderCopy(sdl.renderer, curEnemy.Tex, NULL, &enemyRect);
-	}*/
 	for (int enemyIndex = 0; enemyIndex < scene.ActiveEnemies; enemyIndex++)
 	{
 		Enemy curEnemy = scene.Queue.Enemies[enemyIndex];

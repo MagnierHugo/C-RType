@@ -8,22 +8,22 @@
 #include "../Include/HandleSDL.h"
 
 
-Animation CreateAnime(SDL_Texture** Tex, int nbrFrames, int posX, int posY)
+Animation CreateAnime(SDL_Texture** Tex, int nbrFrames, int wait, int pos[2])
 {
 	Animation animation = {
-		nbrFrames, 0, 1000 / nbrFrames, NULL,
-		(SDL_Rect) {posX, posY, BOOM_WIDTH, BOOM_HEIGTH},
+		nbrFrames, 0, wait, NULL,
+		(SDL_Rect) {pos[0], pos[1], BOOM_WIDTH, BOOM_HEIGTH},
 		Tex
 	};
 
 	return animation;
 }
 
-Animation* AddAnimation(SDL sdl, SDL_Texture** Tex, int nbrFrames, int pos[2])
+Animation* AddAnimation(SDL sdl, AnimeArgs args)
 {
 	int nbrAnimation = sdl.nbrAnimation;
 
-	Animation anime = CreateAnime(Tex, nbrFrames, pos[0], pos[1]);
+	Animation anime = CreateAnime(args.Tex, args.nbrFrames, args.Wait, args.pos);
 
 	Animation* newAnimes = malloc(nbrAnimation * sizeof(Animation));
 	CheckPointerKill(newAnimes, "Error Allocating memory for add animations", sdl);

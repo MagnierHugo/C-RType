@@ -45,7 +45,7 @@ int CheckEnemyProjCollision(GameState state, Enemy* enemy, Scene* scene, SDL* sd
 				int pos[2] = { enemy->X, enemy->Y };
 				PlaySound(KABOOM, *sdl);
 				sdl->nbrAnimation++;
-				sdl->animes = AddAnimation(*sdl, sdl->Tex.Boom, BOOM_FRAMES, pos);
+				sdl->animes = AddAnimation(*sdl, args);
 				return enemy->AwardedPoints;
 			}
 		}

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Boss.c" />
     <ClCompile Include="Source\Animation.c" />
     <ClCompile Include="Source\Collision.c" />
     <ClCompile Include="Source\Draw.c" />

@@ -8,7 +8,7 @@
 
 
 // Fonction pour charger le fichier audio
-Mix_Chunk* LoadSound(char songWAV[20],  SDL sdl) {
+static Mix_Chunk* LoadSound(char songWAV[20],  SDL sdl) {
     Mix_Chunk* sound = Mix_LoadWAV(songWAV);
 
     if (!sound) {

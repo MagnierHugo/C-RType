@@ -9,6 +9,7 @@
 #include "../Include/Constants.h"
 #include "../Include/Textures.h"
 #include "../Include/Init.h"
+#include "../Include/Utility.h"
 #include "../Include/Music.h"
 
 
@@ -62,7 +63,7 @@ static void InitSDL(SDL sdl)
     }
 }
 
- SDL StartSDL()
+SDL StartSDL()
 {
     srand(time(NULL));
     SDL sdl;
@@ -73,23 +74,17 @@ static void InitSDL(SDL sdl)
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN
     );
+    CheckPointer(sdl.window, "Erreur creation fen�tre SDL", sdl);
 
-    if (sdl.window == NULL) {
-        ErrorHandling("Erreur creation fen�tre SDL", sdl);
-    }
-
-    sdl.renderer = SDL_CreateRenderer(//Creer rendu SDL
+    //Creer rendu SDL
+    sdl.renderer = SDL_CreateRenderer(
         sdl.window, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
     );
+    CheckPointer(sdl.renderer, "Erreur creation rendu SDL", sdl);
 
-    if (sdl.renderer == NULL) {
-        ErrorHandling("Erreur creation rendu SDL", sdl);
-    }
-
-    sdl.Font = TTF_OpenFont("../Font/font.fon", 24);// Load font
-    if (sdl.Font == NULL) {
-        ErrorHandling("Erreur chargement de la police", sdl);
+    sdl.Font = TTF_OpenFont("..\\Font\\font.fon", 24);// Load font
+    CheckPointer(sdl.Font, "Erreur chargement de la police", sdl);
     }
 
     sdl.Tex = InitTextures(sdl);

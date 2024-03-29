@@ -46,30 +46,6 @@ static void UpdatePlayers(GameState* state, Scene scene, GameArgs gameArgs)
     }
 }
 
-//static void UpdateEnemies(GameState* state, Scene scene)
-//{
-//    Enemy* enemies = scene.Enemies;
-//    Player* players = scene.Players;
-//    Projectile* projs = scene.Projectiles;
-//    for (int i = 0; i < scene.EnemyCount; i++)
-//    {
-//        Enemy* enemy = &enemies[i];
-//        if (!enemy->Active) continue;
-//        enemy->X -= enemy->Speed * state->DeltaTime;
-//
-//        if (enemy->X + ENEMIES_WIDTH < 0)
-//        {
-//            enemy->X = SCREEN_WIDTH + RdmInt(
-//                MIN_RESET_X_OFFSET, MAX_RESET_X_OFFSET, false);
-//            enemy->Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
-//        }
-//
-//        CheckEnemyPlayerCollision(*state, *enemy, players);
-//
-//        state->Score += CheckEnemyProjCollision(*state, enemy, projs);
-//    }
-//}
-
 static void UpdateEnemies(GameState* state, Scene* scene, SDL* sdl)
 {
     SpawnEnemies(scene);
