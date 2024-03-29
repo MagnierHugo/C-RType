@@ -74,7 +74,7 @@ void Draw(GameArgs* gameArgs, Scene curScene)
 		HIGHSCORE_Y);
 	RenderText(*sdl, "Level : ", gameArgs->State.CurLVL,
 		SCREEN_WIDTH / 2, LEVEL_Y);
-	RenderText(sdl, "Enemies killed : ", gameArgs->State.EnemyKilled,
+	RenderText(*sdl, "Enemies killed : ", gameArgs->State.EnemyKilled,
 		SCREEN_WIDTH / 2, ENEMY_KILLED_Y);
 	SDL_RenderPresent(renderer); // update display
 }

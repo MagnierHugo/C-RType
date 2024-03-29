@@ -121,9 +121,9 @@ static void UpdateProjectiles(GameState state, Scene scene, GameArgs gameArgs)
 
 void Update(GameArgs* gameArgs, Scene* scene)
 {
-    UpdatePlayers(&gameArgs->State, *scene);
+    UpdatePlayers(&gameArgs->State, *scene, *gameArgs);
     UpdateEnemies(&gameArgs->State, scene, &gameArgs->SDL);
-    UpdateProjectiles(gameArgs->State, *scene);
+    UpdateProjectiles(gameArgs->State, *scene, *gameArgs);
 // void Update(GameState* state, Scene* scene, SDL sdl, GameArgs gameArgs)
 // {
 //     UpdatePlayers(state, *scene, gameArgs);

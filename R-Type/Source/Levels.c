@@ -16,10 +16,10 @@ Scene* CreateLevels(int nbrLevels, SDL sdl)
 
 	for (int levelIndex = 0; levelIndex < nbrLevels; levelIndex++)
 	{
-		levels[levelIndex] = InitScene(sdl, 5, -1, 0);
+		Levels[levelIndex] = InitScene(sdl, 5, -1, 0);
 	}
 
-	return levels;
+	return Levels;
 }
 
 void ClearScene(Scene scene, SDL sdl)
