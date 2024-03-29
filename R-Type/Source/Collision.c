@@ -41,8 +41,8 @@ int CheckEnemyProjCollision(GameState state, Enemy* enemy, Scene* scene, SDL* sd
 			curProj->Active = false;
 			enemy->HP -= 1;
 			if (enemy->HP <= 0) {
-				int pos[2] = (int*)malloc(2 * sizeof(int));
-				pos[2] = { enemy->X, enemy->Y };
+			
+				int pos[2] = { enemy->X, enemy->Y };
 
 				AnimeArgs args = { sdl->Tex.Boom, BOOM_FRAMES,
 				BOOM_WAIT_BETWEEN_FRAMES, pos };
