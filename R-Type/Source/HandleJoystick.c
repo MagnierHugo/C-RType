@@ -3,12 +3,13 @@
 
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
+#include "../Include/HandleSDL.h"
 
 int GetJoystickCount() {
     return SDL_NumJoysticks();
 }
 
-SDL_Joystick* DetectJoystick(int numJoysticks) {
+SDL_Joystick** DetectJoystick(int numJoysticks, SDL sdl) {
 
     SDL_Joystick* joystick1 = NULL;
     SDL_Joystick* joystick2 = NULL;
@@ -29,7 +30,11 @@ SDL_Joystick* DetectJoystick(int numJoysticks) {
             }
         }
     }
-    return (SDL_Joystick * [2]) { joystick1, joystick2 };
+    SDL_Joystick** joysticks = malloc(2 * sizeof(SDL_Joystick*));
+    if (joysticks == NULL) ErrorHandling("Erreur with joysticks", sdl);
+    joysticks[0] = joystick1;
+    joysticks[1] = joystick2;
+    return joysticks;
 }
 
 void CheckForJoystick(GameArgs* args) {
@@ -37,8 +42,8 @@ void CheckForJoystick(GameArgs* args) {
     args->State.Inputs.JoysticksAvailable = GetJoystickCount();
     if (args->State.Inputs.JoysticksAvailable != countBefore)
     {
-        //if (args->State.Joysticks) free(args->State.Joysticks);
-        args->State.Joysticks = DetectJoystick(GetJoystickCount());
+        if (args->State.Joysticks) free(args->State.Joysticks);
+        args->State.Joysticks = DetectJoystick(GetJoystickCount(), args->SDL);
     }
-    printf("joystickCount: %d\n", GetJoystickCount());
+    //printf("joystickCount: %d\n", GetJoystickCount());
 }

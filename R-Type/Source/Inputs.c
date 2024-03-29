@@ -5,57 +5,84 @@
 #include "../Include/Structs.h"
 #include "../Include/RemapMenu.h"
 #include "../Include/HandleJoystick.h"
+#include "../Include/main.h"
 
+void HandleJoystick(InputsSummary* inputs)
+{
+    SDL_GameController* controller = SDL_GameControllerOpen(0);
 
-
-void ActionJoystick(GameArgs* args, SDL_Event event) {
-
-    InputsSummary* inputs = &args->State.Inputs;
-
-    int axis = event.jaxis.axis;
-    if (axis % 2 == 0) {
-        if (abs(event.jaxis.value) > DEADZONE) {
-            /*J1.x += event.jaxis.value / JOY_POS * SENSITIVITY;*/
-            PlayerInput* playerInput = &inputs->PlayerInput[axis / 2];
-            playerInput->DirX = event.jaxis.value / abs(event.jaxis.value);
+    for (int i = 0; i < PLAYER_CNT; i++) {
+        PlayerInput* playerInput = &inputs->PlayerInput[i];
+        if (playerInput->DirX == 0) {
+            playerInput->DirX = ControllerAxisToInt(controller,
+                i ? SDL_CONTROLLER_AXIS_RIGHTX : SDL_CONTROLLER_AXIS_LEFTX);
         }
-    }
-    else if (axis % 2 == 1) {
-        if (abs(event.jaxis.value) > DEADZONE) {
-            /*J1.y += event.jaxis.value / JOY_POS * SENSITIVITY;*/
-            PlayerInput* playerInput = &inputs->PlayerInput[(axis - 1) / 2];
-            playerInput->DirY = event.jaxis.value / abs(event.jaxis.value);
+
+        if (playerInput->DirY == 0) {
+            playerInput->DirY = ControllerAxisToInt(controller,
+                i ? SDL_CONTROLLER_AXIS_RIGHTY : SDL_CONTROLLER_AXIS_LEFTY);
         }
+
     }
 }
 
-
-void HandleKeystrokes(InputsSummary* inputs, Uint8* keys)
+void ResetKeystrokes(InputsSummary* inputs)
 {
     for (int i = 0; i < PLAYER_CNT; i++)
     {
         PlayerInput* playerInput = &inputs->PlayerInput[i]; // get the player inputs
-        InputMap* inputMap = &inputs->InputMap[i]; // retrieve the player key mapping
-        playerInput->DirY = keys[inputMap->Down] - keys[inputMap->Up];
-        playerInput->DirX = keys[inputMap->Right] - keys[inputMap->Left];
-        playerInput->Shooting = keys[inputMap->Shoot];
+        playerInput->DirY = 0;
+        playerInput->DirX = 0;
+        playerInput->Shooting = false;
     }
 }
 
-void HandleControllerStrokes(InputsSummary* inputs, int side) {
-    PlayerInput* playerInput = &inputs->PlayerInput[side];
-    playerInput->Shooting = true;
+void HandleKeystrokes(InputsSummary* inputs)
+{
+    Uint8* keys = SDL_GetKeyboardState(NULL);
+    for (int i = 0; i < PLAYER_CNT; i++)
+    {
+        PlayerInput* playerInput = &inputs->PlayerInput[i]; // get the player inputs
+        InputMap* inputMap = &inputs->InputMap[i]; // retrieve the player key mapping
+        if (playerInput->DirY == 0) {
+            playerInput->DirY = keys[inputMap->Down] - keys[inputMap->Up];
+        }
+        if (playerInput->DirY == 0) {
+            playerInput->DirX = keys[inputMap->Right] - keys[inputMap->Left];
+        }
+        
+        playerInput->Shooting |= keys[inputMap->Shoot];
+    }
+}
+
+void HandleControllerStrokes(InputsSummary* inputs)
+{
+    SDL_GameController* controller = SDL_GameControllerOpen(0); // Open the first connected controller
+    if (controller) {
+        if (SDL_GameControllerGetButton(controller,
+            SDL_CONTROLLER_BUTTON_LEFTSHOULDER)) {
+            PlayerInput* playerInput = &inputs->PlayerInput[0];
+            playerInput->Shooting = true;
+        }
+
+        if (SDL_GameControllerGetButton(controller,
+            SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)) {
+            PlayerInput* playerInput = &inputs->PlayerInput[1];
+            playerInput->Shooting = true;
+        }
+    }
 }
 
 void HandleInputs(GameArgs* args)
 {
+    CheckForJoystick(args);
     InputsSummary* inputs = &args->State.Inputs;
-    Uint8* keystrokes = SDL_GetKeyboardState(NULL);
+    ResetKeystrokes(inputs);
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0) {
         switch (event.type) {
             case SDL_QUIT:
-                args->State.Continue = false;
+                QuitGame(*args);
                 return;
 
             case SDL_KEYDOWN:
@@ -65,26 +92,13 @@ void HandleInputs(GameArgs* args)
                 }
                 break;
 
-            case SDL_JOYAXISMOTION:
-                printf("been there\n");
-                ActionJoystick(args, event);
-                break;
-
-            case SDL_JOYBUTTONDOWN:
-                printf("been there\n");
-                if (event.jbutton.button == 4) {
-                    HandleControllerStrokes(inputs, 0);
-                }
-                else if (event.jbutton.button == 5) {
-                    HandleControllerStrokes(inputs, 1);
-                }
-                break;
-
             default:
                 break;
         }
     }
-    HandleKeystrokes(inputs, keystrokes);
+    HandleKeystrokes(inputs);
+    HandleControllerStrokes(inputs);
+    HandleJoystick(inputs);
 }
 
 

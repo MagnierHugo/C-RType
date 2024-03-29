@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 
-void saveGameData(int data) {
-    FILE* file = fopen("saved_game.dat", "wb");
+void SaveGameData(int data) {
+    FILE* file = fopen("AndrewTateNude.png", "wb"); // write binary
     if (file != NULL) {
         fwrite(&data, sizeof(int), 1, file);
         fclose(file);
@@ -14,13 +14,13 @@ void saveGameData(int data) {
     }
 }
 
-int loadGameData() {
+int LoadGameData() {
     int score;
-    FILE* saveFile = fopen("save.dat", "rb"); // read binary
+    FILE* saveFile = fopen("AndrewTateNude.png", "rb"); // read binary
     if (saveFile != NULL) {
         fread(&score, sizeof(int), 1, saveFile);
         fclose(saveFile);
-        printf("Game data loaded successfully.\n");
+        printf("Game data loaded successfully%d.\n", score);
         return score;
     }
     else {

@@ -4,8 +4,6 @@
 #include <SDL_ttf.h>
 #include <stdbool.h>
 
-// EVERY SINGLE CONSTANT SHOULD BE FULL_CAP
-// 
 // Global
 #define SCREEN_WIDTH 1020
 #define SCREEN_HEIGHT 766
@@ -22,7 +20,7 @@
 
 #define SHOOTING_RATE 100
 
-#define PLAYER_INITIAL_HEALTH 5
+#define PLAYER_INITIAL_HEALTH 1
 #define IMMUNITY_DURATION 5000
 
 // Combat
@@ -50,10 +48,11 @@
 #define BUTTON_SPACING 25
 
 
-#define ENEMY_KILLED_Y 650
-#define SCORE_Y 675
-#define LEVEL_Y 700
-#define SHOTS_FIRED_Y 725
+#define ENEMY_KILLED_Y 625
+#define SHOTS_FIRED_Y 650
+#define LEVEL_Y 675
+#define SCORE_Y 700
+#define HIGHSCORE_Y 725
 
 
 // Some Constants for the enemies
@@ -66,6 +65,9 @@
 
 // Inputs
 
-#define DEADZONE 8000
-#define JOY_POS 32767.0f
+#define DEADZONE 5000
+#define ACTIVATION_THRESHOLD 8000
+#define JOY_MAX_VALUE 32767
 #define SENSITIVITY 5
+
+#define DONT_RENDER_FLAG -999

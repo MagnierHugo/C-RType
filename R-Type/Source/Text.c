@@ -8,10 +8,11 @@
 void RenderText(SDL sdl, char* text, int toRender, int x, int y)
 {
 	char textBuffer[30];
-	snprintf(textBuffer, 30, "%s%d", text, toRender); // Mettre à jour le texte avec la nouvelle valeur
-
+	if (toRender != DONT_RENDER_FLAG) snprintf(textBuffer, 30, "%s%d", text, toRender); // Mettre à jour le texte avec la nouvelle valeur
+	else snprintf(textBuffer, 30, "%s", text); // same
 	
-	SDL_Surface* surface = TTF_RenderText_Solid(sdl.Font, textBuffer, (SDL_Color) { 255, 255, 255, 255 });
+	SDL_Surface* surface = TTF_RenderText_Solid(sdl.Font, textBuffer,
+		(SDL_Color) { 255, 255, 255, 255 });
 	if (surface == NULL) {
 		ErrorHandling("Erreur lors de la creation du texte", sdl);
 	}

@@ -68,6 +68,7 @@
     <ClInclude Include="Include\Update.h" />
     <ClInclude Include="Include\Utility.h" />
     <ClInclude Include="Include\Wave.h" />
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Sprites\Boom.gif" />

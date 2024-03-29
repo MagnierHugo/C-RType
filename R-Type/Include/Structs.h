@@ -89,6 +89,7 @@ typedef struct {
 	float DeltaTime;
 	float CurrentTime;
 	int Score;
+	int HighScore;
 	int ShotFired;
 	int EnemyKilled;
 	bool Continue;
@@ -96,7 +97,7 @@ typedef struct {
 	bool ScreenWrappinActive;
 	int CurLVL;
 	InputsSummary Inputs;
-	SDL_Joystick* Joysticks;
+	SDL_Joystick** Joysticks;
 
 } GameState;
 

@@ -63,6 +63,8 @@ void Draw( GameArgs gameArgs, Scene curScene)
 	DrawEnemies(curScene, sdl);
 	DrawProjectiles(curScene.Projectiles, sdl);
 	RenderText(sdl, "Score : ", gameArgs.State.Score, SCREEN_WIDTH / 2, SCORE_Y);
+	RenderText(sdl, "HighScore : ", gameArgs.State.HighScore, SCREEN_WIDTH / 2,
+		HIGHSCORE_Y);
 	RenderText(sdl, "Level : ", gameArgs.State.CurLVL,
 		SCREEN_WIDTH / 2, LEVEL_Y);
 	RenderText(sdl, "Shots fired : ", gameArgs.State.ShotFired,

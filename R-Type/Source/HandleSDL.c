@@ -33,7 +33,7 @@ void ErrorHandling(char* message,  SDL sdl)
     exit(EXIT_FAILURE);
 }
 
-static void InitSDL( SDL sdl)
+static void InitSDL(SDL sdl)
 {
     // Initialisation SDL Video
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -63,17 +63,16 @@ static void InitSDL( SDL sdl)
     if (SDL_Init(SDL_INIT_JOYSTICK) < 0) {
         ErrorHandling("Erreur Joystick Init failed", sdl);
     }
-
 }
 
  SDL StartSDL()
 {
+    srand(time(NULL));
     SDL sdl;
 
     InitSDL(sdl);
 
-    //creer une fenetre avec SDL
-    sdl.window = SDL_CreateWindow("Ship game",
+    sdl.window = SDL_CreateWindow("Ship game", //creer une fenetre avec SDL
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN
     );
@@ -82,8 +81,7 @@ static void InitSDL( SDL sdl)
         ErrorHandling("Erreur creation fen�tre SDL", sdl);
     }
 
-    //Creer rendu SDL
-    sdl.renderer = SDL_CreateRenderer(
+    sdl.renderer = SDL_CreateRenderer(//Creer rendu SDL
         sdl.window, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
     );
@@ -95,9 +93,7 @@ static void InitSDL( SDL sdl)
     sdl.Font = TTF_OpenFont("..\\Font\\font.fon", 24);// Load font
     if (sdl.Font == NULL) {
         ErrorHandling("Erreur chargement de la police", sdl);
-        ;
     }
-
 
     sdl.Tex = InitTextures(sdl);
     return sdl;
@@ -105,6 +101,10 @@ static void InitSDL( SDL sdl)
 
 void CloseSDL(GameArgs gameArgs)
 {
+    for (int i = 0; i < PLAYER_CNT; i++) {
+        SDL_GameController* controller = SDL_GameControllerOpen(i);
+        if (CheckPointer(controller)) SDL_GameControllerClose(controller);
+    }
     TTF_CloseFont(gameArgs.SDL.Font);
     DestroyTextures(gameArgs.SDL.Tex);
     SDL_DestroyRenderer(gameArgs.SDL.renderer);
@@ -121,10 +121,4 @@ void WindowClear(SDL_Renderer* renderer, SDL_Texture* background)
         renderer, background, NULL,
         &(SDL_Rect){ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }
     );
-}
-
-void TempWindowClear(SDL_Renderer* renderer)
-{
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer); // more of a fill
 }
