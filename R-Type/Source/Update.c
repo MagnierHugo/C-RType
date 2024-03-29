@@ -13,7 +13,7 @@
 #include "../Include/Collision.h"
 
 
-static void UpdatePlayers(GameState* state, Scene scene)
+static void UpdatePlayers(GameState* state, Scene scene, GameArgs gameArgs)
 {
     Player* players = scene.Players;
     for (int i = 0; i < PLAYER_CNT; i++)
@@ -27,7 +27,7 @@ static void UpdatePlayers(GameState* state, Scene scene)
         {
             if (players[i].LastTimeShot + SHOOTING_RATE < state->CurrentTime)
             {
-                ShootPlayerProjectile(players[i], scene.Projectiles, state);
+                ShootPlayerProjectile(players[i], scene.Projectiles, state, gameArgs);
                 players[i].LastTimeShot = state->CurrentTime;
             }
         }
@@ -105,7 +105,7 @@ static void UpdateEnemies(GameState* state, Scene* scene, SDL sdl)
     }
 }
 
-static void UpdateProjectiles(GameState state, Scene scene)
+static void UpdateProjectiles(GameState state, Scene scene, GameArgs gameArgs)
 {
     Projectile* proj = scene.Projectiles;
     for (int i = 0; i < MAX_PROJECTILES; i++)
@@ -118,10 +118,10 @@ static void UpdateProjectiles(GameState state, Scene scene)
     }
 }
 
-void Update(GameState* state, Scene* scene, SDL sdl)
+void Update(GameState* state, Scene* scene, SDL sdl, GameArgs gameArgs)
 {
-    UpdatePlayers(state, *scene);
+    UpdatePlayers(state, *scene, gameArgs);
     UpdateEnemies(state, scene, sdl);
-    UpdateProjectiles(*state, *scene);
+    UpdateProjectiles(*state, *scene, gameArgs);
 }
 
