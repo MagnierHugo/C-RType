@@ -34,19 +34,19 @@ static void DrawStartMenu(SDL sdl, Button buttons[4])
 {
 
     char* Ti[] = { "SOLO", "DUO", "REBIND", "QUIT" };
-    SDL_SetRenderDrawColor(sdl.renderer, 255, 255, 255, 255);
-    SDL_RenderClear(sdl.renderer);
+    SDL_RenderCopy(sdl.renderer, sdl.Tex.TitleScreen, NULL, NULL);
 
     for (int i = 0; i < 4; i++) {
         DrawButton(sdl.renderer, buttons[i]);
-        RenderText(sdl, Ti[i], DONT_RENDER_FLAG, buttons[i].Rect.x + buttons[i].Rect.w / 2,
+        RenderText(sdl, Ti[i], DONT_RENDER_FLAG,
+            buttons[i].Rect.x + buttons[i].Rect.w / 2,
             buttons[i].Rect.y + buttons[i].Rect.h/2);
     }
 
     SDL_RenderPresent(sdl.renderer);
 }
 
-static bool HandleStartMenu(GameArgs gameArgs, Button buttons[4])
+static bool HandleStartMenu(GameArgs gameArgs, Button buttons[4], int* pCount)
 {
     SDL_Event event;
     while (SDL_PollEvent(&event))
@@ -60,11 +60,11 @@ static bool HandleStartMenu(GameArgs gameArgs, Button buttons[4])
                 if (PointInRect(mouseX, mouseY, buttons[i].Rect)) {
                     switch (i) {
                         case 0:
-                            printf("Play\n");
+                            *pCount = 1;
                             return false;
                         case 1:
-                            printf("Duo\n");
-                            break;
+                            *pCount = 2;
+                            return false;
                         case 2:
                             RemapMenu(gameArgs);
                             break;
@@ -80,17 +80,18 @@ static bool HandleStartMenu(GameArgs gameArgs, Button buttons[4])
     return true;
 }
 
-void StartMenu(GameArgs gameArgs)
+int StartMenu(GameArgs gameArgs)
 {
     Button buttons[4];
     CreateButtons(buttons, gameArgs.SDL);
 
-    
+    int playerCount = 0;
     bool continue_ = true;
     while (continue_)
     {
         DrawStartMenu(gameArgs.SDL, buttons);
-        continue_ = HandleStartMenu(gameArgs, buttons);
+        continue_ = HandleStartMenu(gameArgs, buttons, &playerCount);
     }
+    return playerCount;
 }
 

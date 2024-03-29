@@ -77,3 +77,12 @@
 #define SENSITIVITY 5
 
 #define DONT_RENDER_FLAG -999
+
+#define BONUS_SPEED 100
+#define MAX_BONUSES 3
+#define BLANK_BONUS 0
+#define HEALTH_BONUS 1
+#define SPEED_BONUS 2
+#define BONUS_WIDTH 100
+#define BONUS_HEIGHT 100
+

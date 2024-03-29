@@ -46,7 +46,7 @@ static int CheckEndGame(Scene scene, SDL sdl) // -1 lost | 0 in progress | 1 won
 	return result;
 }
 
-int EndScreen(GameArgs args)
+static int EndScreen(GameArgs args)
 {
 	SDL sdl = args.SDL;
 	GameState state = args.State;
@@ -71,7 +71,7 @@ int EndScreen(GameArgs args)
 	return QuitGame(args);
 }
 
-void Tick(GameState* state)
+static void Tick(GameState* state)
 {
 	state->DeltaTime = (SDL_GetTicks() - state->CurrentTime) / 1000;
 	state->CurrentTime = SDL_GetTicks();
@@ -83,11 +83,13 @@ int main(int argc, char* argv[])
 	Scene* Levels = CreateLevels(LEVEL_COUNT, sdlStruct);
 	GameArgs gameArgs = {sdlStruct, InitGameState(sdlStruct), Levels };
 
-	StartMenu(gameArgs);
+	int playerCount = StartMenu(gameArgs);
 	Tick(&gameArgs.State);
 	PlaySound(SONG, gameArgs.SDL);
 
 	for (int i = 0; i < LEVEL_COUNT; i++) {
+
+		if (playerCount == 1) gameArgs.Levels[i].Players[1].Active = false;
 		gameArgs.Levels[i].Time = gameArgs.State.CurrentTime;
 		int endGame;
 

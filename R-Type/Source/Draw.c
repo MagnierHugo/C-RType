@@ -8,6 +8,7 @@
 #include "../Include/Text.h"
 #include "../Include/Rect.h"
 #include "../Include/Animation.h"
+#include "../Include/Bonus.h"
 
 
 static void DrawPlayer(Player* players, SDL sdl)
@@ -58,12 +59,12 @@ void Draw(GameArgs* gameArgs, Scene curScene)
 	SDL* sdl = &gameArgs->SDL;
 	SDL_Renderer* renderer = sdl->renderer;
 
-	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, curScene.Background, NULL, NULL);
 
 	DrawPlayer(curScene.Players, *sdl);
 	DrawEnemies(curScene, *sdl);
 	DrawProjectiles(curScene.Projectiles, *sdl);
+	DrawBonuses(*sdl, curScene.Bonuses);
 
 	RunAnimations(sdl);
 

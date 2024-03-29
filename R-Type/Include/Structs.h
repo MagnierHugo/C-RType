@@ -68,6 +68,8 @@ typedef struct {
 	SDL_Texture* Boss1;
 	SDL_Texture* Projectiles;
 	SDL_Texture* Boom[10];
+	SDL_Texture* Bonus;
+	SDL_Texture* TitleScreen;
 	// BonusType1
 } Textures;
 
@@ -135,10 +137,19 @@ typedef struct {
 } Wave;
 
 typedef struct {
+	int X;
+	int Y;
+	int DoWhat;
+	bool Active;
+	SDL_Texture* Tex;
+} Bonus;
+
+typedef struct {
 	SDL_Texture* Background;
 	Player* Players;
 	//Enemy* Enemies;
 	Projectile* Projectiles;
+	Bonus* Bonuses;
 	//int EnemyCount;
 	EnemyQueue Queue;
 	int ActiveEnemies;
@@ -176,3 +187,4 @@ typedef struct {
 	SDL_Color Color; // Color of the button
 	bool Clicked;
 } Button;
+

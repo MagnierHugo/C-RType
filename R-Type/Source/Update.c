@@ -11,6 +11,7 @@
 #include "../Include/Player.h"
 #include "../Include/Enemies.h"
 #include "../Include/Collision.h"
+#include "../Include/Bonus.h"
 
 
 static void UpdatePlayers(GameState* state, Scene scene, GameArgs gameArgs)
@@ -123,10 +124,6 @@ void Update(GameArgs* gameArgs, Scene* scene)
     UpdatePlayers(&gameArgs->State, *scene, *gameArgs);
     UpdateEnemies(&gameArgs->State, scene, &gameArgs->SDL);
     UpdateProjectiles(gameArgs->State, *scene, *gameArgs);
-// void Update(GameState* state, Scene* scene, SDL sdl, GameArgs gameArgs)
-// {
-//     UpdatePlayers(state, *scene, gameArgs);
-//     UpdateEnemies(state, scene, sdl);
-//     UpdateProjectiles(*state, *scene, gameArgs);
+    UpdateBonuses(gameArgs->State, scene->Bonuses, scene->Players);
 }
 

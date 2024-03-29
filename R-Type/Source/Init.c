@@ -12,6 +12,7 @@
 #include "../Include/Utility.h"
 #include "../Include/HandleJoystick.h"
 #include "../Include/SaveAndLoad.h"
+#include "../Include/Bonus.h"
 
 
 GameState InitGameState(SDL sdl)
@@ -26,9 +27,7 @@ GameState InitGameState(SDL sdl)
 	gState.EnemyKilled = 0;
 	gState.CurLVL = 0;
 	gState.Inputs.PlayerInput = malloc(PLAYER_CNT * sizeof(PlayerInput));
-	//CheckPointerKill(gState.Inputs.PlayerInput, "Inputs", sdl);
 	gState.Inputs.InputMap = malloc(PLAYER_CNT * sizeof(InputMap));
-	//CheckPointerKill(gState.Inputs.InputMap, "InputMap", sdl);
 	gState.Joysticks = DetectJoystick(GetJoystickCount(), sdl);
 	for (int i = 0; i < PLAYER_CNT; i++)
 	{
@@ -104,9 +103,10 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 
 	Scene scene = {
 		sdl.Tex.Background,
-		InitPlayers((SDL_Texture*[2]) { sdl.Tex.Player1, sdl.Tex.Player2 }),
+		InitPlayers((SDL_Texture * [2]) { sdl.Tex.Player1, sdl.Tex.Player2 }),
 		//InitEnemies(sdl.Tex.EnemyType1),
 		InitProjectiles(sdl.Tex.Projectiles),
+		InitBonuses(sdl.Tex.Bonus),
 		CreateEnemyQueue(45, baseEnemy, sdl), 0,
 		CreateWaves(45, 5, 1000, sdl), 0, false, 3000,
 		0, false
@@ -128,6 +128,8 @@ Textures InitTextures(SDL sdl)
 	tex.EnemyType1 = CreateTexture(sdl, "..\\Sprites\\Mobs1.png");
 	tex.Boss1 = CreateTexture(sdl, "..\\Sprites\\Boss1.png");
 	tex.Projectiles = CreateTexture(sdl, "..\\Sprites\\Soot1.png");
+	tex.Bonus = CreateTexture(sdl, "..\\Sprites\\Bonus.png");
+	tex.TitleScreen = CreateTexture(sdl, "..\\Sprites\\Fond_menu.png");
 
 	for (int frame = 0; frame < 10; frame++) {
 		char path[256]; // Make sure path buffer is large enough

@@ -26,6 +26,7 @@ void ClearScene(Scene scene, SDL sdl)
 {
 	if (scene.Players) { free(scene.Players); }
 	if (scene.Projectiles) { free(scene.Projectiles); }
+	if (scene.Bonuses) { free(scene.Bonuses); }
 	if (scene.Queue.Enemies) { free(scene.Queue.Enemies); }
 	printf("cleared scene");
 }

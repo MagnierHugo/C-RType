@@ -48,8 +48,7 @@ static void CreateButtons(Button lB[5], Button rB[5]) // left buttons & right bu
 static void DrawRemapMenu(GameArgs args,
     Button lBtns[5], Button rBtns[5])
 {
-    SDL_SetRenderDrawColor(args.SDL.renderer, 255, 255, 255, 255);
-    SDL_RenderClear(args.SDL.renderer);
+    SDL_RenderCopy(args.SDL.renderer, args.SDL.Tex.TitleScreen, NULL, NULL);
 
     InputMap leftInputMap = args.State.Inputs.InputMap[0];
     SDL_Scancode leftCodes[] = { leftInputMap.Up, leftInputMap.Left,

@@ -4,4 +4,4 @@
 
 #include "Constants.h"
 
-void StartMenu(GameArgs gameArgs);
+int StartMenu(GameArgs gameArgs);

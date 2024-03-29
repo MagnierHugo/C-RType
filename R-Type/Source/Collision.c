@@ -1,5 +1,4 @@
 #include <SDL.h>
-
 #include <stdio.h>
 
 #include "../Include/Constants.h"
@@ -7,6 +6,7 @@
 #include "../Include/Rect.h"
 #include "../Include/Animation.h"
 #include "../Include/Player.h"
+#include "../Include/Bonus.h"
 
 
 void CheckEnemyPlayerCollision(GameState state, Enemy* enemy, Player* players)
@@ -19,7 +19,6 @@ void CheckEnemyPlayerCollision(GameState state, Enemy* enemy, Player* players)
 		if (SDL_HasIntersection(&playerRect, &enemyRect))
 		{
 			if (TakeHit(&players[player], state)) { ResetPlayer(&players[player]); }
-			//ResetScene(scene);
 		}
 	}
 }
@@ -44,9 +43,32 @@ int CheckEnemyProjCollision(GameState state, Enemy* enemy, Scene* scene, SDL* sd
 				int pos[2] = { enemy->X, enemy->Y };
 				sdl->nbrAnimation++;
 				sdl->animes = AddAnimation(*sdl, sdl->Tex.Boom, BOOM_FRAMES, pos);
+				if (enemy->DropBoost) SpawnBonus(scene->Bonuses, enemy->X, enemy->Y);
 				return enemy->AwardedPoints;
 			}
 		}
 	}
 	return 0;
+}
+
+void CheckPickupBonus(Player* players, Bonus* bonus) {
+	
+	SDL_Rect bonusRect = BonusAsRect(*bonus);
+	for (int player = 0; player < PLAYER_CNT; player++) {
+		if (!players[player].Active) continue;
+		SDL_Rect playerRect = PlayerAsRect(players[player]);
+		if (SDL_HasIntersection(&playerRect, &bonusRect)) {
+		printf("been there\n");
+			switch (bonus->DoWhat) {
+				case HEALTH_BONUS:
+					players[player].Health++;
+					break;
+
+				case SPEED_BONUS:
+					players[player].Speed += 200;
+					break;
+			}
+			bonus->Active = false;
+		}
+	}
 }

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Animation.c" />
+    <ClCompile Include="Source\Bonus.c" />
     <ClCompile Include="Source\Collision.c" />
     <ClCompile Include="Source\Draw.c" />
     <ClCompile Include="Source\Enemies.c" />
@@ -45,6 +46,7 @@
     <ClCompile Include="Source\Wave.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Bonus.h" />
     <ClInclude Include="Include\Collision.h" />
     <ClInclude Include="Include\Constants.h" />
     <ClInclude Include="Include\Draw.h" />

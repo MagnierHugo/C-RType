@@ -114,8 +114,6 @@ void CloseSDL(GameArgs gameArgs)
 
 void WindowClear(SDL_Renderer* renderer, SDL_Texture* background)
 {
-    //SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    //SDL_RenderClear(renderer); // more of a fill
     SDL_RenderCopy(
         renderer, background, NULL,
         &(SDL_Rect){ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }

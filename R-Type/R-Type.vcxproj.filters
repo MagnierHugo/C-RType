@@ -1,236 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Fichiers sources">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Fichiers de ressources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Source\Animation.c" />
+    <ClCompile Include="Source\Collision.c" />
+    <ClCompile Include="Source\Draw.c" />
+    <ClCompile Include="Source\Enemies.c" />
+    <ClCompile Include="Source\HandleJoystick.c" />
+    <ClCompile Include="Source\HandleSDL.c" />
+    <ClCompile Include="Source\Init.c" />
+    <ClCompile Include="Source\Inputs.c" />
+    <ClCompile Include="Source\Levels.c" />
+    <ClCompile Include="Source\main.c" />
+    <ClCompile Include="Source\Menu.c" />
+    <ClCompile Include="Source\Music.c" />
+    <ClCompile Include="Source\Particle.c" />
+    <ClCompile Include="Source\Player.c" />
+    <ClCompile Include="Source\Projectile.c" />
+    <ClCompile Include="Source\Rect.c" />
+    <ClCompile Include="Source\RemapMenu.c" />
+    <ClCompile Include="Source\SaveAndLoad.c" />
+    <ClCompile Include="Source\StartMenu.c" />
+    <ClCompile Include="Source\Text.c" />
+    <ClCompile Include="Source\Textures.c" />
+    <ClCompile Include="Source\Update.c" />
+    <ClCompile Include="Source\Utility.c" />
+    <ClCompile Include="Source\Wave.c" />
+    <ClCompile Include="Source\Bonus.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Utility.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Draw.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemies.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HandleSDL.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Init.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inputs.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\main.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Menu.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Music.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Particle.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Projectile.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Textures.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Update.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Wave.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Levels.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RemapMenu.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\StartMenu.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Text.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Collision.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Rect.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Animation.c">
-    <ClCompile Include="Source\SaveAndLoad.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HandleJoystick.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
+    <ClInclude Include="Include\Collision.h" />
+    <ClInclude Include="Include\Constants.h" />
+    <ClInclude Include="Include\Draw.h" />
+    <ClInclude Include="Include\Enemies.h" />
+    <ClInclude Include="Include\HandleJoystick.h" />
+    <ClInclude Include="Include\HandleSDL.h" />
+    <ClInclude Include="Include\Init.h" />
+    <ClInclude Include="Include\Inputs.h" />
+    <ClInclude Include="Include\Levels.h" />
+    <ClInclude Include="Include\Menu.h" />
+    <ClInclude Include="Include\Music.h" />
+    <ClInclude Include="Include\Particle.h" />
+    <ClInclude Include="Include\Player.h" />
+    <ClInclude Include="Include\Projectile.h" />
+    <ClInclude Include="Include\Rect.h" />
+    <ClInclude Include="Include\RemapMenu.h" />
+    <ClInclude Include="Include\SaveAndLoad.h" />
+    <ClInclude Include="Include\StartMenu.h" />
+    <ClInclude Include="Include\Structs.h" />
+    <ClInclude Include="Include\Text.h" />
+    <ClInclude Include="Include\Textures.h" />
+    <ClInclude Include="Include\Update.h" />
+    <ClInclude Include="Include\Utility.h" />
+    <ClInclude Include="Include\Wave.h" />
+    <ClInclude Include="Include\Animation.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="Include\Bonus.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Utility.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Constants.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Draw.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\HandleSDL.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Init.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Inputs.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Menu.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Music.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Particle.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Projectile.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Structs.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Textures.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Update.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Wave.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Levels.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\RemapMenu.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\StartMenu.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Player.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Enemies.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Text.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Rect.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Collision.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Animation.h">
-    <ClInclude Include="Include\HandleJoystick.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\SaveAndLoad.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
+    <Media Include="..\Music\BlueNavi-Starcade.mp3" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Sprites\Boom.gif">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boss1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Fond1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Fond2.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Mobs1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Player1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Player1_hurt.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Player2.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Soot1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom2.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom3.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom4.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom5.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom6.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom7.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom8.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom9.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="..\Sprites\Boom10.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
+    <Image Include="..\Sprites\Boom.gif" />
+    <Image Include="..\Sprites\Boom1.png" />
+    <Image Include="..\Sprites\Boom10.png" />
+    <Image Include="..\Sprites\Boom2.png" />
+    <Image Include="..\Sprites\Boom3.png" />
+    <Image Include="..\Sprites\Boom4.png" />
+    <Image Include="..\Sprites\Boom5.png" />
+    <Image Include="..\Sprites\Boom6.png" />
+    <Image Include="..\Sprites\Boom7.png" />
+    <Image Include="..\Sprites\Boom8.png" />
+    <Image Include="..\Sprites\Boom9.png" />
+    <Image Include="..\Sprites\Boss1.png" />
+    <Image Include="..\Sprites\Fond1.png" />
+    <Image Include="..\Sprites\Fond2.png" />
+    <Image Include="..\Sprites\Mobs1.png" />
+    <Image Include="..\Sprites\Player1.png" />
+    <Image Include="..\Sprites\Player1_hurt.png" />
+    <Image Include="..\Sprites\Player2.png" />
+    <Image Include="..\Sprites\Soot1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="..\Music\BlueNavi-Starcade.mp3">
-      <Filter>Fichiers de ressources</Filter>
-    </Media>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Font\font.fon">
-      <Filter>Fichiers de ressources</Filter>
-    </None>
+    <None Include="..\Font\font.fon" />
   </ItemGroup>
 </Project>

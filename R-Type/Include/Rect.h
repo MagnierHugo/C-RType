@@ -8,3 +8,4 @@
 SDL_Rect PlayerAsRect(Player player);
 SDL_Rect ProjectileAsRect(Projectile proj);
 SDL_Rect EnemyAsRect(Enemy enemy);
+SDL_Rect BonusAsRect(Bonus bonus);
