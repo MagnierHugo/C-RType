@@ -41,12 +41,15 @@ int CheckEnemyProjCollision(GameState state, Enemy* enemy, Scene* scene, SDL* sd
 			curProj->Active = false;
 			enemy->HP -= 1;
 			if (enemy->HP <= 0) {
+				int pos[2] = (int*)malloc(2 * sizeof(int));
+				pos[2] = { enemy->X, enemy->Y };
 
 				AnimeArgs args = { sdl->Tex.Boom, BOOM_FRAMES,
-				BOOM_WAIT_BETWEEN_FRAMES, (int[2]) { enemy->X, enemy->Y } };
-
+				BOOM_WAIT_BETWEEN_FRAMES, pos };
+				printf("boom %p / nbrFrames %d / wait %d / posX %d / posY %d", args.Tex, args.nbrFrames, args.Wait, args.pos[0], args.pos[1]);
 				sdl->nbrAnimation++;
-				sdl->animes = AddAnimation(*sdl, args);
+				sdl->animes = AddAnimation(*sdl, &args);
+				//sdl->animes = AddAnimation(*sdl, sdl->Tex.Boom, BOOM_FRAMES, pos);
 				return enemy->AwardedPoints;
 			}
 		}

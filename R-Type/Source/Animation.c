@@ -8,7 +8,7 @@
 #include "../Include/HandleSDL.h"
 
 
-Animation CreateAnime(SDL_Texture** Tex, int nbrFrames, int wait, int pos[2])
+Animation CreateAnime(SDL_Texture** Tex, int nbrFrames, int wait, int* pos)
 {
 	Animation animation = {
 		nbrFrames, 0, wait, NULL,
@@ -19,11 +19,11 @@ Animation CreateAnime(SDL_Texture** Tex, int nbrFrames, int wait, int pos[2])
 	return animation;
 }
 
-Animation* AddAnimation(SDL sdl, AnimeArgs args)
+Animation* AddAnimation(SDL sdl, AnimeArgs* args)
 {
 	int nbrAnimation = sdl.nbrAnimation;
 
-	Animation anime = CreateAnime(args.Tex, args.nbrFrames, args.Wait, args.pos);
+	Animation anime = CreateAnime(args->Tex, args->nbrFrames, args->Wait, &args->pos);
 
 	Animation* newAnimes = malloc(nbrAnimation * sizeof(Animation));
 	CheckPointer(newAnimes, "Error Allocating memory for add animations", sdl);
@@ -37,6 +37,36 @@ Animation* AddAnimation(SDL sdl, AnimeArgs args)
 
 	return newAnimes;
 }
+
+//Animation CreateAnime(SDL_Texture** Tex, int nbrFrames, int posX, int posY)
+//{
+//	Animation animation = {
+//		nbrFrames, 0, 1000 / nbrFrames, NULL,
+//		(SDL_Rect) { posX, posY, BOOM_WIDTH, BOOM_HEIGTH },
+//		Tex
+//	};
+//
+//	return animation;
+//}
+//
+//Animation* AddAnimation(SDL sdl, SDL_Texture** Tex, int nbrFrames, int pos[2])
+//{
+//	int nbrAnimation = sdl.nbrAnimation;
+//
+//	Animation anime = CreateAnime(Tex, nbrFrames, pos[0], pos[1]);
+//
+//	Animation* newAnimes = malloc(nbrAnimation * sizeof(Animation));
+//	CheckPointer(newAnimes, "Error Allocating memory for add animations", sdl);
+//
+//	for (int index = 0; index < nbrAnimation - 1; index++)
+//	{
+//		newAnimes[index] = sdl.animes[index];
+//	}
+//
+//	newAnimes[nbrAnimation - 1] = anime;
+//
+//	return newAnimes;
+//}
 
 Animation* DeleteAnimation(SDL sdl, int delPos)
 {

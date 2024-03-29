@@ -66,8 +66,7 @@ typedef struct {
 	SDL_Texture* EnemyType1;
 	SDL_Texture* Boss1;
 	SDL_Texture* Projectiles;
-	//SDL_Texture** Boom;
-	SDL_Texture* Boom[10];
+	SDL_Texture** Boom;
 	// BonusType1
 } Textures;
 

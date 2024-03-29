@@ -121,13 +121,7 @@ Textures InitTextures(SDL sdl)
 	tex.EnemyType1 = CreateTexture(sdl, "..\\Sprites\\Mobs1.png");
 	tex.Boss1 = CreateTexture(sdl, "..\\Sprites\\Boss1.png");
 	tex.Projectiles = CreateTexture(sdl, "..\\Sprites\\Soot1.png");
-	//tex.Boom = CreateAnimationTexture(sdl, "../Sprites/Boom%d.png", 10);
-
-	for (int frame = 0; frame < 10; frame++) {
-		char path[256]; // Make sure path buffer is large enough
-		snprintf(path, sizeof(path), "../Sprites/Boom%d.png", frame + 1);
-		tex.Boom[frame] = CreateTexture(sdl, path);
-	}
+	tex.Boom = CreateAnimationTexture(sdl, "../Sprites/Boom%d.png", 10);
 
 	return tex;
 }
