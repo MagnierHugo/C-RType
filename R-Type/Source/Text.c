@@ -4,6 +4,7 @@
 
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
+#include "../Include/HandleSDL.h"
 
 void RenderText(SDL sdl, char* text, int toRender, int x, int y)
 {
