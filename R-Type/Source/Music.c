@@ -24,6 +24,3 @@ void PlaySound(char songWAV[20], SDL sdl) {
 
     Mix_PlayChannel(-1, sound, 0);
 }
-
-
-

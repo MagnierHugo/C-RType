@@ -9,6 +9,7 @@
 #include "../Include/Constants.h"
 #include "../Include/Textures.h"
 #include "../Include/Init.h"
+#include "../Include/Music.h"
 
 
 void ErrorHandling(char* message,  SDL sdl)
@@ -27,7 +28,6 @@ void ErrorHandling(char* message,  SDL sdl)
             }
             SDL_DestroyWindow(sdl.window);
         }
-        //Mix_CloseAudio();
         SDL_Quit();
     }
     exit(EXIT_FAILURE);
@@ -35,7 +35,6 @@ void ErrorHandling(char* message,  SDL sdl)
 
 static void InitSDL( SDL sdl)
 {
-    // Initialisation SDL Video
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         ErrorHandling("Erreur SDL Init failed", sdl);
     }
@@ -44,12 +43,10 @@ static void InitSDL( SDL sdl)
         ErrorHandling("Erreur SDL_ttf failed", sdl);
     }
 
-    // Initialisation SDL Audio
     if (SDL_Init(SDL_INIT_AUDIO) < 0) {
         ErrorHandling("Erreur initialisation de SDL Audio", sdl);
     }
 
-    // Open Audio Channels
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NUMBER_OF_CHANNELS, 2048) < 0)
     {
         ErrorHandling("Erreur initialisation de SDL Mixer", sdl);
@@ -63,7 +60,6 @@ static void InitSDL( SDL sdl)
     if (SDL_Init(SDL_INIT_JOYSTICK) < 0) {
         ErrorHandling("Erreur Joystick Init failed", sdl);
     }
-
 }
 
  SDL StartSDL()
@@ -92,7 +88,7 @@ static void InitSDL( SDL sdl)
         ErrorHandling("Erreur creation rendu SDL", sdl);
     }
 
-    sdl.Font = TTF_OpenFont("..\\Font\\font.fon", 24);// Load font
+    sdl.Font = TTF_OpenFont("../Font/font.fon", 24);// Load font
     if (sdl.Font == NULL) {
         ErrorHandling("Erreur chargement de la police", sdl);
         ;

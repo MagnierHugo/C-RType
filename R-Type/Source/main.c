@@ -15,6 +15,7 @@
 #include "../Include/Inputs.h"
 #include "../Include/HandleJoystick.h"
 #include "../Include/Menu.h"
+#include "../Include/Music.h"
 #include "../Include/StartMenu.h"
 #include "../Include/Levels.h"
 #include "../Include/Enemies.h"
@@ -96,6 +97,7 @@ int main(int argc, char* argv[])
 	StartMenu(gameArgs);
 	gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 	gameArgs.State.CurrentTime = SDL_GetTicks();
+	PlaySound(SONG, gameArgs.SDL);
 	//SpawnEnemies(gameArgs);
 
 	for (int i = 0; i < LEVEL_COUNT; i++)
@@ -110,7 +112,7 @@ int main(int argc, char* argv[])
 
 			CheckForJoystick(&gameArgs);
 			HandleInputs(&gameArgs);
-			Update(&gameArgs.State, &gameArgs.Levels[i], sdlStruct);
+			Update(&gameArgs.State, &gameArgs.Levels[i], sdlStruct, gameArgs);
 			Draw(gameArgs, gameArgs.Levels[i]);
 
 			SDL_Delay(FRAMERATE);
