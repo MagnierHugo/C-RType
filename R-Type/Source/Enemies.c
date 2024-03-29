@@ -35,6 +35,7 @@ EnemyQueue CreateEnemyQueue(int nbrEnemies, Enemy base, SDL sdl)
 		Enemy enemy = base;
 
 		enemy.DropBoost = RdmInt(0, 4, true) % 4 == 0 ? true : false;
+		enemy.X += RdmInt(0, 300, false);
 		enemy.Y = RdmInt(0, SCREEN_HEIGHT - ENEMIES_HEIGHT, false);
 
 		if (queueIndex > nbrEnemies * 0.25) {

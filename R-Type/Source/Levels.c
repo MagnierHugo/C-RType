@@ -13,7 +13,15 @@ Scene* CreateLevels(int nbrLevels, SDL sdl)
 
 	for (int LevelIndex = 0; LevelIndex < nbrLevels; LevelIndex++)
 	{
-		Levels[LevelIndex] = InitScene(sdl, 5, -1, 0);
+		SDL_Texture* background;
+		if (LevelIndex % nbrLevels < (int) (nbrLevels / 2)) {
+			background = sdl.Tex.Background;
+		}
+		else {
+			background = sdl.Tex.Background2;
+		}
+		Levels[LevelIndex] = InitScene(sdl, background, 9 * (LevelIndex + 1), 
+			2 + LevelIndex, -1, 0);
 	}
 
 	return Levels;
