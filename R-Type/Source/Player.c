@@ -11,7 +11,6 @@ int TakeHit(Player* player, GameState state)
 	}
 	player->LastTimeWasShot = state.CurrentTime;
 	player->Health--;
-	printf("hit: %d\n", player->Health);
 	player->Active = player->Health > 0;
 	return 1;
 }

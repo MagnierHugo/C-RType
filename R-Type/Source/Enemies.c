@@ -62,7 +62,7 @@ Enemy* UpdateQueue(EnemyQueue queue, SDL sdl)
 
 	bool skipOne = false;
 
-	for (int Index = 0; Index < queue.nbrEnemies; Index++)
+	for (int index = 0; index < queue.nbrEnemies; index++)
 	{
 		if (oldQueue[Index].HP <= 0) { skipOne = true; }
 		newQueue[Index] = oldQueue[Index + skipOne];

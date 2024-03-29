@@ -4,6 +4,7 @@
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
 #include "../Include/Menu.h"
+#include "../Include/Text.h"
 
 static void CreateLeftButtons(Button lB[5], SDL_Color btnColor)
 {
@@ -44,18 +45,33 @@ static void CreateButtons(Button lB[5], Button rB[5]) // left buttons & right bu
     }
 }
 
-static void DrawRemapMenu(SDL sdl,
+static void DrawRemapMenu(GameArgs args,
     Button lBtns[5], Button rBtns[5])
 {
-    SDL_SetRenderDrawColor(sdl.renderer, 255, 255, 255, 255);
-    SDL_RenderClear(sdl.renderer);
+    SDL_SetRenderDrawColor(args.SDL.renderer, 255, 255, 255, 255);
+    SDL_RenderClear(args.SDL.renderer);
+
+    InputMap leftInputMap = args.State.Inputs.InputMap[0];
+    SDL_Scancode leftCodes[] = { leftInputMap.Up, leftInputMap.Left,
+        leftInputMap.Down, leftInputMap.Right, leftInputMap.Shoot };
+    InputMap rightInputMap = args.State.Inputs.InputMap[1];
+    SDL_Scancode rightCodes[] = { rightInputMap.Up, rightInputMap.Left,
+        rightInputMap.Down, rightInputMap.Right, rightInputMap.Shoot };
 
     for (int i = 0; i < 5; i++) {
-        DrawButton(sdl.renderer, lBtns[i]);
-        DrawButton(sdl.renderer, rBtns[i]);
+        DrawButton(args.SDL.renderer, lBtns[i]);
+        char* lKeyName = SDL_GetKeyName(SDL_GetKeyFromScancode(leftCodes[i]));
+        RenderText(args.SDL, lKeyName, DONT_RENDER_FLAG,
+            lBtns[i].Rect.x + lBtns[i].Rect.w / 2,
+            lBtns[i].Rect.y + lBtns[i].Rect.h / 2);
+        DrawButton(args.SDL.renderer, rBtns[i]);
+        char* rKeyName = SDL_GetKeyName(SDL_GetKeyFromScancode(rightCodes[i]));
+        RenderText(args.SDL, rKeyName, DONT_RENDER_FLAG,
+            rBtns[i].Rect.x + rBtns[i].Rect.w / 2,
+            rBtns[i].Rect.y + rBtns[i].Rect.h / 2);
     }
 
-    SDL_RenderPresent(sdl.renderer);
+    SDL_RenderPresent(args.SDL.renderer);
 }
 
 static void HandleRemap(InputsSummary input, int rightSide, int whichButton)
@@ -67,32 +83,25 @@ static void HandleRemap(InputsSummary input, int rightSide, int whichButton)
         case 0:
             printf("Up\n");
             relevantInputMap->Up = GetKeyPressed();
-            printf("Remapped succesfully\n");
             break;
         case 1:
             printf("Left\n");
             relevantInputMap->Left = GetKeyPressed();
-            printf("Remapped succesfully\n");
             break;
         case 2:
             printf("Down\n");
             relevantInputMap->Down = GetKeyPressed();
-            printf("Remapped succesfully\n");
             break;
         case 3:
             printf("Right\n");
             relevantInputMap->Right = GetKeyPressed();
-            printf("Remapped succesfully\n");
             break;
         case 4:
             printf("Shoot\n");
             relevantInputMap->Shoot = GetKeyPressed();
-            printf("Remapped succesfully\n");
-            break;
-        default:
             break;
     }
-
+    printf("Remapped succesfully\n");
 }
 
 void RemapMenu(GameArgs gameArgs) { // add a go back button
@@ -122,6 +131,6 @@ void RemapMenu(GameArgs gameArgs) { // add a go back button
                 }
             }
         }
-        DrawRemapMenu(gameArgs.SDL, leftButtons, rightButtons);
+        DrawRemapMenu(gameArgs, leftButtons, rightButtons);
     }
 }

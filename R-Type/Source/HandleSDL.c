@@ -9,6 +9,7 @@
 #include "../Include/Constants.h"
 #include "../Include/Textures.h"
 #include "../Include/Init.h"
+#include "../Include/Music.h"
 
 
 void ErrorHandling(char* message,  SDL sdl)
@@ -27,15 +28,13 @@ void ErrorHandling(char* message,  SDL sdl)
             }
             SDL_DestroyWindow(sdl.window);
         }
-        //Mix_CloseAudio();
         SDL_Quit();
     }
     exit(EXIT_FAILURE);
 }
 
-static void InitSDL( SDL sdl)
+static void InitSDL(SDL sdl)
 {
-    // Initialisation SDL Video
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         ErrorHandling("Erreur SDL Init failed", sdl);
     }
@@ -44,12 +43,10 @@ static void InitSDL( SDL sdl)
         ErrorHandling("Erreur SDL_ttf failed", sdl);
     }
 
-    // Initialisation SDL Audio
     if (SDL_Init(SDL_INIT_AUDIO) < 0) {
         ErrorHandling("Erreur initialisation de SDL Audio", sdl);
     }
 
-    // Open Audio Channels
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NUMBER_OF_CHANNELS, 2048) < 0)
     {
         ErrorHandling("Erreur initialisation de SDL Mixer", sdl);
@@ -59,16 +56,20 @@ static void InitSDL( SDL sdl)
     if (TTF_Init() < 0) {
         ErrorHandling("Erreur initialisation de SDL TTF", sdl);
     }
+
+    if (SDL_Init(SDL_INIT_JOYSTICK) < 0) {
+        ErrorHandling("Erreur Joystick Init failed", sdl);
+    }
 }
 
  SDL StartSDL()
 {
+    srand(time(NULL));
     SDL sdl;
 
     InitSDL(sdl);
 
-    //creer une fenetre avec SDL
-    sdl.window = SDL_CreateWindow("Ship game",
+    sdl.window = SDL_CreateWindow("Ship game", //creer une fenetre avec SDL
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN
     );
@@ -77,8 +78,7 @@ static void InitSDL( SDL sdl)
         ErrorHandling("Erreur creation fen�tre SDL", sdl);
     }
 
-    //Creer rendu SDL
-    sdl.renderer = SDL_CreateRenderer(
+    sdl.renderer = SDL_CreateRenderer(//Creer rendu SDL
         sdl.window, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
     );
@@ -87,10 +87,9 @@ static void InitSDL( SDL sdl)
         ErrorHandling("Erreur creation rendu SDL", sdl);
     }
 
-    sdl.Font = TTF_OpenFont("..\\Font\\font.fon", 24);// Load font
+    sdl.Font = TTF_OpenFont("../Font/font.fon", 24);// Load font
     if (sdl.Font == NULL) {
         ErrorHandling("Erreur chargement de la police", sdl);
-        ;
     }
 
     sdl.Tex = InitTextures(sdl);
@@ -101,6 +100,10 @@ static void InitSDL( SDL sdl)
 
 void CloseSDL(GameArgs gameArgs)
 {
+    for (int i = 0; i < PLAYER_CNT; i++) {
+        SDL_GameController* controller = SDL_GameControllerOpen(i);
+        if (CheckPointer(controller)) SDL_GameControllerClose(controller);
+    }
     TTF_CloseFont(gameArgs.SDL.Font);
     DestroyTextures(gameArgs.SDL.Tex);
     SDL_DestroyRenderer(gameArgs.SDL.renderer);
@@ -117,10 +120,4 @@ void WindowClear(SDL_Renderer* renderer, SDL_Texture* background)
         renderer, background, NULL,
         &(SDL_Rect){ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }
     );
-}
-
-void TempWindowClear(SDL_Renderer* renderer)
-{
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer); // more of a fill
 }

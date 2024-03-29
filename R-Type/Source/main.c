@@ -13,54 +13,43 @@
 #include "../Include/Update.h"
 #include "../Include/Draw.h"
 #include "../Include/Inputs.h"
+#include "../Include/HandleJoystick.h"
 #include "../Include/Menu.h"
+#include "../Include/Music.h"
 #include "../Include/StartMenu.h"
 #include "../Include/Levels.h"
 #include "../Include/Enemies.h"
 #include "../Include/Utility.h"
 #include "../Include/Text.h"
+#include "../Include/SaveAndLoad.h"
 
 
-static void ClearScene(Scene scene, SDL sdl)
+int QuitGame(GameArgs gameArgs)
 {
-	/*
-	CheckPointer(scene.Players, "no player", sdl);
-	CheckPointer(scene.Enemies, "no enemies", sdl);
-	CheckPointer(scene.Projectiles, "no projectiles", sdl);
-	CheckPointer(scene.Players);
-	CheckPointer(scene.Enemies);
-	CheckPointer(scene.Projectiles);*/
-	if (scene.Players) { free(scene.Players); }
-	if (scene.Projectiles) { free(scene.Projectiles); }
-	if (scene.Queue.Enemies) { free(scene.Queue.Enemies); }
-	printf("cleared scene");
-}
-
-static void QuitGame(GameArgs gameArgs)
-{
-	// clear textures
-	printf("Thanks for playing"); // not an error but actually cleans so it s convenient
+	GameState state = gameArgs.State;
+	SaveGameData(state.Score > state.HighScore ? state.Score : state.HighScore);
+	printf("Thanks for playing");
 	CloseSDL(gameArgs);
 	exit(EXIT_SUCCESS);
+	return 0;
 }
 
-// -1 lost | 0 in progress | 1 won
-static int CheckEndGame(Scene scene)
+static int CheckEndGame(Scene scene, SDL sdl) // -1 lost | 0 in progress | 1 won
 {
-	if (!scene.Players[0].Active && !scene.Players[1].Active) return -1; // lost bc both dead
+	int result = 0;
+	if (!scene.Players[0].Active && !scene.Players[1].Active) result = -1; // lost bc both dead
+	
+	if (scene.ActiveEnemies <= 0 && scene.waveEnd) result = 1;
 
-	/*for (int i = 0; i < MAX_ENEMY_CNT; i++)
-	{
-		if (scene.Enemies[i].Active) return 0;
-	}*/
+	if (result != 0) ClearScene(scene, sdl);
 
-	if (scene.ActiveEnemies > 0 || !scene.waveEnd) return 0;
-
-	return 1;
+	return result;
 }
 
-void EndScreen(GameArgs args) {
+int EndScreen(GameArgs args)
+{
 	SDL sdl = args.SDL;
+	GameState state = args.State;
 	SDL_Event event;
 	bool loop = true;
 	while (loop) {
@@ -70,60 +59,54 @@ void EndScreen(GameArgs args) {
 			else if (event.type == SDL_MOUSEBUTTONDOWN) loop = false;
 		}
 		SDL_RenderCopy(sdl.renderer, sdl.Tex.Background, NULL, NULL);
-		RenderText(sdl, "Score: ", args.State.Score,
+		RenderText(sdl, "HighScore: ",
+			state.Score > state.HighScore ? state.Score : state.HighScore,
+			SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 25);
+		RenderText(sdl, "Score: ", state.Score,
 			SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-		RenderText(sdl, "Shots fired: ", args.State.ShotFired,
+		RenderText(sdl, "Shots fired: ", state.ShotFired,
 			SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 25);
+		SDL_RenderPresent(sdl.renderer);
 	}
+	return QuitGame(args);
+}
+
+void Tick(GameState* state)
+{
+	state->DeltaTime = (SDL_GetTicks() - state->CurrentTime) / 1000;
+	state->CurrentTime = SDL_GetTicks();
 }
 
 int main(int argc, char* argv[])
 {
-	srand(time(NULL));
-
 	SDL sdlStruct = StartSDL();
 	Scene* Levels = CreateLevels(LEVEL_COUNT, sdlStruct);
-
-	GameArgs gameArgs = {
-		sdlStruct,
-		InitGameState(),
-		Levels,
-	};
+	GameArgs gameArgs = {sdlStruct, InitGameState(sdlStruct), Levels };
 
 	StartMenu(gameArgs);
-	gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
-	gameArgs.State.CurrentTime = SDL_GetTicks();
-	//SpawnEnemies(gameArgs);
+	Tick(&gameArgs.State);
+	PlaySound(SONG, gameArgs.SDL);
 
 	for (int i = 0; i < LEVEL_COUNT; i++) {
 		gameArgs.Levels[i].Time = gameArgs.State.CurrentTime;
 		int endGame;
-		while (gameArgs.State.Continue) {
-			gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
-			gameArgs.State.CurrentTime = SDL_GetTicks();
 
-			HandleInputs(gameArgs.State, gameArgs.Levels[i]);
-			Update(&gameArgs, &gameArgs.Levels[i]);
-			Draw(&gameArgs, gameArgs.Levels[i]);
+		while (gameArgs.State.Continue)
+		{
+			Tick(&gameArgs.State);
 
+			HandleInputs(&gameArgs);
+			Update(&gameArgs.State, &gameArgs.Levels[i], sdlStruct, gameArgs);
+			Draw(gameArgs, gameArgs.Levels[i]);
 			SDL_Delay(FRAMERATE);
 
-			endGame = CheckEndGame(gameArgs.Levels[i]);
-			if (endGame > 0) {
-				ClearScene(gameArgs.Levels[i], gameArgs.SDL);
-				break;
-			}
-			else if (endGame < 0) {
-				ClearScene(gameArgs.Levels[i], gameArgs.SDL);
-				gameArgs.State.Continue = false;
-			}
+			endGame = CheckEndGame(gameArgs.Levels[i], gameArgs.SDL);
+			if (endGame > 0) { break; }
+			else if (endGame < 0) { gameArgs.State.Continue = false; }
 		}
 	}
 
-	EndScreen(gameArgs);
-	QuitGame(gameArgs);
-
-	return 0;
+	return EndScreen(gameArgs);
 }
 
 

@@ -1,7 +1,10 @@
+#include <SDL.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "../Include/Constants.h"
 #include "../Include/Structs.h"
 #include "../Include/HandleSDL.h"
 
@@ -23,14 +26,29 @@ void Swap(void* element1, void* element2)
     element2 = tempElement;
 }
 
-void CheckPointer(void* pointer, char* errorMessage, SDL sdl)
+void CheckPointerKill(void* pointer, char* errorMessage, SDL sdl)
 {
     if (pointer == NULL) {
         ErrorHandling(errorMessage, sdl);
     }
 }
 
-//void CheckPointer(void* pointer)
-//{
-//    if (pointer) free(pointer);
+bool CheckPointer(void* pointer)
+{
+    return pointer != NULL;
+}
+
+//int ControllerAxisToInt(SDL_GameController* controller, int axis) {
+//    int rawAxis = SDL_GameControllerGetAxis(controller, axis);
+//    if (abs(rawAxis) > JOY_POS * .5)
+//    >  / JOY_POS);
 //}
+
+int ControllerAxisToInt(SDL_GameController* controller, int axis) {
+
+    float rawAxis = SDL_GameControllerGetAxis(controller, axis);
+
+    if (abs(rawAxis) > ACTIVATION_THRESHOLD) return rawAxis > 0 ? 1 : -1;
+    else return 0;
+    
+}

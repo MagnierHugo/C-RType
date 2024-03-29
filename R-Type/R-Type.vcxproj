@@ -23,6 +23,7 @@
     <ClCompile Include="Source\Collision.c" />
     <ClCompile Include="Source\Draw.c" />
     <ClCompile Include="Source\Enemies.c" />
+    <ClCompile Include="Source\HandleJoystick.c" />
     <ClCompile Include="Source\HandleSDL.c" />
     <ClCompile Include="Source\Init.c" />
     <ClCompile Include="Source\Inputs.c" />
@@ -35,6 +36,7 @@
     <ClCompile Include="Source\Projectile.c" />
     <ClCompile Include="Source\Rect.c" />
     <ClCompile Include="Source\RemapMenu.c" />
+    <ClCompile Include="Source\SaveAndLoad.c" />
     <ClCompile Include="Source\StartMenu.c" />
     <ClCompile Include="Source\Text.c" />
     <ClCompile Include="Source\Textures.c" />
@@ -47,6 +49,7 @@
     <ClInclude Include="Include\Constants.h" />
     <ClInclude Include="Include\Draw.h" />
     <ClInclude Include="Include\Enemies.h" />
+    <ClInclude Include="Include\HandleJoystick.h" />
     <ClInclude Include="Include\HandleSDL.h" />
     <ClInclude Include="Include\Init.h" />
     <ClInclude Include="Include\Inputs.h" />
@@ -58,6 +61,7 @@
     <ClInclude Include="Include\Projectile.h" />
     <ClInclude Include="Include\Rect.h" />
     <ClInclude Include="Include\RemapMenu.h" />
+    <ClInclude Include="Include\SaveAndLoad.h" />
     <ClInclude Include="Include\StartMenu.h" />
     <ClInclude Include="Include\Structs.h" />
     <ClInclude Include="Include\Text.h" />
@@ -66,6 +70,7 @@
     <ClInclude Include="Include\Utility.h" />
     <ClInclude Include="Include\Wave.h" />
     <ClInclude Include="Include\Animation.h" />
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Sprites\Boom.gif" />

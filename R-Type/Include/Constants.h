@@ -4,14 +4,10 @@
 #include <SDL_ttf.h>
 #include <stdbool.h>
 
-// EVERY SINGLE CONSTANT SHOULD BE FULL_CAP
-// 
 // Global
 #define SCREEN_WIDTH 1020
 #define SCREEN_HEIGHT 766
 #define FRAMERATE 1000/60
-
-#define OUT_OF_BOUNDS_THRESHOLD 100
 
 // Player
 
@@ -24,7 +20,7 @@
 
 #define SHOOTING_RATE 100
 
-#define PLAYER_INITIAL_HEALTH 5
+#define PLAYER_INITIAL_HEALTH 1
 #define IMMUNITY_DURATION 5000
 
 // Combat
@@ -38,6 +34,8 @@
 #define NUMBER_OF_CHANNELS 3
 
 // audio paths can be here
+#define SONG "../Music/BlueNavi-Starcade.mp3"
+#define BLASTER "../Music/blaster.mp3"
 
 
 // Particles
@@ -52,8 +50,11 @@
 #define BUTTON_SPACING 25
 
 
+#define ENEMY_KILLED_Y 625
+#define SHOTS_FIRED_Y 650
+#define LEVEL_Y 675
 #define SCORE_Y 700
-#define SHOTS_FIRED_Y 725
+#define HIGHSCORE_Y 725
 
 
 // Some Constants for the enemies
@@ -68,3 +69,11 @@
 #define BOOM_FRAMES 10
 #define BOOM_WIDTH 120
 #define BOOM_HEIGTH (int)(BOOM_WIDTH * 1.13)
+// Inputs
+
+#define DEADZONE 5000
+#define ACTIVATION_THRESHOLD 8000
+#define JOY_MAX_VALUE 32767
+#define SENSITIVITY 5
+
+#define DONT_RENDER_FLAG -999

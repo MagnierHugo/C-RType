@@ -10,25 +10,30 @@
 #include "../Include/Enemies.h"
 #include "../Include/Wave.h"
 #include "../Include/Utility.h"
+#include "../Include/HandleJoystick.h"
+#include "../Include/SaveAndLoad.h"
 
 
-GameState InitGameState()
+GameState InitGameState(SDL sdl)
 {
 	GameState gState;
 	gState.DeltaTime = 0;
 	gState.CurrentTime = SDL_GetTicks();
 	gState.Continue = true;
 	gState.Score = 0;
+	gState.HighScore = LoadGameData();
 	gState.ShotFired = 0;
+	gState.EnemyKilled = 0;
 	gState.CurLVL = 0;
-	gState.Inputs.PlayerInput = malloc(PLAYER_CNT * sizeof( PlayerInput));
-	gState.Inputs.InputMap = malloc(PLAYER_CNT * sizeof( InputMap));
+	gState.Inputs.PlayerInput = malloc(PLAYER_CNT * sizeof(PlayerInput));
+	gState.Inputs.InputMap = malloc(PLAYER_CNT * sizeof(InputMap));
+	gState.Joysticks = DetectJoystick(GetJoystickCount(), sdl);
 	for (int i = 0; i < PLAYER_CNT; i++)
 	{
 		gState.Inputs.PlayerInput[i].DirX = 0;
 		gState.Inputs.PlayerInput[i].DirY = 0;
 		gState.Inputs.PlayerInput[i].Shooting = false;
-
+		// default key mapping
 		gState.Inputs.InputMap[i].Right = i ? SDL_SCANCODE_RIGHT : SDL_SCANCODE_D;
 		gState.Inputs.InputMap[i].Left = i ? SDL_SCANCODE_LEFT : SDL_SCANCODE_A;
 		gState.Inputs.InputMap[i].Up = i ? SDL_SCANCODE_UP : SDL_SCANCODE_W;
@@ -92,7 +97,7 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 	Enemy baseEnemy = {
 		sdl.Tex.EnemyType1, SCREEN_WIDTH, 0, dirX, dirY,
 		ENEMIES_WIDTH, ENEMIES_HEIGHT,
-		ENEMY_SPEED, baseHp, 0
+		ENEMY_SPEED, baseHp, BASE_ENEMY_AWARDED_POINTS, false
 	};
 
 	Scene scene = {

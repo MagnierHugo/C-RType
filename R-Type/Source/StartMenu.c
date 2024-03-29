@@ -4,9 +4,11 @@
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
 #include "../Include/Menu.h"
+#include "../Include/Text.h"
 #include "../Include/RemapMenu.h"
 
-static void CreateButtons(Button buttons[4])
+
+static void CreateButtons(Button buttons[4], SDL sdl)
 {
     SDL_Color buttonColor = { 100, 100, 100, 255 };
 
@@ -16,7 +18,7 @@ static void CreateButtons(Button buttons[4])
 
     buttons[0] = (Button){
         {buttonX, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT},
-        buttonColor, false };
+        buttonColor, false }; 
     buttons[1] = (Button){
         {buttonX, buttonY + buttonSpacing, BUTTON_WIDTH, BUTTON_HEIGHT},
         buttonColor, false };
@@ -30,11 +32,15 @@ static void CreateButtons(Button buttons[4])
 
 static void DrawStartMenu(SDL sdl, Button buttons[4])
 {
+
+    char* Ti[] = { "SOLO", "DUO", "REBIND", "QUIT" };
     SDL_SetRenderDrawColor(sdl.renderer, 255, 255, 255, 255);
     SDL_RenderClear(sdl.renderer);
 
     for (int i = 0; i < 4; i++) {
         DrawButton(sdl.renderer, buttons[i]);
+        RenderText(sdl, Ti[i], DONT_RENDER_FLAG, buttons[i].Rect.x + buttons[i].Rect.w / 2,
+            buttons[i].Rect.y + buttons[i].Rect.h/2);
     }
 
     SDL_RenderPresent(sdl.renderer);
@@ -57,12 +63,13 @@ static bool HandleStartMenu(GameArgs gameArgs, Button buttons[4])
                             printf("Play\n");
                             return false;
                         case 1:
-                            RemapMenu(gameArgs);
+                            printf("Duo\n");
                             break;
                         case 2:
-                            printf("Difficulty\n");
+                            RemapMenu(gameArgs);
                             break;
                         case 3:
+                            SDL_Quit();
                             printf("Quit\n");
                             break;
                     }
@@ -76,7 +83,7 @@ static bool HandleStartMenu(GameArgs gameArgs, Button buttons[4])
 void StartMenu(GameArgs gameArgs)
 {
     Button buttons[4];
-    CreateButtons(buttons);
+    CreateButtons(buttons, gameArgs.SDL);
 
     
     bool continue_ = true;

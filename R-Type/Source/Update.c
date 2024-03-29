@@ -13,7 +13,7 @@
 #include "../Include/Collision.h"
 
 
-static void UpdatePlayers(GameState* state, Scene scene)
+static void UpdatePlayers(GameState* state, Scene scene, GameArgs gameArgs)
 {
     Player* players = scene.Players;
     for (int i = 0; i < PLAYER_CNT; i++)
@@ -27,7 +27,7 @@ static void UpdatePlayers(GameState* state, Scene scene)
         {
             if (players[i].LastTimeShot + SHOOTING_RATE < state->CurrentTime)
             {
-                ShootPlayerProjectile(players[i], scene.Projectiles, state);
+                ShootPlayerProjectile(players[i], scene.Projectiles, state, gameArgs);
                 players[i].LastTimeShot = state->CurrentTime;
             }
         }
@@ -98,11 +98,15 @@ static void UpdateEnemies(GameState* state, Scene* scene, SDL* sdl)
         
         CheckEnemyPlayerCollision(*state, enemy, players);
         
+        int scoreBefore = state->Score;
         state->Score += CheckEnemyProjCollision(*state, enemy, scene, sdl);
+
+        if (scoreBefore < state->Score) state->EnemyKilled++;
+        // state->Score += CheckEnemyProjCollision(enemy, queue, projs, sdl);
     }
 }
 
-static void UpdateProjectiles(GameState state, Scene scene)
+static void UpdateProjectiles(GameState state, Scene scene, GameArgs gameArgs)
 {
     Projectile* proj = scene.Projectiles;
     for (int i = 0; i < MAX_PROJECTILES; i++)
@@ -120,5 +124,10 @@ void Update(GameArgs* gameArgs, Scene* scene)
     UpdatePlayers(&gameArgs->State, *scene);
     UpdateEnemies(&gameArgs->State, scene, &gameArgs->SDL);
     UpdateProjectiles(gameArgs->State, *scene);
+// void Update(GameState* state, Scene* scene, SDL sdl, GameArgs gameArgs)
+// {
+//     UpdatePlayers(state, *scene, gameArgs);
+//     UpdateEnemies(state, scene, sdl);
+//     UpdateProjectiles(*state, *scene, gameArgs);
 }
 
