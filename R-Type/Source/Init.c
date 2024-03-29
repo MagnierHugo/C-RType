@@ -120,16 +120,15 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 Textures InitTextures(SDL sdl)
 {
 	Textures tex;
-
-	tex.Background = CreateTexture(sdl, "..\\Sprites\\Fond1.png");
-	tex.Player1 = CreateTexture(sdl, "..\\Sprites\\Player1.png");
-	tex.Player1Hurt = CreateTexture(sdl, "..\\Sprites\\Player1_hurt.png");
-	tex.Player2 = CreateTexture(sdl, "..\\Sprites\\Player2.png");
-	tex.EnemyType1 = CreateTexture(sdl, "..\\Sprites\\Mobs1.png");
-	tex.Boss1 = CreateTexture(sdl, "..\\Sprites\\Boss1.png");
-	tex.Projectiles = CreateTexture(sdl, "..\\Sprites\\Soot1.png");
 	tex.Bonus = CreateTexture(sdl, "..\\Sprites\\Bonus.png");
 	tex.TitleScreen = CreateTexture(sdl, "..\\Sprites\\Fond_menu.png");
+	tex.Background = CreateTexture(sdl, "../Sprites/Fond1-1.png");
+	tex.Player1 = CreateTexture(sdl, "../Sprites/Player1.png");
+	tex.Player1Hurt = CreateTexture(sdl, "../Sprites/Player1-hurt.png");
+	tex.Player2 = CreateTexture(sdl, "../Sprites/Player2.png");
+	tex.EnemyType1 = CreateTexture(sdl, "../Sprites/Mobs1.png");
+	tex.Boss1 = CreateTexture(sdl, "../Sprites/Boss1.png");
+	tex.Projectiles = CreateTexture(sdl, "../Sprites/Soot1.png");
 
 	for (int frame = 0; frame < 10; frame++) {
 		char path[256]; // Make sure path buffer is large enough

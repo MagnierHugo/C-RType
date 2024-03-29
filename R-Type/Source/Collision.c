@@ -7,6 +7,7 @@
 #include "../Include/Animation.h"
 #include "../Include/Player.h"
 #include "../Include/Bonus.h"
+#include "../Include/Music.h"
 
 
 void CheckEnemyPlayerCollision(GameState state, Enemy* enemy, Player* players)
@@ -41,6 +42,7 @@ int CheckEnemyProjCollision(GameState state, Enemy* enemy, Scene* scene, SDL* sd
 			enemy->HP -= 1;
 			if (enemy->HP <= 0) { 
 				int pos[2] = { enemy->X, enemy->Y };
+				PlaySound(KABOOM, *sdl);
 				sdl->nbrAnimation++;
 				sdl->animes = AddAnimation(*sdl, sdl->Tex.Boom, BOOM_FRAMES, pos);
 				if (enemy->DropBoost) SpawnBonus(scene->Bonuses, enemy->X, enemy->Y);
