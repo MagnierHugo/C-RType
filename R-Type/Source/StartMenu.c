@@ -39,7 +39,7 @@ static void DrawStartMenu(SDL sdl, Button buttons[4])
 
     for (int i = 0; i < 4; i++) {
         DrawButton(sdl.renderer, buttons[i]);
-        RenderText(sdl, Ti[i], NULL, buttons[i].Rect.x + buttons[i].Rect.w / 2,
+        RenderText(sdl, Ti[i], DONT_RENDER_FLAG, buttons[i].Rect.x + buttons[i].Rect.w / 2,
             buttons[i].Rect.y + buttons[i].Rect.h/2);
     }
 
