@@ -41,7 +41,8 @@ int CheckEnemyProjCollision(GameState state, Enemy* enemy, Scene* scene, SDL* sd
 		{
 			curProj->Active = false;
 			enemy->HP -= 1;
-			if (enemy->HP <= 0) { 
+			if (enemy->HP <= 0) {
+			
 				int pos[2] = { enemy->X, enemy->Y };
 				PlaySound(KABOOM, *sdl);
 				sdl->nbrAnimation++;
