@@ -95,7 +95,8 @@ static void HandleRemap(InputsSummary input, int rightSide, int whichButton)
 
 }
 
-void RemapMenu(GameArgs gameArgs) { // add a go back button
+void RemapMenu(GameArgs gameArgs) // add a go back button
+{ 
     Button leftButtons[5];
     Button rightButtons[5];
 

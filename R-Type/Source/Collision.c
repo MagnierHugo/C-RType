@@ -40,10 +40,13 @@ int CheckEnemyProjCollision(GameState state, Enemy* enemy, Scene* scene, SDL* sd
 		{
 			curProj->Active = false;
 			enemy->HP -= 1;
-			if (enemy->HP <= 0) { 
-				int pos[2] = { enemy->X, enemy->Y };
+			if (enemy->HP <= 0) {
+
+				AnimeArgs args = { sdl->Tex.Boom, BOOM_FRAMES,
+				BOOM_WAIT_BETWEEN_FRAMES, (int[2]) { enemy->X, enemy->Y } };
+
 				sdl->nbrAnimation++;
-				sdl->animes = AddAnimation(*sdl, sdl->Tex.Boom, BOOM_FRAMES, pos);
+				sdl->animes = AddAnimation(*sdl, args);
 				return enemy->AwardedPoints;
 			}
 		}

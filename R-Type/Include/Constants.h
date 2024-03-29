@@ -25,7 +25,7 @@
 #define SHOOTING_RATE 100
 
 #define PLAYER_INITIAL_HEALTH 5
-#define IMMUNITY_DURATION 5000
+#define IMMUNITY_DURATION 2000
 
 // Combat
 #define MAX_PROJECTILES 100
@@ -66,5 +66,7 @@
 
 // Animation
 #define BOOM_FRAMES 10
+#define BOOM_WAIT_BETWEEN_FRAMES 150
+
 #define BOOM_WIDTH 120
 #define BOOM_HEIGTH (int)(BOOM_WIDTH * 1.13)

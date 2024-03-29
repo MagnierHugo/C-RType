@@ -20,7 +20,6 @@ Wave* CreateWaves(int nbrEnemies, int maxEnemiesPerWave, int baseWait, SDL sdl)
 			enemiesInWave = RdmInt(1, maxEnemiesPerWave, true);
 		}
 		else { enemiesInWave = RdmInt(1, nbrEnemies, true); }
-
 		if (waveNumber < size) {
 			enemies[waveNumber] = enemiesInWave;
 			nbrEnemies -= enemiesInWave;
@@ -31,11 +30,9 @@ Wave* CreateWaves(int nbrEnemies, int maxEnemiesPerWave, int baseWait, SDL sdl)
 	Wave* waves = malloc(waveNumber * sizeof(Wave));
 	CheckPointer(enemies, "Error Allocating Memory for waves", sdl);
 	for (int waveIndex = 0; waveIndex < waveNumber; waveIndex++) {
-		waves[waveIndex] = (Wave){
-			enemies[waveIndex],
+		waves[waveIndex] = (Wave){ enemies[waveIndex], 
 			baseWait + baseWait / 3 * enemies[waveIndex],
-			waveIndex == waveNumber - 1 ? true : false
-		};
+			waveIndex == waveNumber - 1 ? true : false };
 	}
 
 	free(enemies);

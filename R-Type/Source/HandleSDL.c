@@ -9,6 +9,7 @@
 #include "../Include/Constants.h"
 #include "../Include/Textures.h"
 #include "../Include/Init.h"
+#include "../Include/Utility.h"
 
 
 void ErrorHandling(char* message,  SDL sdl)
@@ -61,7 +62,7 @@ static void InitSDL( SDL sdl)
     }
 }
 
- SDL StartSDL()
+SDL StartSDL()
 {
     SDL sdl;
 
@@ -72,26 +73,17 @@ static void InitSDL( SDL sdl)
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN
     );
-
-    if (sdl.window == NULL) {
-        ErrorHandling("Erreur creation fen�tre SDL", sdl);
-    }
+    CheckPointer(sdl.window, "Erreur creation fen�tre SDL", sdl);
 
     //Creer rendu SDL
     sdl.renderer = SDL_CreateRenderer(
         sdl.window, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
     );
-
-    if (sdl.renderer == NULL) {
-        ErrorHandling("Erreur creation rendu SDL", sdl);
-    }
+    CheckPointer(sdl.renderer, "Erreur creation rendu SDL", sdl);
 
     sdl.Font = TTF_OpenFont("..\\Font\\font.fon", 24);// Load font
-    if (sdl.Font == NULL) {
-        ErrorHandling("Erreur chargement de la police", sdl);
-        ;
-    }
+    CheckPointer(sdl.Font, "Erreur chargement de la police", sdl);
 
     sdl.Tex = InitTextures(sdl);
     sdl.nbrAnimation = 0;
@@ -117,10 +109,4 @@ void WindowClear(SDL_Renderer* renderer, SDL_Texture* background)
         renderer, background, NULL,
         &(SDL_Rect){ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }
     );
-}
-
-void TempWindowClear(SDL_Renderer* renderer)
-{
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer); // more of a fill
 }
