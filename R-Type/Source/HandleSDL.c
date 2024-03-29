@@ -14,7 +14,7 @@
 void ErrorHandling(char* message,  SDL sdl)
 {
     printf("%s\n", message);
-    if (&sdl != &(SDL) { NULL, NULL, NULL, NULL }) {
+    if (&sdl != &(SDL) { NULL, NULL, NULL, NULL, NULL, NULL }) {
 
         if (sdl.window != NULL) {
 
@@ -59,7 +59,6 @@ static void InitSDL( SDL sdl)
     if (TTF_Init() < 0) {
         ErrorHandling("Erreur initialisation de SDL TTF", sdl);
     }
-
 }
 
  SDL StartSDL()
@@ -94,8 +93,9 @@ static void InitSDL( SDL sdl)
         ;
     }
 
-
     sdl.Tex = InitTextures(sdl);
+    sdl.nbrAnimation = 0;
+
     return sdl;
 }
 

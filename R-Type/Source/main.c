@@ -84,8 +84,7 @@ int main(int argc, char* argv[])
 	SDL sdlStruct = StartSDL();
 	Scene* Levels = CreateLevels(LEVEL_COUNT, sdlStruct);
 
-	GameArgs gameArgs =
-	{
+	GameArgs gameArgs = {
 		sdlStruct,
 		InitGameState(),
 		Levels,
@@ -96,29 +95,25 @@ int main(int argc, char* argv[])
 	gameArgs.State.CurrentTime = SDL_GetTicks();
 	//SpawnEnemies(gameArgs);
 
-	for (int i = 0; i < LEVEL_COUNT; i++)
-	{
+	for (int i = 0; i < LEVEL_COUNT; i++) {
 		gameArgs.Levels[i].Time = gameArgs.State.CurrentTime;
 		int endGame;
-		while (gameArgs.State.Continue)
-		{
+		while (gameArgs.State.Continue) {
 			gameArgs.State.DeltaTime = (SDL_GetTicks() - gameArgs.State.CurrentTime) / 1000;
 			gameArgs.State.CurrentTime = SDL_GetTicks();
 
 			HandleInputs(gameArgs.State, gameArgs.Levels[i]);
-			Update(&gameArgs.State, &gameArgs.Levels[i], sdlStruct);
-			Draw(gameArgs, gameArgs.Levels[i]);
+			Update(&gameArgs, &gameArgs.Levels[i]);
+			Draw(&gameArgs, gameArgs.Levels[i]);
 
 			SDL_Delay(FRAMERATE);
 
 			endGame = CheckEndGame(gameArgs.Levels[i]);
-			if (endGame > 0)
-			{
+			if (endGame > 0) {
 				ClearScene(gameArgs.Levels[i], gameArgs.SDL);
 				break;
 			}
-			else if (endGame < 0)
-			{
+			else if (endGame < 0) {
 				ClearScene(gameArgs.Levels[i], gameArgs.SDL);
 				gameArgs.State.Continue = false;
 			}

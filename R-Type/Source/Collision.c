@@ -1,8 +1,12 @@
 #include <SDL.h>
 
+#include <stdio.h>
+
 #include "../Include/Constants.h"
 #include "../Include/Structs.h"
 #include "../Include/Rect.h"
+#include "../Include/Animation.h"
+#include "../Include/Player.h"
 
 
 void CheckEnemyPlayerCollision(GameState state, Enemy* enemy, Player* players)
@@ -21,8 +25,11 @@ void CheckEnemyPlayerCollision(GameState state, Enemy* enemy, Player* players)
 }
 
 // returns how much point for the kill else 0 as no kill
-int CheckEnemyProjCollision(GameState state, Enemy* enemy, EnemyQueue* queue, Projectile* projs, SDL sdl)
+int CheckEnemyProjCollision(GameState state, Enemy* enemy, Scene* scene, SDL* sdl)
 {
+	EnemyQueue* queue = &scene->Queue;
+	Projectile* projs = scene->Projectiles;
+
 	SDL_Rect enemyRect = EnemyAsRect(*enemy);
 	for (int proj = 0; proj < MAX_PROJECTILES; proj++)
 	{
@@ -33,7 +40,12 @@ int CheckEnemyProjCollision(GameState state, Enemy* enemy, EnemyQueue* queue, Pr
 		{
 			curProj->Active = false;
 			enemy->HP -= 1;
-			if (enemy->HP <= 0) { return enemy->AwardedPoints; }
+			if (enemy->HP <= 0) { 
+				int pos[2] = { enemy->X, enemy->Y };
+				sdl->nbrAnimation++;
+				sdl->animes = AddAnimation(*sdl, sdl->Tex.Boom, BOOM_FRAMES, pos);
+				return enemy->AwardedPoints;
+			}
 		}
 	}
 	return 0;

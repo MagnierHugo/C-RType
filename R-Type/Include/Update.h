@@ -2,4 +2,4 @@
 
 #include "Structs.h"
 
-void Update(GameState* state, Scene* scene, SDL sdl);
+void Update(GameArgs* gameArgs, Scene* scene);

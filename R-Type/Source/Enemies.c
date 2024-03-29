@@ -60,16 +60,12 @@ Enemy* UpdateQueue(EnemyQueue queue, SDL sdl)
 		ErrorHandling("Error Allocating Memory for newQueue", sdl);
 	}
 
-	int skipOne = 0;
+	bool skipOne = false;
 
 	for (int Index = 0; Index < queue.nbrEnemies; Index++)
 	{
-		if (oldQueue[Index].HP <= 0) {
-			skipOne = 1;
-		}
-		if (Index < queue.nbrEnemies) {
-			newQueue[Index] = oldQueue[Index + skipOne];
-		}
+		if (oldQueue[Index].HP <= 0) { skipOne = true; }
+		newQueue[Index] = oldQueue[Index + skipOne];
 	}
 
 	free(oldQueue);
@@ -78,7 +74,7 @@ Enemy* UpdateQueue(EnemyQueue queue, SDL sdl)
 
 void SpawnEnemies(Scene* scene)
 {
-	if ((unsigned)(scene->Time + scene->WaitTime) <= SDL_GetTicks() && !scene->waveEnd) {
+	if ((scene->Time + scene->WaitTime) <= SDL_GetTicks() && !scene->waveEnd) {
 		Wave wave = PopWave(scene);
 		scene->ActiveEnemies += wave.nbrEnemies;
 		scene->WaitTime = wave.Wait;

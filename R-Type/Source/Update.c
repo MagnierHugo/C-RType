@@ -70,7 +70,7 @@ static void UpdatePlayers(GameState* state, Scene scene)
 //    }
 //}
 
-static void UpdateEnemies(GameState* state, Scene* scene, SDL sdl)
+static void UpdateEnemies(GameState* state, Scene* scene, SDL* sdl)
 {
     SpawnEnemies(scene);
 
@@ -93,12 +93,12 @@ static void UpdateEnemies(GameState* state, Scene* scene, SDL sdl)
         if (enemy->HP == 0) {
             queue->nbrEnemies -= 1;
             scene->ActiveEnemies -= 1;
-            queue->Enemies = UpdateQueue(*queue, sdl);
+            queue->Enemies = UpdateQueue(*queue, *sdl);
         }
         
         CheckEnemyPlayerCollision(*state, enemy, players);
         
-        state->Score += CheckEnemyProjCollision(*state, enemy, queue, projs, sdl);
+        state->Score += CheckEnemyProjCollision(*state, enemy, scene, sdl);
     }
 }
 
@@ -115,10 +115,10 @@ static void UpdateProjectiles(GameState state, Scene scene)
     }
 }
 
-void Update(GameState* state, Scene* scene, SDL sdl)
+void Update(GameArgs* gameArgs, Scene* scene)
 {
-    UpdatePlayers(state, *scene);
-    UpdateEnemies(state, scene, sdl);
-    UpdateProjectiles(*state, *scene);
+    UpdatePlayers(&gameArgs->State, *scene);
+    UpdateEnemies(&gameArgs->State, scene, &gameArgs->SDL);
+    UpdateProjectiles(gameArgs->State, *scene);
 }
 

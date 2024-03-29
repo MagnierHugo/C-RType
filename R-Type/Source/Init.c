@@ -101,7 +101,7 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 		//InitEnemies(sdl.Tex.EnemyType1),
 		InitProjectiles(sdl.Tex.Projectiles),
 		CreateEnemyQueue(45, baseEnemy, sdl), 0,
-		CreateWaves(45, 5, 3000, sdl), 0, false, 2000,
+		CreateWaves(45, 5, 1000, sdl), 0, false, 3000,
 		0, false
 		/*10,
 		false*/

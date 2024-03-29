@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "../Include/Structs.h"
+#include "../Include/HandleSDL.h"
 
 int RdmInt(int min, int max, bool nonZero)
 {

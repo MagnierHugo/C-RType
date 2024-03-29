@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Animation.c" />
     <ClCompile Include="Source\Collision.c" />
     <ClCompile Include="Source\Draw.c" />
     <ClCompile Include="Source\Enemies.c" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Include\Update.h" />
     <ClInclude Include="Include\Utility.h" />
     <ClInclude Include="Include\Wave.h" />
+    <ClInclude Include="Include\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Sprites\Boom.gif" />

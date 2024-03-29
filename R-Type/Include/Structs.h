@@ -74,6 +74,8 @@ typedef struct {
 	int nbrFrames;
 	int curFrame;
 	int TimeBetweenFrames;
+	int LastPlayed;
+	SDL_Rect rect;
 	SDL_Texture** Frames;
 } Animation;
 
@@ -82,6 +84,8 @@ typedef struct {
 	SDL_Renderer* renderer;
 	Textures Tex;
 	TTF_Font* Font;
+	Animation* animes;
+	int nbrAnimation;
 } SDL;
 
 typedef struct {

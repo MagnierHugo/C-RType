@@ -7,6 +7,7 @@
 #include "../Include/HandleSDL.h"
 #include "../Include/Text.h"
 #include "../Include/Rect.h"
+#include "../Include/Animation.h"
 
 
 static void DrawPlayer(Player* players, SDL sdl)
@@ -52,18 +53,21 @@ static void DrawEnemies(Scene scene, SDL sdl)
 	}
 }
 
-void Draw( GameArgs gameArgs, Scene curScene)
+void Draw(GameArgs* gameArgs, Scene curScene)
 {
-	SDL sdl = gameArgs.SDL;
-	SDL_Renderer* renderer = sdl.renderer;
+	SDL* sdl = &gameArgs->SDL;
+	SDL_Renderer* renderer = sdl->renderer;
 
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, curScene.Background, NULL, NULL);
-	DrawPlayer(curScene.Players, sdl);
-	DrawEnemies(curScene, sdl);
-	DrawProjectiles(curScene.Projectiles, sdl);
-	RenderText(sdl, "Score : ", gameArgs.State.Score, SCREEN_WIDTH / 2, SCORE_Y);
-	RenderText(sdl, "Shots fired : ", gameArgs.State.ShotFired,
+	DrawPlayer(curScene.Players, *sdl);
+	DrawEnemies(curScene, *sdl);
+	DrawProjectiles(curScene.Projectiles, *sdl);
+
+	RunAnimations(sdl);
+
+	RenderText(*sdl, "Score : ", gameArgs->State.Score, SCREEN_WIDTH / 2, SCORE_Y);
+	RenderText(*sdl, "Shots fired : ", gameArgs->State.ShotFired,
 		SCREEN_WIDTH / 2, SHOTS_FIRED_Y);
 	SDL_RenderPresent(renderer); // update display
 }

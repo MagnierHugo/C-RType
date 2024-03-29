@@ -63,3 +63,8 @@
 #define ENEMY_SPEED 150
 
 #define BASE_ENEMY_AWARDED_POINTS 100
+
+// Animation
+#define BOOM_FRAMES 10
+#define BOOM_WIDTH 120
+#define BOOM_HEIGTH (int)(BOOM_WIDTH * 1.13)
