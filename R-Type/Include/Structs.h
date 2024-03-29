@@ -61,6 +61,7 @@ typedef struct {
 
 typedef struct {
 	SDL_Texture* Background;
+	SDL_Texture* Background2;
 	SDL_Texture* Player1;
 	SDL_Texture* Player1Hurt;
 	SDL_Texture* Player2;
@@ -136,6 +137,11 @@ typedef struct {
 } EnemyQueue;
 
 typedef struct {
+	Enemy boss;
+	bool isAlive;
+} Boss;
+
+typedef struct {
 	int nbrEnemies;
 	int Wait;
 	bool isEnd;
@@ -144,9 +150,7 @@ typedef struct {
 typedef struct {
 	SDL_Texture* Background;
 	Player* Players;
-	//Enemy* Enemies;
 	Projectile* Projectiles;
-	//int EnemyCount;
 	EnemyQueue Queue;
 	int ActiveEnemies;
 	Wave* waves;
@@ -154,7 +158,7 @@ typedef struct {
 	bool waveEnd;
 	int WaitTime;
 	int Time;
-	//Particle* Particles;
+	Boss Boss;
 	//Bonus* Bonuses;
 	bool ScreenWrappingActive;
 } Scene;

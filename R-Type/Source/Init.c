@@ -94,7 +94,8 @@ static Projectile* InitProjectiles(SDL_Texture* tex)
 	return projs;
 }
 
-Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
+Scene InitScene(SDL sdl, SDL_Texture* background, int enemiesInWave,
+	int baseHp, int  dirX, int dirY)
 {
 	Enemy baseEnemy = {
 		sdl.Tex.EnemyType1, SCREEN_WIDTH, 0, dirX, dirY,
@@ -103,12 +104,12 @@ Scene InitScene(SDL sdl, int baseHp, int  dirX, int dirY)
 	};
 
 	Scene scene = {
-		sdl.Tex.Background,
+		background,
 		InitPlayers((SDL_Texture*[2]) { sdl.Tex.Player1, sdl.Tex.Player2 }),
 		//InitEnemies(sdl.Tex.EnemyType1),
 		InitProjectiles(sdl.Tex.Projectiles),
-		CreateEnemyQueue(45, baseEnemy, sdl), 0,
-		CreateWaves(45, 5, 1000, sdl), 0, false, 3000,
+		CreateEnemyQueue(enemiesInWave, baseEnemy, sdl), 0,
+		CreateWaves(enemiesInWave, enemiesInWave / 3, 1000, sdl), 0, false, 3000,
 		0, false
 		/*10,
 		false*/

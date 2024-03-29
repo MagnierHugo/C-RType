@@ -29,7 +29,7 @@
 #define PROJECTILE_WIDTH 25
 #define PROJECTILE_HEIGHT 10
 
-#define LEVEL_COUNT 3
+#define LEVEL_COUNT 4
 // Music & Sound
 #define NUMBER_OF_CHANNELS 3
 

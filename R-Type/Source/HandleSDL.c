@@ -44,10 +44,12 @@ static void InitSDL(SDL sdl)
         ErrorHandling("Erreur SDL_ttf failed", sdl);
     }
 
+    // Initialisation SDL Audio
     if (SDL_Init(SDL_INIT_AUDIO) < 0) {
         ErrorHandling("Erreur initialisation de SDL Audio", sdl);
     }
 
+    // Open Audio Channels
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, NUMBER_OF_CHANNELS, 2048) < 0)
     {
         ErrorHandling("Erreur initialisation de SDL Mixer", sdl);
@@ -70,7 +72,8 @@ SDL StartSDL()
 
     InitSDL(sdl);
 
-    sdl.window = SDL_CreateWindow("Ship game", //creer une fenetre avec SDL
+    //creer une fenetre avec SDL
+    sdl.window = SDL_CreateWindow("Ship game",
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN
     );
@@ -85,7 +88,6 @@ SDL StartSDL()
 
     sdl.Font = TTF_OpenFont("..\\Font\\font.fon", 24);// Load font
     CheckPointer(sdl.Font, "Erreur chargement de la police", sdl);
-    }
 
     sdl.Tex = InitTextures(sdl);
     sdl.nbrAnimation = 0;
