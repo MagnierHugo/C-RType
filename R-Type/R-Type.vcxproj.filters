@@ -54,37 +54,8 @@
     <ClInclude Include="Include\Utility.h" />
     <ClInclude Include="Include\Wave.h" />
     <ClInclude Include="Include\Animation.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="Include\Bonus.h" />
     <ClInclude Include="Include\Boss.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\Music\BlueNavi-Starcade.mp3" />
-    <Media Include="..\Music\blaster.mp3" />
-    <Media Include="..\Music\medium-explosion.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Sprites\Boom.gif" />
-    <Image Include="..\Sprites\Boom1.png" />
-    <Image Include="..\Sprites\Boom10.png" />
-    <Image Include="..\Sprites\Boom2.png" />
-    <Image Include="..\Sprites\Boom3.png" />
-    <Image Include="..\Sprites\Boom4.png" />
-    <Image Include="..\Sprites\Boom5.png" />
-    <Image Include="..\Sprites\Boom6.png" />
-    <Image Include="..\Sprites\Boom7.png" />
-    <Image Include="..\Sprites\Boom8.png" />
-    <Image Include="..\Sprites\Boom9.png" />
-    <Image Include="..\Sprites\Boss1.png" />
-    <Image Include="..\Sprites\Fond1.png" />
-    <Image Include="..\Sprites\Fond2.png" />
-    <Image Include="..\Sprites\Mobs1.png" />
-    <Image Include="..\Sprites\Player1.png" />
-    <Image Include="..\Sprites\Player1_hurt.png" />
-    <Image Include="..\Sprites\Player2.png" />
-    <Image Include="..\Sprites\Soot1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Font\font.fon" />
+    <ClInclude Include="Include\main.h" />
   </ItemGroup>
 </Project>

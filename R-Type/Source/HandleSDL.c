@@ -87,7 +87,7 @@ static void InitSDL(SDL sdl)
         ErrorHandling("Erreur creation rendu SDL", sdl);
     }
 
-    sdl.Font = TTF_OpenFont("../Font/font.fon", 24);// Load font
+    sdl.Font = TTF_OpenFont("Assets/Font/font.fon", 24);// Load font
     if (sdl.Font == NULL) {
         ErrorHandling("Erreur chargement de la police", sdl);
     }

@@ -34,9 +34,9 @@
 #define NUMBER_OF_CHANNELS 3
 
 // audio paths can be here
-#define SONG "../Music/BlueNavi-Starcade.mp3"
-#define BLASTER "../Music/blaster.mp3"
-#define KABOOM "../Music/medium-explosion.mp3"
+#define SONG "Assets/Music/BlueNavi-Starcade.mp3"
+#define BLASTER "Assets/Music/blaster.mp3"
+#define KABOOM "Assets/Music/medium-explosion.mp3"
 
 
 // Particles

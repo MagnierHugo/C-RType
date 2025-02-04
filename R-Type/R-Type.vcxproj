@@ -19,6 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Source\Animation.c" />
     <ClCompile Include="Source\Bonus.c" />
     <ClCompile Include="Source\Boss.c" />
@@ -58,6 +63,7 @@
     <ClInclude Include="Include\Init.h" />
     <ClInclude Include="Include\Inputs.h" />
     <ClInclude Include="Include\Levels.h" />
+    <ClInclude Include="Include\main.h" />
     <ClInclude Include="Include\Menu.h" />
     <ClInclude Include="Include\Music.h" />
     <ClInclude Include="Include\Particle.h" />
@@ -74,36 +80,6 @@
     <ClInclude Include="Include\Utility.h" />
     <ClInclude Include="Include\Wave.h" />
     <ClInclude Include="Include\Animation.h" />
-    <ClInclude Include="main.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Sprites\Boom.gif" />
-    <Image Include="..\Sprites\Boom1.png" />
-    <Image Include="..\Sprites\Boom10.png" />
-    <Image Include="..\Sprites\Boom2.png" />
-    <Image Include="..\Sprites\Boom3.png" />
-    <Image Include="..\Sprites\Boom4.png" />
-    <Image Include="..\Sprites\Boom5.png" />
-    <Image Include="..\Sprites\Boom6.png" />
-    <Image Include="..\Sprites\Boom7.png" />
-    <Image Include="..\Sprites\Boom8.png" />
-    <Image Include="..\Sprites\Boom9.png" />
-    <Image Include="..\Sprites\Boss1.png" />
-    <Image Include="..\Sprites\Fond1.png" />
-    <Image Include="..\Sprites\Fond2.png" />
-    <Image Include="..\Sprites\Mobs1.png" />
-    <Image Include="..\Sprites\Player1.png" />
-    <Image Include="..\Sprites\Player1_hurt.png" />
-    <Image Include="..\Sprites\Player2.png" />
-    <Image Include="..\Sprites\Soot1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\Music\blaster.mp3" />
-    <Media Include="..\Music\BlueNavi-Starcade.mp3" />
-    <Media Include="..\Music\medium-explosion.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Font\font.fon" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -160,10 +136,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)SDL\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)SDL\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)SDL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)SDL\lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)SDL\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)SDL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL\lib;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)SDL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL\lib;$(LibraryPath)</LibraryPath>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -207,6 +199,9 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2test.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)Assets\*.*" "$(OutDir)Assets\" /Y /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -226,6 +221,9 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2test.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)Assets\*.*" "$(OutDir)Assets\" /Y /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
